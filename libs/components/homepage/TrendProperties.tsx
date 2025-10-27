@@ -8,9 +8,12 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Property } from '../../types/property/property';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import TrendPropertyCard from './TrendPropertyCard';
-import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
+import { useQuery, useMutation } from '@apollo/client';
+import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { Message } from '../../enums/common.enum';
 
 interface TrendPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -20,8 +23,8 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const [trendProperties, setTrendProperties] = useState<Property[]>([]);
-
 	/** APOLLO REQUESTS **/
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
 
 	const {
 		loading: getPropertiesLoading,
@@ -37,6 +40,24 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		},
 	});
 	/** HANDLERS **/
+
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			//execute likePropertyHandler Mutation
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+			await likeTargetProperty({
+				variables: { input: id },
+			});
+			//execute getPropertiesRefetch
+			await getPropertiesRefetch({ input: initialInput });
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('Error:likePropertyHandler', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
 
 	if (trendProperties) console.log('trendProperties:', trendProperties);
 	if (!trendProperties) return null;
@@ -64,7 +85,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								{trendProperties.map((property: Property) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} />
+											{/* <TrendPropertyCard property={property} /> */}
 										</SwiperSlide>
 									);
 								})}
@@ -113,7 +134,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								{trendProperties.map((property: Property) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} />
+											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 										</SwiperSlide>
 									);
 								})}
