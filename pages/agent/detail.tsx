@@ -100,13 +100,17 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 					</Stack>
 					<Stack className={'agent-home-list'}>
 						<Stack className={'card-wrap'}>
-							{agentProperties.map((property: Property) => {
-								return (
-									<div className={'wrap-main'} key={property?._id}>
-										<PropertyBigCard property={property} key={property?._id} />
-									</div>
-								);
-							})}
+							{agentProperties.map((property: Property) => (
+								<div className={'wrap-main'} key={property._id}>
+									<PropertyBigCard
+										property={property}
+										likePropertyHandler={async (user: any, id: string) => {
+											// like qilish logikasi
+											console.log('Liked property', id);
+										}}
+									/>
+								</div>
+							))}
 						</Stack>
 						<Stack className={'pagination'}>
 							{propertyTotal ? (
