@@ -1,14 +1,15 @@
 import { Menu, MenuItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
+
+import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import ModeIcon from '@mui/icons-material/Mode';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Property } from '../../types/property/property';
-import { formatterStr } from '../../utils';
 import Moment from 'react-moment';
-import { useRouter } from 'next/router';
+import { Property } from '../../types/property/property';
 import { PropertyStatus } from '../../enums/property.enum';
+import { formatterStr } from '../../utils';
+import useDeviceDetect from '../../hooks/useDeviceDetect';
+import { useRouter } from 'next/router';
 
 interface PropertyCardProps {
 	property: Property;
@@ -117,7 +118,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 				<Stack className="views-box">
 					<Typography className="views">{property.propertyViews.toLocaleString()}</Typography>
 				</Stack>
-				{!memberPage && (
+				{!memberPage && property.propertyStatus === PropertyStatus.ACTIVE && (
 					<Stack className="action-box">
 						<IconButton className="icon-button" onClick={() => pushEditProperty(property._id)}>
 							<ModeIcon className="buttons" />

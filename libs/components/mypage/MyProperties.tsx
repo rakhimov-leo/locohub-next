@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import { NextPage } from 'next';
 import { Pagination, Stack, Typography } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyCard } from './PropertyCard';
-import { useReactiveVar } from '@apollo/client';
-import { Property } from '../../types/property/property';
+import React, { useState } from 'react';
+import { sweetConfirmAlert, sweetErrorHandling } from '../../sweetAlert';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
+
 import { AgentPropertiesInquiry } from '../../types/property/property.input';
-import { T } from '../../types/common';
+import { GET_AGENT_PROPERTIES } from '../../../apollo/user/query';
+import { NextPage } from 'next';
+import { Property } from '../../types/property/property';
+import { PropertyCard } from './PropertyCard';
 import { PropertyStatus } from '../../enums/property.enum';
-import { userVar } from '../../../apollo/store';
+import { T } from '../../types/common';
+import { UPDATE_PROPERTY } from '../../../apollo/user/mutation';
+import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useRouter } from 'next/router';
+import { userVar } from '../../../apollo/store';
 
 const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -20,6 +24,21 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	const router = useRouter();
 
 	/** APOLLO REQUESTS **/
+	const [updateProperty] = useMutation(UPDATE_PROPERTY);
+	const {
+		loading: getAgentPropertiesLoading,
+		data: getAgentPropertiesData,
+		error: getAgentPropertiesError,
+		refetch: getAgentPropertiesRefetch,
+	} = useQuery(GET_AGENT_PROPERTIES, {
+		fetchPolicy: 'network-only',
+		variables: { input: searchFilter },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setAgentProperties(data?.getAgentProperties?.list);
+			setTotal(data?.getAgentProperties?.metaCounter[0]?.total ?? 0);
+		},
+	});
 
 	/** HANDLERS **/
 	const paginationHandler = (e: T, value: number) => {
@@ -29,10 +48,40 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	const changeStatusHandler = (value: PropertyStatus) => {
 		setSearchFilter({ ...searchFilter, search: { propertyStatus: value } });
 	};
-
-	const deletePropertyHandler = async (id: string) => {};
-
-	const updatePropertyHandler = async (status: string, id: string) => {};
+	const deletePropertyHandler = async (id: string) => {
+		try {
+			if (await sweetConfirmAlert('Are you sure to delete this property?')) {
+				await updateProperty({
+					variables: {
+						input: {
+							_id: id,
+							PropertyStatus: 'DELETE',
+						},
+					},
+				});
+				await getAgentPropertiesRefetch({ input: searchFilter });
+			}
+		} catch (err: any) {
+			await sweetErrorHandling(err);
+		}
+	};
+	const updatePropertyHandler = async (status: string, id: string) => {
+		try {
+			if (await sweetConfirmAlert(`Are you sure to change ${status} status?`)) {
+				await updateProperty({
+					variables: {
+						input: {
+							_id: id,
+							propertyStatus: status,
+						},
+					},
+				});
+				await getAgentPropertiesRefetch({ input: searchFilter });
+			}
+		} catch (err: any) {
+			await sweetErrorHandling(err);
+		}
+	};
 
 	if (user?.memberType !== 'AGENT') {
 		router.back();
@@ -70,7 +119,9 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 							<Typography className="title-text">Date Published</Typography>
 							<Typography className="title-text">Status</Typography>
 							<Typography className="title-text">View</Typography>
-							<Typography className="title-text">Action</Typography>
+							{searchFilter.search.propertyStatus === 'ACTIVE' && (
+								<Typography className="title-text">Action</Typography>
+							)}
 						</Stack>
 
 						{agentProperties?.length === 0 ? (
