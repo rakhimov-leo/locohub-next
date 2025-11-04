@@ -5,6 +5,7 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { onError } from '@apollo/client/link/error';
 import { getJwtToken } from '../libs/auth';
+import { sweetErrorAlert } from '../libs/sweetAlert';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
@@ -56,9 +57,13 @@ function createIsomorphicLink() {
 				},
 			},
 		});
-
+		console.log('GRAPHQL URL:', process.env.REACT_APP_API_GRAPHQL_URL);
 		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 			if (graphQLErrors) {
+				graphQLErrors.map(({ message, locations, path, extensions }) => {
+					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+					if (!message.includes('input')) sweetErrorAlert(message);
+				});
 				graphQLErrors.map(({ message, locations, path, extensions }) =>
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
 				);
