@@ -88,7 +88,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>NESTAR PROPERTIES MOBILE</div>;
+		return <div>LocoHub PROPERTIES MOBILE</div>;
 	} else {
 		return (
 			<div id="my-property-page">

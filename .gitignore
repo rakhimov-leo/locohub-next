@@ -34,7 +34,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# nestar specifiv
+# locohub specifiv
 .vscode/
 /build
 /.idea

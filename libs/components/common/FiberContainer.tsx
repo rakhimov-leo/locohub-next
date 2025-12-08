@@ -58,6 +58,5 @@ export default function FiberContainer() {
 				</Suspense>
 			</Canvas>
 		</div>
-
 	);
 }

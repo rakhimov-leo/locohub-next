@@ -93,8 +93,8 @@ const withLayoutBasic = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>LocoHub</title>
+						<meta name={'title'} content={`LocoHub`} />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
@@ -115,8 +115,8 @@ const withLayoutBasic = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>LocoHub</title>
+						<meta name={'title'} content={`LocoHub`} />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
