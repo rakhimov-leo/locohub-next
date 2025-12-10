@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import { alpha, styled } from '@mui/material/styles';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { CaretDown } from 'phosphor-react';
+import { CaretDown, CaretDown as CaretDownIcon, GridFour } from 'phosphor-react';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import Link from 'next/link';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
@@ -166,7 +166,10 @@ const Top = () => {
 					<Stack className={'container'}>
 						<Box component={'div'} className={'logo-box'}>
 							<Link href={'/'}>
-								<img src="/img/logo/logoWhite.jpg" alt="" />
+								<span className={'logo-icon'}>
+									<CaretDownIcon size={20} weight="fill" style={{ transform: 'rotate(180deg)', color: '#34d399' }} />
+								</span>
+								<span className={'logo-text'}>LocoHub</span>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'router-box'}>
@@ -194,13 +197,16 @@ const Top = () => {
 						<Box component={'div'} className={'user-box'}>
 							{user?._id ? (
 								<>
-									<div className={'login-user'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
+									<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
 										<img
 											src={
 												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
 											}
 											alt=""
 										/>
+									</div>
+									<div className={'icon-button'}>
+										<GridFour size={24} color="#ffffff" weight="regular" />
 									</div>
 
 									<Menu
@@ -230,7 +236,11 @@ const Top = () => {
 							)}
 
 							<div className={'lan-box'}>
-								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+								{user?._id && (
+									<div className={'icon-button'}>
+										<NotificationsOutlinedIcon className={'notification-icon'} />
+									</div>
+								)}
 								<Button
 									disableRipple
 									className="btn-lang"

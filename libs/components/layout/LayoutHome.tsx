@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Top from '../Top';
 import Footer from '../Footer';
 import { Stack } from '@mui/material';
-import FiberContainer from '../common/FiberContainer';
 import HeaderFilter from '../homepage/HeaderFilter';
 import { userVar } from '../../../apollo/store';
 import { useReactiveVar } from '@apollo/client';
@@ -62,7 +61,16 @@ const withLayoutMain = (Component: any) => {
 						</Stack>
 
 						<Stack className={'header-main'}>
-							<FiberContainer />
+							<video 
+								className={'header-background-video'}
+								autoPlay 
+								loop 
+								muted 
+								playsInline
+							>
+								<source src="/video/header-background.mp4" type="video/mp4" />
+								Your browser does not support the video tag.
+							</video>
 							<Stack className={'container'}>
 								<HeaderFilter />
 							</Stack>

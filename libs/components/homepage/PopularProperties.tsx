@@ -61,7 +61,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 								return (
 									<SwiperSlide key={property._id} className={'popular-property-slide'}>
 										<AnimatedListItem index={index}>
-											<PopularPropertyCard property={property} />
+										<PopularPropertyCard property={property} />
 										</AnimatedListItem>
 									</SwiperSlide>
 								);
@@ -107,7 +107,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 								return (
 									<SwiperSlide key={property._id} className={'popular-property-slide'}>
 										<AnimatedListItem index={index}>
-											<PopularPropertyCard property={property} />
+										<PopularPropertyCard property={property} />
 										</AnimatedListItem>
 									</SwiperSlide>
 								);

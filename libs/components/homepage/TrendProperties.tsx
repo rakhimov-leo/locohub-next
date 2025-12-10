@@ -88,7 +88,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
 											<AnimatedListItem index={index}>
-												<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 											</AnimatedListItem>
 										</SwiperSlide>
 									);
@@ -139,7 +139,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
 											<AnimatedListItem index={index}>
-												<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 											</AnimatedListItem>
 										</SwiperSlide>
 									);

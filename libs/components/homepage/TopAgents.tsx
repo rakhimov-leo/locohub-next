@@ -58,7 +58,7 @@ const TopAgents = (props: TopAgentsProps) => {
 								return (
 									<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
 										<AnimatedListItem index={index}>
-											<TopAgentCard agent={agent} key={agent?.memberNick} />
+										<TopAgentCard agent={agent} key={agent?.memberNick} />
 										</AnimatedListItem>
 									</SwiperSlide>
 								);
@@ -103,7 +103,7 @@ const TopAgents = (props: TopAgentsProps) => {
 									return (
 										<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
 											<AnimatedListItem index={index}>
-												<TopAgentCard agent={agent} key={agent?.memberNick} />
+											<TopAgentCard agent={agent} key={agent?.memberNick} />
 											</AnimatedListItem>
 										</SwiperSlide>
 									);

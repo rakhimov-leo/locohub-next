@@ -51,6 +51,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const [openLocation, setOpenLocation] = useState(false);
 	const [openType, setOpenType] = useState(false);
 	const [openRooms, setOpenRooms] = useState(false);
+	// Temporarily using Korean cities - will revert to FRANCE, SPAIN, etc. later
 	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
 	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
 	const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
@@ -114,14 +115,25 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const propertyLocationSelectHandler = useCallback(
 		async (value: any) => {
 			try {
+				// Ensure value is a valid PropertyLocation enum value
+				const locationValue = value as PropertyLocation;
+				if (!Object.values(PropertyLocation).includes(locationValue)) {
+					console.error('Invalid location value:', value);
+					return;
+				}
+
 				setSearchFilter({
 					...searchFilter,
 					search: {
 						...searchFilter.search,
-						locationList: [value],
+						locationList: [locationValue],
 					},
 				});
-				typeStateChangeHandler();
+				setOpenLocation(false);
+				// Automatically open property type dropdown after location selection
+				setTimeout(() => {
+					setOpenType(true);
+				}, 200);
 			} catch (err: any) {
 				console.log('ERROR, propertyLocationSelectHandler:', err);
 			}
@@ -132,19 +144,35 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const propertyTypeSelectHandler = useCallback(
 		async (value: any) => {
 			try {
-				setSearchFilter({
+				const updatedFilter = {
 					...searchFilter,
 					search: {
 						...searchFilter.search,
 						typeList: [value],
 					},
-				});
-				roomStateChangeHandler();
+				};
+
+				// Clean up empty arrays
+				if (updatedFilter?.search?.locationList?.length == 0) {
+					if (updatedFilter.search) {
+						delete (updatedFilter.search as any).locationList;
+					}
+				}
+
+				setSearchFilter(updatedFilter);
+				disableAllStateHandler();
+
+				// Navigate to properties page with selected type
+				await router.push(
+					`/property?input=${JSON.stringify(updatedFilter)}`,
+					`/property?input=${JSON.stringify(updatedFilter)}`,
+					{ scroll: false },
+				);
 			} catch (err: any) {
 				console.log('ERROR, propertyTypeSelectHandler:', err);
 			}
 		},
-		[searchFilter],
+		[searchFilter, router],
 	);
 
 	const propertyRoomSelectHandler = useCallback(
@@ -319,22 +347,28 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	} else {
 		return (
 			<>
+				<Stack className={'hero-content'}>
+					<Stack className={'hero-headline'}>
+						<Box component={'span'} className={'hero-subtitle'}>
+							Let's Explore Your
+						</Box>
+						<Box component={'h1'} className={'hero-title'}>
+							LocoHub.
+						</Box>
+					</Stack>
+				</Stack>
 				<Stack className={'search-box'}>
 					<Stack className={'select-box'}>
 						<Box component={'div'} className={`box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
 							<span>{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : t('Location')} </span>
 							<ExpandMoreIcon />
 						</Box>
-						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')} </span>
-							<ExpandMoreIcon />
-						</Box>
-						<Box className={`box ${openRooms ? 'on' : ''}`} onClick={roomStateChangeHandler}>
-							<span>
-								{searchFilter?.search?.roomsList ? `${searchFilter?.search?.roomsList[0]} rooms}` : t('Rooms')}
-							</span>
-							<ExpandMoreIcon />
-						</Box>
+						{searchFilter?.search?.locationList && searchFilter?.search?.locationList.length > 0 && (
+							<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
+								<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')} </span>
+								<ExpandMoreIcon />
+							</Box>
+						)}
 					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} onClick={() => advancedFilterHandler(true)}>
@@ -348,10 +382,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 					{/*MENU */}
 					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
-						{propertyLocation.map((location: string) => {
+						{propertyLocation.map((location: string, index: number) => {
 							return (
-								<div onClick={() => propertyLocationSelectHandler(location)} key={location}>
-									<img src={`img/banner/cities/${location}.webp`} alt="" />
+								<div
+									className="location-item"
+									style={{ animationDelay: `${index * 0.08}s` }}
+									onClick={() => propertyLocationSelectHandler(location)}
+									key={location}
+								>
+									<img src={`img/banner/cities/${location}.jpg`} alt="" />
 									<span>{location}</span>
 								</div>
 							);
@@ -359,25 +398,19 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</div>
 
 					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
-						{propertyType.map((type: string) => {
+						{propertyType.map((type: string, index: number) => {
 							return (
 								<div
-									style={{ backgroundImage: `url(/img/banner/types/${type.toLowerCase()}.webp)` }}
+									className="property-type-item"
+									style={{
+										backgroundImage: `url(/img/banner/types/${type.toLowerCase()}.webp)`,
+									}}
 									onClick={() => propertyTypeSelectHandler(type)}
 									key={type}
+									data-index={index}
 								>
 									<span>{type}</span>
 								</div>
-							);
-						})}
-					</div>
-
-					<div className={`filter-rooms ${openRooms ? 'on' : ''}`} ref={roomsRef}>
-						{[1, 2, 3, 4, 5].map((room: number) => {
-							return (
-								<span onClick={() => propertyRoomSelectHandler(room)} key={room}>
-									{room} room{room > 1 ? 's' : ''}
-								</span>
 							);
 						})}
 					</div>

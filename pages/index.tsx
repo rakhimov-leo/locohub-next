@@ -25,19 +25,19 @@ const Home: NextPage = () => {
 		return (
 			<Stack className={'home-page'}>
 				<AnimatedSection animationType="fade-up" animationDelay={0}>
-					<TrendProperties />
+				<TrendProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.1}>
-					<PopularProperties />
+				<PopularProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-in" animationDelay={0.2}>
-					<Advertisement />
+				<Advertisement />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.3}>
-					<TopProperties />
+				<TopProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.4}>
-					<TopAgents />
+				<TopAgents />
 				</AnimatedSection>
 			</Stack>
 		);
@@ -45,25 +45,25 @@ const Home: NextPage = () => {
 		return (
 			<Stack className={'home-page'}>
 				<AnimatedSection animationType="fade-up" animationDelay={0}>
-					<TrendProperties />
+				<TrendProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.1}>
-					<PopularProperties />
+				<PopularProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-in" animationDelay={0.2}>
-					<Advertisement />
+				<Advertisement />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.3}>
-					<TopProperties />
+				<TopProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.4}>
-					<TopAgents />
+				<TopAgents />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.5}>
-					<Events />
+				<Events />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.6}>
-					<CommunityBoards />
+				<CommunityBoards />
 				</AnimatedSection>
 			</Stack>
 		);

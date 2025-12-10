@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box } from '@mui/material';
 
 interface AnimatedIconProps {
 	children: React.ReactNode;
@@ -8,12 +7,7 @@ interface AnimatedIconProps {
 	delayMultiplier?: number;
 }
 
-const AnimatedIcon: React.FC<AnimatedIconProps> = ({
-	children,
-	index,
-	className = '',
-	delayMultiplier = 0.15,
-}) => {
+const AnimatedIcon: React.FC<AnimatedIconProps> = ({ children, index, className = '', delayMultiplier = 0.15 }) => {
 	const iconRef = useRef<HTMLDivElement>(null);
 	const [isVisible, setIsVisible] = useState(false);
 	const scrollDirection = useRef<'up' | 'down'>('down');
@@ -44,7 +38,7 @@ const AnimatedIcon: React.FC<AnimatedIconProps> = ({
 					// Icon leaves viewport - reset for re-animation
 					const rect = icon.getBoundingClientRect();
 					const viewportHeight = window.innerHeight;
-					
+
 					if (scrollDirection.current === 'down') {
 						// Scrolling down - hide if icon is above viewport
 						if (rect.bottom < -50) {
@@ -61,7 +55,7 @@ const AnimatedIcon: React.FC<AnimatedIconProps> = ({
 			{
 				threshold: 0.2,
 				rootMargin: '0px 0px -50px 0px',
-			}
+			},
 		);
 
 		observer.observe(icon);
@@ -79,27 +73,25 @@ const AnimatedIcon: React.FC<AnimatedIconProps> = ({
 	// Calculate stagger delay based on index
 	const delay = isVisible ? index * delayMultiplier : 0;
 
+	const transformValue = isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.8)';
+	const transitionValue = isVisible
+		? `opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s`
+		: 'opacity 0s, transform 0s';
+
 	return (
-		<Box
+		<div
 			ref={iconRef}
 			className={className}
-			sx={{
+			style={{
 				opacity: isVisible ? 1 : 0,
-				transform: isVisible
-					? 'translateY(0) scale(1)'
-					: 'translateY(30px) scale(0.8)',
-				transition: isVisible
-					? `opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s`
-					: 'opacity 0s, transform 0s', // Instant reset when hiding
+				transform: transformValue,
+				transition: transitionValue,
 				willChange: 'transform, opacity',
 			}}
 		>
 			{children}
-		</Box>
+		</div>
 	);
 };
 
 export default AnimatedIcon;
-
-
-

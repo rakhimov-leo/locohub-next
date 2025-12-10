@@ -156,4 +156,3 @@ const FeatureIcons: React.FC = () => {
 };
 
 export default FeatureIcons;
-

@@ -15,7 +15,7 @@ const Footer = () => {
 				<Stack className={'main'}>
 					<Stack className={'left'}>
 						<Box component={'div'} className={'footer-box'}>
-							<img src="/img/logo/logoWhite.jpg" alt="" className={'logo'} />
+							{/* <img src="/img/logo/logoWhite.jpg" alt="" className={'logo'} /> */}
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
 							<span>total free customer care</span>
@@ -54,10 +54,10 @@ const Footer = () => {
 							</div>
 							<div>
 								<strong>Discover</strong>
-								<span>Seoul</span>
-								<span>Gyeongido</span>
-								<span>Busan</span>
-								<span>Jejudo</span>
+								<span>France</span>
+								<span>Spain</span>
+								<span>Italy</span>
+								<span>Germany</span>
 							</div>
 						</Box>
 					</Stack>
@@ -73,7 +73,7 @@ const Footer = () => {
 				<Stack className={'main'}>
 					<Stack className={'left'}>
 						<Box component={'div'} className={'footer-box'}>
-							<img src="/img/logo/logoWhite.jpg" alt="" className={'logo'} />
+							{/* <img src="/img/logo/logoWhite.jpg" alt="" className={'logo'} /> */}
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
 							<span>total free customer care</span>
@@ -119,10 +119,10 @@ const Footer = () => {
 							</div>
 							<div>
 								<strong>Discover</strong>
-								<span>Seoul</span>
-								<span>Gyeongido</span>
-								<span>Busan</span>
-								<span>Jejudo</span>
+								<span>France</span>
+								<span>Spain</span>
+								<span>Italy</span>
+								<span>Germany</span>
 							</div>
 						</Box>
 					</Stack>

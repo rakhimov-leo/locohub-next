@@ -2,6 +2,7 @@ export enum PropertyType {
 	APARTMENT = 'APARTMENT',
 	VILLA = 'VILLA',
 	HOUSE = 'HOUSE',
+	HOTEL = 'HOTEL',
 }
 
 export enum PropertyStatus {
@@ -12,12 +13,11 @@ export enum PropertyStatus {
 
 export enum PropertyLocation {
 	SEOUL = 'SEOUL',
-	BUSAN = 'BUSAN',
-	INCHEON = 'INCHEON',
-	DAEGU = 'DAEGU',
-	GYEONGJU = 'GYEONGJU',
-	GWANGJU = 'GWANGJU',
-	CHONJU = 'CHONJU',
-	DAEJON = 'DAEJON',
-	JEJU = 'JEJU',
+	FRANCE = 'FRANCE',
+	SPAIN = 'SPAIN',
+	ITALY = 'ITALY',
+	GERMANY = 'GERMANY',
+	USA = 'USA',
+	UK = 'UK',
+	AUSTRALIA = 'AUSTRALIA',
 }
