@@ -6,6 +6,7 @@ import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import TopPropertyCard from './TopPropertyCard';
+import AnimatedTopPropertyCard from './AnimatedTopPropertyCard';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { Property } from '../../types/property/property';
 import { useMutation, useQuery } from '@apollo/client';
@@ -75,10 +76,14 @@ const TopProperties = (props: TopPropertiesProps) => {
 							spaceBetween={15}
 							modules={[Autoplay]}
 						>
-							{topProperties.map((property: Property) => {
+							{topProperties.map((property: Property, index: number) => {
 								return (
 									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+										<AnimatedTopPropertyCard
+											property={property}
+											index={index}
+											likePropertyHandler={likePropertyHandler}
+										/>
 									</SwiperSlide>
 								);
 							})}
@@ -118,10 +123,14 @@ const TopProperties = (props: TopPropertiesProps) => {
 								el: '.swiper-top-pagination',
 							}}
 						>
-							{topProperties.map((property: Property) => {
+							{topProperties.map((property: Property, index: number) => {
 								return (
 									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+										<AnimatedTopPropertyCard
+											property={property}
+											index={index}
+											likePropertyHandler={likePropertyHandler}
+										/>
 									</SwiperSlide>
 								);
 							})}

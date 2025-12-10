@@ -6,6 +6,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import TopAgentCard from './TopAgentCard';
+import AnimatedListItem from '../common/AnimatedListItem';
 import { Member } from '../../types/member/member';
 import { AgentsInquiry } from '../../types/member/member.input';
 import { GET_AGENTS } from '../../../apollo/user/query';
@@ -53,10 +54,12 @@ const TopAgents = (props: TopAgentsProps) => {
 							spaceBetween={29}
 							modules={[Autoplay]}
 						>
-							{topAgents.map((agent: Member) => {
+							{topAgents.map((agent: Member, index: number) => {
 								return (
 									<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
-										<TopAgentCard agent={agent} key={agent?.memberNick} />
+										<AnimatedListItem index={index}>
+											<TopAgentCard agent={agent} key={agent?.memberNick} />
+										</AnimatedListItem>
 									</SwiperSlide>
 								);
 							})}
@@ -96,10 +99,12 @@ const TopAgents = (props: TopAgentsProps) => {
 									prevEl: '.swiper-agents-prev',
 								}}
 							>
-								{topAgents.map((agent: Member) => {
+								{topAgents.map((agent: Member, index: number) => {
 									return (
 										<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
-											<TopAgentCard agent={agent} key={agent?.memberNick} />
+											<AnimatedListItem index={index}>
+												<TopAgentCard agent={agent} key={agent?.memberNick} />
+											</AnimatedListItem>
 										</SwiperSlide>
 									);
 								})}

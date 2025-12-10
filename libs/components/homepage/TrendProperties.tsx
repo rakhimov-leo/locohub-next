@@ -8,6 +8,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Property } from '../../types/property/property';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import TrendPropertyCard from './TrendPropertyCard';
+import AnimatedListItem from '../common/AnimatedListItem';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
 import { useQuery, useMutation } from '@apollo/client';
@@ -83,10 +84,12 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								spaceBetween={15}
 								modules={[Autoplay]}
 							>
-								{trendProperties.map((property: Property) => {
+								{trendProperties.map((property: Property, index: number) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											<AnimatedListItem index={index}>
+												<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											</AnimatedListItem>
 										</SwiperSlide>
 									);
 								})}
@@ -132,10 +135,12 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 									el: '.swiper-trend-pagination',
 								}}
 							>
-								{trendProperties.map((property: Property) => {
+								{trendProperties.map((property: Property, index: number) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											<AnimatedListItem index={index}>
+												<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											</AnimatedListItem>
 										</SwiperSlide>
 									);
 								})}

@@ -3,6 +3,56 @@
 		position: relative;
 		width: 100%;
 		height: auto;
+		
+		// Scroll animation styles - works for both scroll directions
+		.animate-hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+		
+		.animate-fade-up {
+			&.animate-hidden {
+				opacity: 0;
+				transform: translateY(50px);
+			}
+			&:not(.animate-hidden) {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		.animate-fade-in {
+			&.animate-hidden {
+				opacity: 0;
+			}
+			&:not(.animate-hidden) {
+				opacity: 1;
+			}
+		}
+		
+		.animate-slide-left {
+			&.animate-hidden {
+				opacity: 0;
+				transform: translateX(-50px);
+			}
+			&:not(.animate-hidden) {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+		
+		.animate-slide-right {
+			&.animate-hidden {
+				opacity: 0;
+				transform: translateX(50px);
+			}
+			&:not(.animate-hidden) {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+		
+		// Removed separate image animations - images now animate with their parent cards
 		.info-box {
 			width: 100%;
 			display: flex;
@@ -152,7 +202,7 @@
 						height: 375px;
 						display: flex;
 						flex-direction: column;
-						transition: transform 0.3s;
+						transition: transform 0.3s, opacity 0.3s;
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
@@ -493,6 +543,7 @@
 			height: 697px;
 			display: flex;
 			flex-direction: row;
+			perspective: 1200px; // Add perspective for 3D layered effect
 			.container {
 				flex-direction: column;
 				.card-box {
@@ -500,29 +551,73 @@
 					margin-top: 64px;
 					display: flex;
 					flex-direction: row;
+					transform-style: preserve-3d;
 					.top-property-swiper {
 						width: 100%;
 						height: 400px;
 						display: flex;
 						flex-direction: row;
-						.top-property-slide {
-							width: auto;
-							height: auto;
-							display: flex;
-							margin: 10px 0 0 10px;
+						transform-style: preserve-3d;
+					.top-property-slide {
+						width: auto;
+						height: auto;
+						display: flex;
+						margin: 10px 0 0 10px;
+						transform-style: preserve-3d;
+					}
+					
+					// Layered spreading animation for top properties
+					.animated-top-property-card {
+						position: relative;
+						width: 100%;
+						height: 100%;
+						will-change: transform, opacity, filter;
+						transform-style: preserve-3d;
+						
+						// Create layered z-index effect - center cards have higher z-index for depth
+						&:nth-child(1) { z-index: 5; }
+						&:nth-child(2) { z-index: 6; }
+						&:nth-child(3) { z-index: 7; }
+						&:nth-child(4) { z-index: 8; }
+						&:nth-child(5) { z-index: 7; }
+						&:nth-child(6) { z-index: 6; }
+						&:nth-child(7) { z-index: 5; }
+						&:nth-child(8) { z-index: 4; }
+						
+						// Enhanced card transitions with 3D perspective
+						.top-card-box {
+							transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+							            box-shadow 0.4s ease-out,
+							            opacity 0.3s ease-out;
+							transform-style: preserve-3d;
+							backface-visibility: hidden;
+						}
+						
+						// Enhanced hover effect with depth and elevation
+						&:hover {
+							z-index: 20 !important;
+							.top-card-box {
+								transform: scale(1.12) translateY(-10px) translateZ(30px);
+								box-shadow: 0px 20px 50px rgba(24, 26, 32, 0.25);
+							}
 						}
 					}
-					.top-card-box {
-						position: relative;
-						width: 300px;
-						height: 375px;
-						display: flex;
-						flex-direction: column;
-						transition: transform 0.3s;
-						&:hover {
-							opacity: 1;
-							transform: scale(1.05);
-						}
+				}
+				.top-card-box {
+					position: relative;
+					width: 300px;
+					height: 375px;
+					display: flex;
+					flex-direction: column;
+					transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s, box-shadow 0.3s;
+					transform-origin: center center;
+					
+					&:hover {
+						opacity: 1;
+						transform: scale(1.08) translateY(-5px);
+						box-shadow: 0px 10px 30px rgba(24, 26, 32, 0.15);
+						z-index: 10;
+					}
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -761,10 +856,10 @@
 						border-radius: 12px;
 						opacity: 0.9;
 						cursor: pointer;
-						transition: opacity 0.4s;
+						transition: opacity 0.4s, transform 0.3s;
 						&:hover {
 							opacity: 1;
-							scale: 1.05;
+							transform: scale(1.05);
 							transition: 0.3s;
 							.more {
 								opacity: 1;
@@ -970,5 +1065,69 @@
 				}
 			}
 		}
+	}
+}
+
+// Keyframe animations
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+// Layered spreading animation for top properties
+@keyframes spreadOut {
+	0% {
+		opacity: 0;
+		transform: translateY(80px) translateX(0) scale(0.7) rotateY(-10deg);
+		filter: blur(5px);
+	}
+	50% {
+		opacity: 0.7;
+		transform: translateY(20px) translateX(0) scale(0.95) rotateY(-5deg);
+		filter: blur(2px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) translateX(0) scale(1) rotateY(0deg);
+		filter: blur(0);
+	}
+}
+
+@keyframes fanOut {
+	0% {
+		opacity: 0;
+		transform: translateY(60px) translateX(0) scale(0.8);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) translateX(0) scale(1);
 	}
 }

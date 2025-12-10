@@ -10,6 +10,7 @@ import TopProperties from '../libs/components/homepage/TopProperties';
 import { Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import AnimatedSection from '../libs/components/common/AnimatedSection';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -23,23 +24,47 @@ const Home: NextPage = () => {
 	if (device === 'mobile') {
 		return (
 			<Stack className={'home-page'}>
-				<TrendProperties />
-				<PopularProperties />
-				<Advertisement />
-				<TopProperties />
-				<TopAgents />
+				<AnimatedSection animationType="fade-up" animationDelay={0}>
+					<TrendProperties />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.1}>
+					<PopularProperties />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-in" animationDelay={0.2}>
+					<Advertisement />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.3}>
+					<TopProperties />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.4}>
+					<TopAgents />
+				</AnimatedSection>
 			</Stack>
 		);
 	} else {
 		return (
 			<Stack className={'home-page'}>
-				<TrendProperties />
-				<PopularProperties />
-				<Advertisement />
-				<TopProperties />
-				<TopAgents />
-				<Events />
-				<CommunityBoards />
+				<AnimatedSection animationType="fade-up" animationDelay={0}>
+					<TrendProperties />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.1}>
+					<PopularProperties />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-in" animationDelay={0.2}>
+					<Advertisement />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.3}>
+					<TopProperties />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.4}>
+					<TopAgents />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.5}>
+					<Events />
+				</AnimatedSection>
+				<AnimatedSection animationType="fade-up" animationDelay={0.6}>
+					<CommunityBoards />
+				</AnimatedSection>
 			</Stack>
 		);
 	}

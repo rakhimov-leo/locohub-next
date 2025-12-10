@@ -6,6 +6,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import PopularPropertyCard from './PopularPropertyCard';
+import AnimatedListItem from '../common/AnimatedListItem';
 import { Property } from '../../types/property/property';
 import Link from 'next/link';
 import { PropertiesInquiry } from '../../types/property/property.input';
@@ -56,10 +57,12 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 							spaceBetween={25}
 							modules={[Autoplay]}
 						>
-							{popularProperties.map((property: Property) => {
+							{popularProperties.map((property: Property, index: number) => {
 								return (
 									<SwiperSlide key={property._id} className={'popular-property-slide'}>
-										<PopularPropertyCard property={property} />
+										<AnimatedListItem index={index}>
+											<PopularPropertyCard property={property} />
+										</AnimatedListItem>
 									</SwiperSlide>
 								);
 							})}
@@ -100,10 +103,12 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 								el: '.swiper-popular-pagination',
 							}}
 						>
-							{popularProperties.map((property: Property) => {
+							{popularProperties.map((property: Property, index: number) => {
 								return (
 									<SwiperSlide key={property._id} className={'popular-property-slide'}>
-										<PopularPropertyCard property={property} />
+										<AnimatedListItem index={index}>
+											<PopularPropertyCard property={property} />
+										</AnimatedListItem>
 									</SwiperSlide>
 								);
 							})}
