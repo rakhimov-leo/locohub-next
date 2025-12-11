@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -10,6 +10,7 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import AnimatedNumber, { AnimatedNumberRef } from './AnimatedNumber';
 
 interface PropertyBigCardProps {
 	property: Property;
@@ -21,17 +22,29 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
+	const bedNumberRef = useRef<AnimatedNumberRef>(null);
+	const roomNumberRef = useRef<AnimatedNumberRef>(null);
 
 	/** HANDLERS **/
 	const goPropertyDetatilPage = (propertyId: string) => {
 		router.push(`/property/detail?id=${propertyId}`);
 	};
 
+	const handleCardMouseEnter = () => {
+		bedNumberRef.current?.startAnimation();
+		roomNumberRef.current?.startAnimation();
+	};
+
+	const handleCardMouseLeave = () => {
+		bedNumberRef.current?.reset();
+		roomNumberRef.current?.reset();
+	};
+
 	if (device === 'mobile') {
 		return <div>APARTMEND BIG CARD</div>;
 	} else {
 		return (
-			<Stack className="property-big-card-box" onClick={() => goPropertyDetatilPage(property?._id)}>
+			<Stack className="property-big-card-box" onClick={() => goPropertyDetatilPage(property?._id)} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -52,11 +65,11 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span><AnimatedNumber ref={bedNumberRef} value={property?.propertyBeds || 0} duration={2500} delay={0} /> bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span><AnimatedNumber ref={roomNumberRef} value={property?.propertyRooms || 0} duration={2500} delay={0} /> rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

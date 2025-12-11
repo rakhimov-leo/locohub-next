@@ -1,5 +1,4 @@
 export enum PropertyType {
-	APARTMENT = 'APARTMENT',
 	VILLA = 'VILLA',
 	HOUSE = 'HOUSE',
 	HOTEL = 'HOTEL',

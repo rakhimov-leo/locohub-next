@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Stack, Typography, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,6 +11,7 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import AnimatedNumber, { AnimatedNumberRef } from '../common/AnimatedNumber';
 
 interface PropertyCardType {
 	property: Property;
@@ -23,15 +24,27 @@ const PropertyCard = (props: PropertyCardType) => {
 	const { property, likePropertyHandler, myFavorites, recentlyVisited } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
+	const bedNumberRef = useRef<AnimatedNumberRef>(null);
+	const roomNumberRef = useRef<AnimatedNumberRef>(null);
 	const imagePath: string = property?.propertyImages[0]
 		? `${REACT_APP_API_URL}/${property?.propertyImages[0]}`
 		: '/img/banner/header1.svg';
+
+	const handleCardMouseEnter = () => {
+		bedNumberRef.current?.startAnimation();
+		roomNumberRef.current?.startAnimation();
+	};
+
+	const handleCardMouseLeave = () => {
+		bedNumberRef.current?.reset();
+		roomNumberRef.current?.reset();
+	};
 
 	if (device === 'mobile') {
 		return <div>PROPERTY CARD</div>;
 	} else {
 		return (
-			<Stack className="card-config">
+			<Stack className="card-config" onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
 				<Stack className="top">
 					<Link
 						href={{
@@ -71,10 +84,10 @@ const PropertyCard = (props: PropertyCardType) => {
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography>
+							<img src="/img/icons/bed.svg" alt="" /> <Typography><AnimatedNumber ref={bedNumberRef} value={property.propertyBeds || 0} duration={2500} delay={0} /> bed</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyRooms} room</Typography>
+							<img src="/img/icons/room.svg" alt="" /> <Typography><AnimatedNumber ref={roomNumberRef} value={property.propertyRooms || 0} duration={2500} delay={0} /> room</Typography>
 						</Stack>
 						<Stack className="option">
 							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>

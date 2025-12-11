@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -8,6 +8,7 @@ import { REACT_APP_API_URL, topPropertyRank } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import AnimatedNumber, { AnimatedNumberRef } from '../common/AnimatedNumber';
 
 interface PopularPropertyCardProps {
 	property: Property;
@@ -18,6 +19,8 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const bedNumberRef = useRef<AnimatedNumberRef>(null);
+	const roomNumberRef = useRef<AnimatedNumberRef>(null);
 
 	/** HANDLERS **/
 
@@ -26,9 +29,19 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
 	};
 
+	const handleCardMouseEnter = () => {
+		bedNumberRef.current?.startAnimation();
+		roomNumberRef.current?.startAnimation();
+	};
+
+	const handleCardMouseLeave = () => {
+		bedNumberRef.current?.reset();
+		roomNumberRef.current?.reset();
+	};
+
 	if (device === 'mobile') {
 		return (
-			<Stack className="popular-card-box">
+			<Stack className="popular-card-box" onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -61,11 +74,11 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span><AnimatedNumber ref={bedNumberRef} value={property?.propertyBeds || 0} duration={2500} delay={0} /> bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span><AnimatedNumber ref={roomNumberRef} value={property?.propertyRooms || 0} duration={2500} delay={0} /> rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
@@ -87,7 +100,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 		);
 	} else {
 		return (
-			<Stack className="popular-card-box">
+			<Stack className="popular-card-box" onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -120,11 +133,11 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span><AnimatedNumber ref={bedNumberRef} value={property?.propertyBeds || 0} duration={2500} delay={0} /> bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span><AnimatedNumber ref={roomNumberRef} value={property?.propertyRooms || 0} duration={2500} delay={0} /> rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

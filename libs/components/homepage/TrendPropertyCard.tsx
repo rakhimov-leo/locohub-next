@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -9,6 +9,7 @@ import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import AnimatedNumber, { AnimatedNumberRef } from '../common/AnimatedNumber';
 
 interface TrendPropertyCardProps {
 	property: Property;
@@ -20,6 +21,8 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const bedNumberRef = useRef<AnimatedNumberRef>(null);
+	const roomNumberRef = useRef<AnimatedNumberRef>(null);
 
 	/** HANDLERS **/
 
@@ -28,9 +31,19 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
 	};
 
+	const handleCardMouseEnter = () => {
+		bedNumberRef.current?.startAnimation();
+		roomNumberRef.current?.startAnimation();
+	};
+
+	const handleCardMouseLeave = () => {
+		bedNumberRef.current?.reset();
+		roomNumberRef.current?.reset();
+	};
+
 	if (device === 'mobile') {
 		return (
-			<Stack className="trend-card-box" key={property._id}>
+			<Stack className="trend-card-box" key={property._id} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -55,11 +68,11 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property.propertyBeds} bed</span>
+							<span><AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property.propertyRooms} rooms</span>
+							<span><AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
@@ -92,7 +105,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 		);
 	} else {
 		return (
-			<Stack className="trend-card-box" key={property._id}>
+			<Stack className="trend-card-box" key={property._id} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -111,11 +124,11 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property.propertyBeds} bed</span>
+							<span><AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property.propertyRooms} rooms</span>
+							<span><AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

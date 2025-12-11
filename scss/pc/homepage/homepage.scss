@@ -164,6 +164,92 @@
 				}
 			}
 		}
+		.brand-carousel-container {
+			width: 100%;
+			overflow: hidden;
+			padding: 30px 0;
+			background: #f6f6f6;
+			position: relative;
+			
+			.brand-carousel-wrapper {
+				width: 100%;
+				overflow: hidden;
+				
+				.brand-carousel-track {
+					display: flex;
+					align-items: center;
+					gap: 60px;
+					width: fit-content;
+					animation: scrollBrands 30s linear infinite;
+					will-change: transform;
+					
+					&.paused {
+						animation-play-state: paused;
+					}
+					
+					.brand-item {
+						flex-shrink: 0;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						justify-content: center;
+						gap: 12px;
+						min-width: 180px;
+						opacity: 0.7;
+						transition: opacity 0.3s ease;
+						
+						&:hover {
+							opacity: 1;
+						}
+						
+						.brand-link {
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							justify-content: center;
+							gap: 12px;
+							text-decoration: none;
+							color: inherit;
+							cursor: pointer;
+							width: 100%;
+							height: 100%;
+						}
+						
+						img {
+							width: 60px;
+							height: 60px;
+							object-fit: contain;
+							filter: grayscale(100%);
+							transition: filter 0.3s ease, transform 0.3s ease;
+						}
+						
+						span {
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							color: #717171;
+							text-align: center;
+							white-space: nowrap;
+							transition: color 0.3s ease;
+						}
+						
+						&:hover {
+							img {
+								filter: grayscale(0%);
+								transform: scale(1.1);
+							}
+							
+							span {
+								color: #181a20;
+								font-weight: 500;
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		.trend-properties {
 			padding: 108px 0px 76px;
 			width: 100%;
@@ -206,14 +292,22 @@
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
+							
+							.card-img {
+								background-size: 120%;
+							}
 						}
 						.card-img {
 							position: relative;
 							width: 100%;
 							height: 203px;
 							background-size: cover;
+							background-position: center;
 							border-radius: 12px 12px 0px 0px;
 							cursor: pointer;
+							overflow: hidden;
+							transition: background-size 0.8s ease-in-out;
+							
 							div {
 								position: absolute;
 								padding: 8px 12px;
@@ -251,6 +345,24 @@
 								line-height: normal;
 								text-transform: capitalize;
 								cursor: pointer;
+								padding: 4px 8px;
+								border-radius: 4px;
+								background: rgba(255, 255, 255, 0.7);
+								backdrop-filter: blur(4px);
+								display: inline-block;
+								width: fit-content;
+								opacity: 0;
+								transform: translateY(20px);
+								animation: fadeInUpText 0.6s ease-out 0.3s forwards;
+								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+								
+								&:hover {
+									color: #34d399;
+									background: rgba(52, 211, 153, 0.15);
+									transform: translateY(-2px) scale(1.05);
+									box-shadow: 0px 4px 12px rgba(52, 211, 153, 0.3);
+									text-shadow: 0px 0px 8px rgba(52, 211, 153, 0.5);
+								}
 							}
 							.desc {
 								margin-top: 5px;
@@ -263,6 +375,9 @@
 								line-height: normal;
 								text-overflow: ellipsis;
 								white-space: nowrap;
+								opacity: 0;
+								transform: translateY(20px);
+								animation: fadeInUpText 0.6s ease-out 0.5s forwards;
 							}
 							.options {
 								margin-top: 15px;
@@ -367,14 +482,22 @@
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
+							
+							.card-img {
+								background-size: 120%;
+							}
 						}
 						.card-img {
 							position: relative;
 							width: 100%;
 							height: 203px;
 							background-size: cover;
+							background-position: center;
 							border-radius: 12px 12px 0px 0px;
 							cursor: pointer;
+							overflow: hidden;
+							transition: background-size 0.8s ease-in-out;
+							
 							div.status {
 								position: absolute;
 								padding: 6px 34px;
@@ -436,6 +559,24 @@
 								line-height: normal;
 								text-transform: capitalize;
 								cursor: pointer;
+								padding: 4px 8px;
+								border-radius: 4px;
+								background: rgba(255, 255, 255, 0.7);
+								backdrop-filter: blur(4px);
+								display: inline-block;
+								width: fit-content;
+								opacity: 0;
+								transform: translateY(20px);
+								animation: fadeInUpText 0.6s ease-out 0.3s forwards;
+								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+								
+								&:hover {
+									color: #34d399;
+									background: rgba(52, 211, 153, 0.15);
+									transform: translateY(-2px) scale(1.05);
+									box-shadow: 0px 4px 12px rgba(52, 211, 153, 0.3);
+									text-shadow: 0px 0px 8px rgba(52, 211, 153, 0.5);
+								}
 							}
 							.desc {
 								margin-top: 5px;
@@ -448,6 +589,9 @@
 								line-height: normal;
 								text-overflow: ellipsis;
 								white-space: nowrap;
+								opacity: 0;
+								transform: translateY(20px);
+								animation: fadeInUpText 0.6s ease-out 0.5s forwards;
 							}
 							.options {
 								margin-top: 15px;
@@ -617,14 +761,22 @@
 						transform: scale(1.08) translateY(-5px);
 						box-shadow: 0px 10px 30px rgba(24, 26, 32, 0.15);
 						z-index: 10;
+						
+							.card-img {
+								background-size: 120%;
+							}
 						}
 						.card-img {
 							position: relative;
 							width: 100%;
 							height: 203px;
 							background-size: cover;
+							background-position: center;
 							border-radius: 12px 12px 0px 0px;
 							cursor: pointer;
+							overflow: hidden;
+							transition: background-size 0.8s ease-in-out;
+							
 							div {
 								position: absolute;
 								padding: 8px 12px;
@@ -662,6 +814,24 @@
 								line-height: normal;
 								text-transform: capitalize;
 								cursor: pointer;
+								padding: 4px 8px;
+								border-radius: 4px;
+								background: rgba(255, 255, 255, 0.7);
+								backdrop-filter: blur(4px);
+								display: inline-block;
+								width: fit-content;
+								opacity: 0;
+								transform: translateY(20px);
+								animation: fadeInUpText 0.6s ease-out 0.3s forwards;
+								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+								
+								&:hover {
+									color: #34d399;
+									background: rgba(52, 211, 153, 0.15);
+									transform: translateY(-2px) scale(1.05);
+									box-shadow: 0px 4px 12px rgba(52, 211, 153, 0.3);
+									text-shadow: 0px 0px 8px rgba(52, 211, 153, 0.5);
+								}
 							}
 							.desc {
 								margin-top: 5px;
@@ -674,6 +844,9 @@
 								line-height: normal;
 								text-overflow: ellipsis;
 								white-space: nowrap;
+								opacity: 0;
+								transform: translateY(20px);
+								animation: fadeInUpText 0.6s ease-out 0.5s forwards;
 							}
 							.options {
 								margin-top: 15px;
@@ -1080,6 +1253,17 @@
 	}
 }
 
+@keyframes fadeInUpText {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 @keyframes slideInLeft {
 	from {
 		opacity: 0;
@@ -1129,5 +1313,147 @@
 	100% {
 		opacity: 1;
 		transform: translateY(0) translateX(0) scale(1);
+	}
+}
+
+@keyframes scrollBrands {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+// Dark Mode Styles for Homepage
+html.dark-mode {
+	#pc-wrap .home-page {
+		background-color: #0f0f0f;
+		
+		.brand-carousel-container {
+			background: #1a1a1a;
+			
+			.brand-carousel-wrapper {
+				.brand-carousel-track {
+					.brand-item {
+						opacity: 0.85; // Dark mode'da yorqinroq
+						transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+						
+						img {
+							filter: grayscale(70%); // Dark mode'da kamroq grayscale
+							transition: filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+						}
+						
+						span {
+							color: #d0d0d0; // Dark mode'da yorqinroq text
+							transition: color 0.3s ease, text-shadow 0.3s ease;
+						}
+						
+						&:hover {
+							opacity: 1; // Hover bo'lganda to'liq yorqin
+							transform: scale(1.05) translateY(-3px);
+							
+							img {
+								filter: grayscale(0%); // Hover'da rangli
+								transform: scale(1.1);
+								box-shadow: 0 0 20px rgba(52, 211, 153, 0.5),
+								            0 0 40px rgba(52, 211, 153, 0.3),
+								            0 0 60px rgba(52, 211, 153, 0.2);
+							}
+							
+							span {
+								color: #34d399; // Hover'da yashil rang
+								text-shadow: 0 0 10px rgba(52, 211, 153, 0.6),
+								             0 0 20px rgba(52, 211, 153, 0.4);
+								font-weight: 500;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		.trend-properties,
+		.popular-properties,
+		.top-properties {
+			.info-box {
+				.left {
+					span {
+						color: #ffffff;
+					}
+					
+					p {
+						color: #b0b0b0;
+					}
+				}
+			}
+			
+			.trend-card-box,
+			.popular-card-box,
+			.top-card-box {
+				.info {
+					background: #1a1a1a;
+					border-color: #333;
+					
+					.title {
+						color: #ffffff;
+					}
+					
+					.desc {
+						color: #b0b0b0;
+					}
+					
+					.options {
+						span {
+							color: #b0b0b0;
+						}
+					}
+				}
+				
+				.card-img {
+					div {
+						background: #1a1a1a;
+						color: #ffffff;
+					}
+				}
+			}
+		}
+		
+		.popular-properties {
+			background: #141414;
+		}
+		
+		.top-agents {
+			background: #141414;
+			
+			.info-box {
+				span {
+					color: #ffffff;
+				}
+				
+				p {
+					color: #b0b0b0;
+				}
+			}
+			
+			.top-agent-card {
+				strong,
+				span {
+					color: #ffffff;
+				}
+			}
+		}
+		
+		.events {
+			background: #0a0a0a;
+		}
+		
+		.community-board {
+			.info-box {
+				span {
+					color: #ffffff;
+				}
+			}
+		}
 	}
 }

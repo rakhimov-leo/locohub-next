@@ -13,6 +13,8 @@ import { CaretDown, CaretDown as CaretDownIcon, GridFour } from 'phosphor-react'
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import Link from 'next/link';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
@@ -32,6 +34,7 @@ const Top = () => {
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
+	const [darkMode, setDarkMode] = useState<boolean>(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -56,6 +59,20 @@ const Top = () => {
 	useEffect(() => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
+		
+		// Load dark mode preference from localStorage
+		if (typeof window !== 'undefined') {
+			const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+			setDarkMode(savedDarkMode);
+			if (savedDarkMode) {
+				document.documentElement.classList.add('dark-mode');
+				document.body.style.backgroundColor = '#0f0f0f';
+				document.body.style.color = '#ffffff';
+			} else {
+				document.body.style.backgroundColor = '#ffffff';
+				document.body.style.color = '#212121';
+			}
+		}
 	}, []);
 
 	/** HANDLERS **/
@@ -94,6 +111,25 @@ const Top = () => {
 			setAnchorEl(event.currentTarget);
 		} else {
 			setAnchorEl(null);
+		}
+	};
+
+	const toggleDarkMode = () => {
+		const newDarkMode = !darkMode;
+		setDarkMode(newDarkMode);
+		
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('darkMode', newDarkMode.toString());
+			
+			if (newDarkMode) {
+				document.documentElement.classList.add('dark-mode');
+				document.body.style.backgroundColor = '#0f0f0f';
+				document.body.style.color = '#ffffff';
+			} else {
+				document.documentElement.classList.remove('dark-mode');
+				document.body.style.backgroundColor = '#ffffff';
+				document.body.style.color = '#212121';
+			}
 		}
 	};
 
@@ -288,6 +324,14 @@ const Top = () => {
 										{t('Russian')}
 									</MenuItem>
 								</StyledMenu>
+								
+								<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
+									{darkMode ? (
+										<LightModeOutlinedIcon className={'dark-mode-icon'} />
+									) : (
+										<DarkModeOutlinedIcon className={'dark-mode-icon'} />
+									)}
+								</div>
 							</div>
 						</Box>
 					</Stack>

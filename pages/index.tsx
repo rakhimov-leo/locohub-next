@@ -9,6 +9,7 @@ import TrendProperties from '../libs/components/homepage/TrendProperties';
 import TopProperties from '../libs/components/homepage/TopProperties';
 import { Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
+import BrandCarousel from '../libs/components/homepage/BrandCarousel';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import AnimatedSection from '../libs/components/common/AnimatedSection';
 
@@ -44,6 +45,7 @@ const Home: NextPage = () => {
 	} else {
 		return (
 			<Stack className={'home-page'}>
+				<BrandCarousel />
 				<AnimatedSection animationType="fade-up" animationDelay={0}>
 				<TrendProperties />
 				</AnimatedSection>

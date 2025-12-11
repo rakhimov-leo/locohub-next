@@ -1,11 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Stack, Box, Modal, Divider, Button } from '@mui/material';
+import { Stack, Box, Modal, Divider, Button, Popover } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { propertySquare, propertyYears } from '../../config';
 import { PropertyLocation, PropertyType } from '../../enums/property.enum';
 import { PropertiesInquiry } from '../../types/property/property.input';
@@ -51,6 +56,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const [openLocation, setOpenLocation] = useState(false);
 	const [openType, setOpenType] = useState(false);
 	const [openRooms, setOpenRooms] = useState(false);
+	const [openCalendar, setOpenCalendar] = useState(false);
+	const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+	const calendarAnchorRef = useRef<HTMLDivElement>(null);
 	// Temporarily using Korean cities - will revert to FRANCE, SPAIN, etc. later
 	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
 	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
@@ -81,11 +89,19 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	}, []);
 
 	/** HANDLERS **/
+	const calendarHandler = () => {
+		setOpenCalendar((prev) => !prev);
+		setOpenLocation(false);
+		setOpenRooms(false);
+		setOpenType(false);
+	};
+
 	const advancedFilterHandler = (status: boolean) => {
 		setOpenLocation(false);
 		setOpenRooms(false);
 		setOpenType(false);
 		setOpenAdvancedFilter(status);
+		setOpenCalendar(false);
 	};
 
 	const locationStateChangeHandler = () => {
@@ -359,28 +375,100 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				</Stack>
 				<Stack className={'search-box'}>
 					<Stack className={'select-box'}>
-						<Box component={'div'} className={`box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
-							<span>{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : t('Location')} </span>
-							<ExpandMoreIcon />
+						<Box component={'div'} className={`box location-box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
+							<LocationOnIcon className="location-icon" />
+							<span className="location-text">{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}</span>
+							<ExpandMoreIcon className="dropdown-icon" />
 						</Box>
 						{searchFilter?.search?.locationList && searchFilter?.search?.locationList.length > 0 && (
-							<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-								<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')} </span>
-								<ExpandMoreIcon />
-							</Box>
+							<>
+								<Divider orientation="vertical" className="separator" />
+								<Box className={`box property-type-box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
+									<span>{searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')}</span>
+									<ExpandMoreIcon />
+								</Box>
+							</>
 						)}
 					</Stack>
 					<Stack className={'search-box-other'}>
-						<Box className={'advanced-filter'} onClick={() => advancedFilterHandler(true)}>
-							<img src="/img/icons/tune.svg" alt="" />
-							<span>{t('Advanced')}</span>
+						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
+							<CalendarTodayIcon className="calendar-icon" />
+							{selectedDate && (
+								<span className="date-text">
+									{selectedDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}
+								</span>
+							)}
 						</Box>
+						<Popover
+							open={openCalendar}
+							anchorEl={calendarAnchorRef.current}
+							onClose={() => setOpenCalendar(false)}
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'left',
+							}}
+						>
+							<LocalizationProvider dateAdapter={AdapterDateFns}>
+								<Box sx={{ 
+									p: 2, 
+									'& .MuiPickersLayout-root': { width: 'auto' }, 
+									'& .MuiDateCalendar-root': { width: '320px' }, 
+									'& .MuiPickersCalendarHeader-root': { 
+										paddingLeft: '16px', 
+										paddingRight: '16px',
+										marginBottom: '16px'
+									}, 
+									'& .MuiPickersCalendarHeader-label': {
+										fontSize: '16px',
+										fontWeight: 600
+									},
+									'& .MuiDayCalendar-weekContainer': { 
+										margin: 0 
+									}, 
+									'& .MuiPickersDay-root': { 
+										width: '40px', 
+										height: '40px', 
+										fontSize: '14px',
+										margin: '4px',
+										fontWeight: 500
+									},
+									'& .MuiPickersCalendarHeader-switchViewButton': {
+										width: '40px',
+										height: '40px'
+									},
+									'& .MuiDayCalendar-weekDayLabel': {
+										fontSize: '13px',
+										fontWeight: 600,
+										width: '40px',
+										margin: '4px'
+									}
+								}}>
+									<StaticDatePicker
+										value={selectedDate}
+										onChange={(newValue) => {
+											setSelectedDate(newValue);
+											if (newValue) {
+												setOpenCalendar(false);
+											}
+										}}
+									/>
+								</Box>
+							</LocalizationProvider>
+						</Popover>
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
+							<span>Search</span>
 						</Box>
 					</Stack>
 
 					{/*MENU */}
+					{openLocation && (
+						<div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>
+					)}
 					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
 						{propertyLocation.map((location: string, index: number) => {
 							return (
@@ -397,6 +485,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						})}
 					</div>
 
+					{openType && (
+						<div className="filter-type-overlay" onClick={() => setOpenType(false)}></div>
+					)}
 					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
 						{propertyType.map((type: string, index: number) => {
 							return (

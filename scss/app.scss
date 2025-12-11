@@ -40,6 +40,46 @@ body {
 		box-shadow: none;
 	}
 }
+
+// Dark Mode Styles
+html.dark-mode {
+	body {
+		background-color: #0f0f0f;
+		color: #ffffff;
+		&::-webkit-scrollbar-thumb {
+			background: #444;
+		}
+		&::-webkit-scrollbar-track {
+			background: #1a1a1a;
+		}
+	}
+	
+	// Cursor trail glow effect (only in dark mode)
+	.cursor-glow {
+		position: fixed;
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(52, 211, 153, 0.15) 0%, transparent 70%);
+		pointer-events: none;
+		z-index: 9998;
+		transform: translate(-50%, -50%);
+		transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+		opacity: 0;
+		will-change: transform, opacity;
+	}
+	
+	a {
+		color: #e0e0e0;
+		&:hover {
+			color: #34d399;
+		}
+	}
+	
+	hr {
+		border-color: #333;
+	}
+}
 hr {
 	border-width: 0;
 	border-bottom-width: thin;
@@ -57,5 +97,17 @@ hr {
 		width: 1300px;
 		margin: 0 auto;
 		display: flex;
+	}
+}
+
+// Dark Mode for PC Wrap
+html.dark-mode {
+	#pc-wrap {
+		background-color: #0f0f0f;
+		color: #ffffff;
+		
+		.container {
+			background-color: transparent;
+		}
 	}
 }

@@ -142,16 +142,20 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 	const updatePropertyHandler = async (updateData: PropertyUpdate) => {
 		try {
 			console.log('+updateData: ', updateData);
-			await updatePropertyByAdmin({
+			const result = await updatePropertyByAdmin({
 				variables: {
 					input: updateData,
 				},
 			});
+			console.log('Update result:', result);
 			menuIconCloseHandler();
+			// Refetch the properties list to show updated data
 			await getAllPropertiesByAdminRefetch({ input: propertiesInquiry });
 		} catch (err: any) {
+			console.error('Update property error:', err);
 			menuIconCloseHandler();
 			sweetErrorHandling(err).then();
+			throw err; // Re-throw to let calling component handle it
 		}
 	};
 
@@ -216,6 +220,9 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 							menuIconCloseHandler={menuIconCloseHandler}
 							updatePropertyHandler={updatePropertyHandler}
 							removePropertyHandler={removePropertyHandler}
+							onPropertyUpdated={() => {
+								getAllPropertiesByAdminRefetch({ input: propertiesInquiry });
+							}}
 						/>
 
 						<TablePagination
