@@ -5,7 +5,8 @@
 			height: auto;
 			display: flex;
 			flex-direction: column;
-			gap: 20px;
+			gap: 25px;
+			margin-left: 30px;
 			.main-title-box {
 				width: auto;
 				height: auto;
@@ -35,37 +36,67 @@
 			}
 			.top-box {
 				width: 100%;
-				padding: 30px;
+				padding: 0;
 				margin-top: 35px;
+				gap: 0;
+				border-radius: 0;
+				border: none;
+				background: transparent;
+				box-shadow: none;
+				transition: none;
+				display: flex;
+				flex-direction: column;
 				gap: 25px;
-				border-radius: 12px;
-				border: 1px solid #c4c4c4;
-				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 				.photo-box {
-					gap: 23px;
+					width: 100%;
+					padding: 40px;
+					border-radius: 16px;
+					border: none;
+					background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+					box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
+					transition: all 0.3s ease;
+					gap: 30px;
+					
+					&:hover {
+						transform: translateY(-4px);
+						box-shadow: 0px 8px 24px rgba(102, 126, 234, 0.2);
+						background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+					}
+					
 					.title {
 						color: #181a20;
 						font-family: $font;
-						font-size: 17px;
+						font-size: 20px;
 						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
+						margin-bottom: 10px;
 					}
 					.image-big-box {
 						flex-direction: row;
-						gap: 50px;
+						gap: 40px;
+						align-items: center;
 						.image-box {
 							position: relative;
-							width: 194px;
-							height: 157px;
+							width: 180px;
+							height: 180px;
+							border-radius: 50%;
+							overflow: hidden;
+							border: 4px solid #ffffff;
+							box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+							
 							img {
 								width: 100%;
 								height: 100%;
 								object-fit: cover;
-								border-radius: 15px;
-								object-fit: cover;
+								border-radius: 50%;
+								transition: all 0.3s ease;
 							}
+							
+							&:hover img {
+								transform: scale(1.05);
+							}
+							
 							.delete-box {
 								position: absolute;
 								top: 10px;
@@ -79,43 +110,68 @@
 							}
 						}
 						.upload-big-box {
-							align-self: flex-end;
-							gap: 22px;
+							flex: 1;
+							display: flex;
+							flex-direction: column;
+							gap: 15px;
+							
 							.labeler {
 								display: flex;
-								width: 210.023px;
-								height: 40.135px;
+								width: fit-content;
+								min-width: 220px;
+								height: 48px;
 								justify-content: center;
 								align-items: center;
 								cursor: pointer;
 								border-radius: 12px;
-								border: 1px solid #181a20;
+								border: none;
+								background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+								color: #ffffff;
+								transition: all 0.3s ease;
+								padding: 0 24px;
+								
+								&:hover {
+									transform: translateY(-2px);
+									box-shadow: 0px 6px 20px rgba(102, 126, 234, 0.4);
+								}
+								
 								p {
-									color: #181a20;
+									color: #ffffff;
 									font-family: $font;
-									font-size: 13px;
+									font-size: 14px;
 									font-style: normal;
 									font-weight: 600;
 									line-height: normal;
 								}
 							}
 							.upload-text {
-								color: #181a20;
+								color: #717171;
 								font-family: $font;
-								font-size: 12px;
+								font-size: 13px;
 								font-style: normal;
 								font-weight: 400;
-								line-height: 26px;
+								line-height: 20px;
 							}
 						}
 					}
 				}
 				.small-input-box {
 					width: 100%;
+					padding: 40px;
+					border-radius: 16px;
+					border: none;
+					background: #fff;
+					box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
 					height: auto;
 					flex-direction: row;
 					flex-wrap: wrap;
 					gap: 30px;
+					transition: all 0.3s ease;
+					
+					&:hover {
+						transform: translateY(-4px);
+						box-shadow: 0px 8px 24px rgba(24, 26, 32, 0.12);
+					}
 					.input-box {
 						width: 48%;
 						gap: 10px;
@@ -133,7 +189,16 @@
 							padding: 0px 15px;
 							border-radius: 8px;
 							border: 1px solid #ddd;
-							::placeholder {
+							background: #fafafa;
+							transition: all 0.3s ease;
+							
+							&:focus {
+								border-color: #667eea;
+								background: #ffffff;
+								box-shadow: 0px 4px 12px rgba(102, 126, 234, 0.1);
+							}
+							
+							&::placeholder {
 								color: #717171;
 								font-family: $font;
 								font-size: 12px;
@@ -145,7 +210,19 @@
 					}
 				}
 				.address-box {
+					width: 100%;
+					padding: 40px;
+					border-radius: 16px;
+					border: none;
+					background: #fff;
+					box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
 					gap: 10px;
+					transition: all 0.3s ease;
+					
+					&:hover {
+						transform: translateY(-4px);
+						box-shadow: 0px 8px 24px rgba(24, 26, 32, 0.12);
+					}
 					.title {
 						color: #181a20;
 						font-family: $font;
@@ -160,7 +237,16 @@
 						padding: 0px 15px;
 						border-radius: 8px;
 						border: 1px solid #ddd;
-						::placeholder {
+						background: #fafafa;
+						transition: all 0.3s ease;
+						
+						&:focus {
+							border-color: #667eea;
+							background: #ffffff;
+							box-shadow: 0px 4px 12px rgba(102, 126, 234, 0.1);
+						}
+						
+						&::placeholder {
 							color: #717171;
 							font-family: $font;
 							font-size: 12px;
@@ -171,7 +257,23 @@
 					}
 				}
 				.about-me-box {
+					width: 100%;
+					padding: 40px;
+					border-radius: 16px;
+					border: none;
+					background: #fff;
+					box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
 					gap: 10px;
+					display: flex;
+					flex-direction: column;
+					align-items: flex-end;
+					transition: all 0.3s ease;
+					
+					&:hover {
+						transform: translateY(-4px);
+						box-shadow: 0px 8px 24px rgba(24, 26, 32, 0.12);
+					}
+					
 					.title {
 						color: #181a20;
 						font-family: $font;
@@ -195,14 +297,22 @@
 					.update-button {
 						display: flex;
 						width: 170px;
-						height: 38px;
+						height: 45px;
 						justify-content: center;
 						align-items: center;
 						gap: 10px;
-						align-self: flex-end;
-						margin-top: 30px;
+						margin-top: 20px;
 						border-radius: 12px;
-						background-color: #000000;
+						background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+						border: none;
+						cursor: pointer;
+						transition: all 0.3s ease;
+						
+						&:hover:not(:disabled) {
+							transform: translateY(-2px);
+							box-shadow: 0px 8px 24px rgba(102, 126, 234, 0.3);
+						}
+						
 						p {
 							color: #fff;
 							font-family: $font;
@@ -213,7 +323,9 @@
 						}
 					}
 					button:disabled {
-						background: #181a2045;
+						background: #e0e0e0;
+						cursor: not-allowed;
+						opacity: 0.6;
 					}
 				}
 			}
@@ -313,6 +425,153 @@
 						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Dark Mode Styles for MyProfile Page
+html.dark-mode {
+	#pc-wrap {
+		#my-page {
+			#my-profile-page {
+				.main-title-box {
+					.right-box {
+						.main-title {
+							color: #ffffff;
+						}
+						.sub-title {
+							color: #b0b0b0;
+						}
+					}
+				}
+				
+				.top-box {
+					background: transparent !important;
+					border: none;
+					box-shadow: none;
+					
+					.photo-box {
+						background: linear-gradient(135deg, rgba(76, 29, 149, 0.2) 0%, rgba(91, 33, 182, 0.2) 100%) !important;
+						border: 1px solid rgba(255, 255, 255, 0.1);
+						box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+						
+						&:hover {
+							transform: translateY(-4px);
+							box-shadow: 0px 8px 24px rgba(52, 211, 153, 0.2);
+							background: linear-gradient(135deg, rgba(76, 29, 149, 0.3) 0%, rgba(91, 33, 182, 0.3) 100%) !important;
+							border-color: rgba(52, 211, 153, 0.3);
+						}
+						
+						.title {
+							color: #ffffff;
+						}
+						
+						.image-big-box {
+							.image-box {
+								border-color: rgba(255, 255, 255, 0.3);
+								box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3);
+								
+								img {
+									border-color: rgba(255, 255, 255, 0.2);
+								}
+							}
+							
+							.upload-big-box {
+								.upload-text {
+									color: rgba(255, 255, 255, 0.8);
+								}
+							}
+						}
+					}
+					
+					.small-input-box {
+						background: #1a1a1a !important;
+						box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+						border: 1px solid rgba(255, 255, 255, 0.1);
+						
+						&:hover {
+							transform: translateY(-4px);
+							box-shadow: 0px 8px 24px rgba(52, 211, 153, 0.2);
+							border-color: rgba(52, 211, 153, 0.3);
+						}
+						
+						.input-box {
+							.title {
+								color: #ffffff;
+							}
+							
+							input {
+								background: #0f0f0f;
+								border-color: rgba(255, 255, 255, 0.2);
+								color: #ffffff;
+								
+								&:focus {
+									border-color: #667eea;
+									background: #0f0f0f;
+									box-shadow: 0px 4px 12px rgba(102, 126, 234, 0.2);
+								}
+								
+								&::placeholder {
+									color: #888;
+								}
+							}
+						}
+					}
+					
+					.address-box {
+						background: #1a1a1a !important;
+						box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+						border: 1px solid rgba(255, 255, 255, 0.1);
+						
+						&:hover {
+							transform: translateY(-4px);
+							box-shadow: 0px 8px 24px rgba(52, 211, 153, 0.2);
+							border-color: rgba(52, 211, 153, 0.3);
+						}
+						
+						.title {
+							color: #ffffff;
+						}
+						
+						input {
+							background: #0f0f0f;
+							border-color: rgba(255, 255, 255, 0.2);
+							color: #ffffff;
+							
+							&:focus {
+								border-color: #667eea;
+								background: #0f0f0f;
+								box-shadow: 0px 4px 12px rgba(102, 126, 234, 0.2);
+							}
+							
+							&::placeholder {
+								color: #888;
+							}
+						}
+					}
+					
+					.about-me-box {
+						background: #1a1a1a !important;
+						box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+						border: 1px solid rgba(255, 255, 255, 0.1);
+						
+						&:hover {
+							transform: translateY(-4px);
+							box-shadow: 0px 8px 24px rgba(52, 211, 153, 0.2);
+							border-color: rgba(52, 211, 153, 0.3);
+						}
+						
+						.title {
+							color: #ffffff;
+						}
+						
+						.update-button:disabled {
+							background: #333;
+							opacity: 0.5;
+						}
 					}
 				}
 			}

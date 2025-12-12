@@ -7,7 +7,6 @@ import AddProperty from '../../libs/components/mypage/AddNewProperty';
 import MemberFollowers from '../../libs/components/member/MemberFollowers';
 import MemberFollowings from '../../libs/components/member/MemberFollowings';
 import { Messages } from '../../libs/config';
-import MyArticles from '../../libs/components/mypage/MyArticles';
 import MyFavorites from '../../libs/components/mypage/MyFavorites';
 import MyMenu from '../../libs/components/mypage/MyMenu';
 import MyProfile from '../../libs/components/mypage/MyProfile';
@@ -15,7 +14,6 @@ import MyProperties from '../../libs/components/mypage/MyProperties';
 import { NextPage } from 'next';
 import RecentlyVisited from '../../libs/components/mypage/RecentlyVisited';
 import { Stack } from '@mui/material';
-import WriteArticle from '../../libs/components/mypage/WriteArticle';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import { useRouter } from 'next/router';
@@ -119,8 +117,6 @@ const MyPage: NextPage = () => {
 									{category === 'myProperties' && <MyProperties />}
 									{category === 'myFavorites' && <MyFavorites />}
 									{category === 'recentlyVisited' && <RecentlyVisited />}
-									{category === 'myArticles' && <MyArticles />}
-									{category === 'writeArticle' && <WriteArticle />}
 									{category === 'myProfile' && <MyProfile />}
 									{category === 'followers' && (
 										<MemberFollowers

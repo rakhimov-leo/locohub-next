@@ -16,6 +16,8 @@ import { useQuery, useMutation } from '@apollo/client';
 import { sweetTopSmallSuccessAlert, sweetMixinErrorAlert } from '../../libs/sweetAlert';
 import { LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
 import { T } from '../../libs/types/common';
+import AnimatedSection from '../../libs/components/common/AnimatedSection';
+import AnimatedListItem from '../../libs/components/common/AnimatedListItem';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -126,87 +128,97 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		setAnchorEl(null);
 	};
 
-	if (device === 'mobile') {
+		if (device === 'mobile') {
 		return <h1>PROPERTIES MOBILE</h1>;
 	} else {
 		return (
 			<div id="property-list-page" style={{ position: 'relative' }}>
 				<div className="container">
-					<Box component={'div'} className={'right'}>
-						<span>Sort by</span>
-						<div>
-							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
-								{filterSortName}
-							</Button>
-							<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
-								<MenuItem
-									onClick={sortingHandler}
-									id={'new'}
-									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-								>
-									New
-								</MenuItem>
-								<MenuItem
-									onClick={sortingHandler}
-									id={'lowest'}
-									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-								>
-									Lowest Price
-								</MenuItem>
-								<MenuItem
-									onClick={sortingHandler}
-									id={'highest'}
-									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-								>
-									Highest Price
-								</MenuItem>
-							</Menu>
-						</div>
-					</Box>
+					<AnimatedSection animationType="fade-up" animationDelay={0}>
+						<Box component={'div'} className={'right'}>
+							<span>Sort by</span>
+							<div>
+								<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
+									{filterSortName}
+								</Button>
+								<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
+									<MenuItem
+										onClick={sortingHandler}
+										id={'new'}
+										disableRipple
+										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									>
+										New
+									</MenuItem>
+									<MenuItem
+										onClick={sortingHandler}
+										id={'lowest'}
+										disableRipple
+										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									>
+										Lowest Price
+									</MenuItem>
+									<MenuItem
+										onClick={sortingHandler}
+										id={'highest'}
+										disableRipple
+										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									>
+										Highest Price
+									</MenuItem>
+								</Menu>
+							</div>
+						</Box>
+					</AnimatedSection>
 					<Stack className={'property-page'}>
-						<Stack className={'filter-config'}>
-							{/* @ts-ignore */}
-							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
-						</Stack>
+						<AnimatedSection animationType="slide-left" animationDelay={0.1}>
+							<Stack className={'filter-config'}>
+								{/* @ts-ignore */}
+								<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
+							</Stack>
+						</AnimatedSection>
 						<Stack className="main-config" mb={'76px'}>
 							<Stack className={'list-config'}>
 								{properties?.length === 0 ? (
-									<div className={'no-data'}>
-										<img src="/img/icons/icoAlert.svg" alt="" />
-										<p>No Properties found!</p>
-									</div>
+									<AnimatedSection animationType="fade-in" animationDelay={0.2}>
+										<div className={'no-data'}>
+											<img src="/img/icons/icoAlert.svg" alt="" />
+											<p>No Properties found!</p>
+										</div>
+									</AnimatedSection>
 								) : (
-									properties.map((property: Property) => {
+									properties.map((property: Property, index: number) => {
 										return (
-											<PropertyCard property={property} likePropertyHandler={likePropertyHandler} key={property?._id} />
+											<AnimatedListItem key={property?._id} index={index} delayMultiplier={0.08}>
+												<PropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+											</AnimatedListItem>
 										);
 									})
 								)}
 							</Stack>
-							<Stack className="pagination-config">
-								{properties.length !== 0 && (
-									<Stack className="pagination-box">
-										<Pagination
-											page={currentPage}
-											count={Math.ceil(total / searchFilter.limit)}
-											onChange={handlePaginationChange}
-											shape="circular"
-											color="primary"
-										/>
-									</Stack>
-								)}
+							<AnimatedSection animationType="fade-up" animationDelay={0.3}>
+								<Stack className="pagination-config">
+									{properties.length !== 0 && (
+										<Stack className="pagination-box">
+											<Pagination
+												page={currentPage}
+												count={Math.ceil(total / searchFilter.limit)}
+												onChange={handlePaginationChange}
+												shape="circular"
+												color="primary"
+											/>
+										</Stack>
+									)}
 
-								{properties.length !== 0 && (
-									<Stack className="total-result">
-										<Typography>
-											Total {total} propert{total > 1 ? 'ies' : 'y'} available
-										</Typography>
-									</Stack>
-								)}
-							</Stack>
+									{properties.length !== 0 && (
+										<Stack className="total-result">
+											<Typography>
+												Total {total} propert{total > 1 ? 'ies' : 'y'} available
+											</Typography>
+										</Stack>
+									)}
+								</Stack>
+							</AnimatedSection>
 						</Stack>
 					</Stack>
 				</div>

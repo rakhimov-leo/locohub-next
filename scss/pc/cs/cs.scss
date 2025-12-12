@@ -1,78 +1,116 @@
 #pc-wrap {
   .cs-page {
     position: relative;
-    padding: 60px 0px 60px;
+    padding: 96px 0px 80px;
     width: 100%;
     height: auto;
+    background: #fafafa;
+    transition: background-color 0.3s ease;
+    
     .container {
       display: flex;
       flex-direction: column;
       .cs-main-info {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        padding: 50px 30px;
+        margin-bottom: 40px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 0px 8px 24px 0px rgba(102, 126, 234, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        
         .info {
           display: flex;
           flex-direction: column;
           align-items: center;
+          gap: 12px;
           span {
-            color: #000;
+            color: #ffffff;
             font-family: $font;
             font-size: 35px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.525px;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
           }
           p {
-            color: #757575;
+            color: rgba(255, 255, 255, 0.9);
             font-family: $font;
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
           }
         }
         .btns {
-          margin-top: 50px;
+          margin-top: 40px;
           display: flex;
           flex-direction: row;
           justify-content: center;
+          gap: 0;
+          border-radius: 12px;
+          overflow: hidden;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          padding: 4px;
+          
           :first-child {
-            border-radius: 4px 0 0 4px;
+            border-radius: 8px 0 0 8px;
           }
           :last-child {
-            border-radius: 0 4px 4px 0;
+            border-radius: 0 8px 8px 0;
           }
+          
           div {
             width: 204px;
             height: 46px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #EEE;
+            border: none;
             cursor: pointer;
-            color: #BDBDBD;
+            color: rgba(255, 255, 255, 0.7);
             font-family: $font;
             font-size: 14px;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 600;
             line-height: normal;
             letter-spacing: 0.42px;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            
+            &:hover {
+              color: rgba(255, 255, 255, 0.9);
+              background: rgba(255, 255, 255, 0.1);
+            }
+            
             &.active {
-              border: 1px solid #725CE8;
-              background: #EB6753;
-              color: #FFF;
+              background: rgba(255, 255, 255, 0.25);
+              backdrop-filter: blur(10px);
+              color: #ffffff;
+              box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+              font-weight: 700;
             }
           }
         }
       }
       .cs-content {
-        margin-top: 25px;
+        margin-top: 0;
         display: flex;
         flex-direction: column;
+        padding: 40px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
+        transition: all 0.3s ease;
+        
         .title {
-          margin-bottom: 25px;
-          color: #000;
+          margin-bottom: 30px;
+          color: #181a20;
           font-family: $font;
           font-size: 27px;
           font-style: normal;
@@ -88,18 +126,25 @@
         }
         .notice-content {
           .main {
-            border: 1px solid #EEE;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fafafa;
+            
             .top {
               padding: 25px 33px;
               display: flex;
               flex-direction: row;
               justify-content: space-between;
+              background: #ffffff;
+              border-bottom: 1px solid #f0f0f0;
+              
               span {
-                color: #000;
+                color: #181a20;
                 font-family: $font;
                 font-size: 14px;
                 font-style: normal;
-                font-weight: 400;
+                font-weight: 600;
                 line-height: normal;
                 text-transform: capitalize;
               }
@@ -108,45 +153,69 @@
               display: flex;
               flex-direction: column;
               .notice-card {
-                padding: 20px 14px 20px 30px;
+                padding: 20px 30px;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                border: 1px solid #EEE;
-                &.event {
-                  background: #F6D79A;
+                align-items: center;
+                border-bottom: 1px solid #f0f0f0;
+                background: #ffffff;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                
+                &:hover {
+                  background: #f8f9fa;
+                  transform: translateX(4px);
+                  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
                 }
+                
+                &.event {
+                  background: linear-gradient(135deg, #f6d79a 0%, #f0c97a 100%);
+                  
+                  &:hover {
+                    background: linear-gradient(135deg, #f4d088 0%, #eec269 100%);
+                  }
+                }
+                
                 div {
-                  padding: 6px 9px;
+                  padding: 6px 12px;
                   border-radius: 12px;
-                  border: 1px solid #EB6753;
-                  color: #EB6753;
+                  border: 1px solid #34d399;
+                  background: rgba(52, 211, 153, 0.1);
+                  color: #34d399;
                   font-family: $font;
                   font-size: 12px;
                   font-style: normal;
-                  font-weight: 400;
+                  font-weight: 600;
                 }
                 .notice-number {
                   margin-left: 18px;
                   width: 39px;
-                  color: #BDBDBD;
+                  color: #717171;
                   font-family: $font;
                   font-size: 14px;
                   font-style: normal;
-                  font-weight: 400;
+                  font-weight: 600;
                   line-height: normal;
                 }
                 .notice-title {
-                  width: 1060px;
-                  color: #000;
+                  flex: 1;
+                  margin-left: 20px;
+                  color: #181a20;
                   font-family: $font;
                   font-size: 16px;
                   font-style: normal;
-                  font-weight: 400;
+                  font-weight: 500;
                   line-height: normal;
+                  transition: color 0.3s ease;
                 }
+                
+                &:hover .notice-title {
+                  color: #34d399;
+                }
+                
                 .notice-date {
-                  color: #BDBDBD;
+                  color: #717171;
                   font-family: $font;
                   font-size: 14px;
                   font-style: normal;
@@ -167,45 +236,89 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
+            gap: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            
             div {
-              width: 14%;
+              flex: 1;
+              max-width: 150px;
               height: 40px;
               display: flex;
               justify-content: center;
               align-items: center;
-              color: #BDBDBD;
+              color: #717171;
               text-align: center;
               font-family: $font;
               font-size: 15px;
               font-style: normal;
-              font-weight: 400;
+              font-weight: 500;
               line-height: normal;
               letter-spacing: -0.225px;
               cursor: pointer;
+              border-radius: 8px;
+              transition: all 0.3s ease;
+              
+              &:hover {
+                color: #34d399;
+                background: rgba(52, 211, 153, 0.1);
+              }
+              
               &.active {
-                border-bottom: 1px solid #EB6753;
-                color: #EB6753;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: #ffffff;
+                box-shadow: 0px 4px 12px rgba(102, 126, 234, 0.3);
+                font-weight: 600;
               }
             }
           }
           .wrap {
             margin-top: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            
+            .MuiAccordion-root {
+              border: 1px solid #f0f0f0;
+              margin-bottom: 8px;
+              border-radius: 12px !important;
+              overflow: hidden;
+              transition: all 0.3s ease;
+              
+              &:hover {
+                box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+              }
+            }
+            
+            .MuiAccordionSummary-root {
+              background: #ffffff;
+              border-radius: 12px;
+              transition: all 0.3s ease;
+              
+              &:hover {
+                background: #f8f9fa;
+              }
+            }
+            
             .MuiAccordionDetails-root {
               padding: 30px 20px;
-              background: #FAFAFA;
+              background: #fafafa;
             }
             .badge {
               margin: 0 24px;
               display: inline-block;
-              padding: 4px 10px;
-              border: 1px solid #725CE8;
-              border-radius: 7px;
-              color: #725CE8;
+              padding: 4px 12px;
+              border: 1px solid #667eea;
+              border-radius: 8px;
+              color: #667eea;
+              font-weight: 600;
+              background: rgba(102, 126, 234, 0.1);
             }
             .question {
               .badge {
-                background: #e92C28;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 color: #fff;
+                border: none;
               }
             }
             .answer {
@@ -215,8 +328,9 @@
               align-items: center;
               flex-direction: row;
               .badge {
-                color: #EB6753;
-                border: 1px solid #EB6753;
+                color: #34d399;
+                border: 1px solid #34d399;
+                background: rgba(52, 211, 153, 0.1);
               }
             }
           }
@@ -224,4 +338,155 @@
       }
     }
   }
+}
+
+// Dark Mode Styles for CS Page
+html.dark-mode {
+	#pc-wrap {
+		background-color: #0f0f0f;
+		
+		.cs-page {
+			background: #0f0f0f !important;
+			color: #ffffff;
+			
+			.container {
+				.cs-main-info {
+					background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+					box-shadow: 0px 8px 24px 0px rgba(76, 29, 149, 0.4);
+					border: 1px solid rgba(255, 255, 255, 0.15);
+					
+					.info {
+						span {
+							color: #ffffff;
+						}
+						p {
+							color: rgba(255, 255, 255, 0.9);
+						}
+					}
+					
+					.btns {
+						background: rgba(255, 255, 255, 0.05);
+						
+						div {
+							color: rgba(255, 255, 255, 0.7);
+							
+							&:hover {
+								color: rgba(255, 255, 255, 0.9);
+								background: rgba(255, 255, 255, 0.1);
+							}
+							
+							&.active {
+								background: rgba(255, 255, 255, 0.2);
+								color: #ffffff;
+							}
+						}
+					}
+				}
+				
+				.cs-content {
+					background: #1a1a1a;
+					box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+					border: 1px solid rgba(255, 255, 255, 0.1);
+					
+					.title {
+						color: #ffffff;
+					}
+					
+					.notice-content {
+						.main {
+							background: #1a1a1a;
+							
+							.top {
+								background: #1a1a1a;
+								border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+								
+								span {
+									color: #ffffff;
+								}
+							}
+							
+							.bottom {
+								.notice-card {
+									background: #1a1a1a;
+									border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+									
+									&:hover {
+										background: #242424;
+									}
+									
+									&.event {
+										background: linear-gradient(135deg, #d4b87a 0%, #c8a860 100%);
+										
+										&:hover {
+											background: linear-gradient(135deg, #c9aa67 0%, #bc9b4f 100%);
+										}
+									}
+									
+									.notice-number {
+										color: #b0b0b0;
+									}
+									
+									.notice-title {
+										color: #ffffff;
+									}
+									
+									&:hover .notice-title {
+										color: #34d399;
+									}
+									
+									.notice-date {
+										color: #b0b0b0;
+									}
+								}
+							}
+						}
+					}
+					
+					.faq-content {
+						.categories {
+							background: #242424;
+							
+							div {
+								color: #b0b0b0;
+								
+								&:hover {
+									color: #34d399;
+									background: rgba(52, 211, 153, 0.1);
+								}
+								
+								&.active {
+									background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+									color: #ffffff;
+									box-shadow: 0px 4px 12px rgba(76, 29, 149, 0.4);
+								}
+							}
+						}
+						
+						.wrap {
+							.MuiAccordion-root {
+								border-color: rgba(255, 255, 255, 0.1);
+								
+								&:hover {
+									box-shadow: 0px 4px 12px rgba(52, 211, 153, 0.1);
+								}
+							}
+							
+							.MuiAccordionSummary-root {
+								background: #1a1a1a;
+								
+								&:hover {
+									background: #242424;
+								}
+							}
+							
+							.MuiAccordionDetails-root {
+								background: #0f0f0f;
+								color: #ffffff;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

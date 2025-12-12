@@ -19,7 +19,6 @@ export const UPDATE_MEMBER_BY_ADMIN = gql`
 			memberDesc
 			memberProperties
 			memberRank
-			memberArticles
 			memberPoints
 			memberLikes
 			memberViews
@@ -89,46 +88,6 @@ export const REMOVE_PROPERTY_BY_ADMIN = gql`
 			soldAt
 			deletedAt
 			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-/**************************
- *      BOARD-ARTICLE     *
- *************************/
-
-export const UPDATE_BOARD_ARTICLE_BY_ADMIN = gql`
-	mutation UpdateBoardArticleByAdmin($input: BoardArticleUpdate!) {
-		updateBoardArticleByAdmin(input: $input) {
-			_id
-			articleCategory
-			articleStatus
-			articleTitle
-			articleContent
-			articleImage
-			articleViews
-			articleLikes
-			memberId
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-export const REMOVE_BOARD_ARTICLE_BY_ADMIN = gql`
-	mutation RemoveBoardArticleByAdmin($input: String!) {
-		removeBoardArticleByAdmin(articleId: $input) {
-			_id
-			articleCategory
-			articleStatus
-			articleTitle
-			articleContent
-			articleImage
-			articleViews
-			articleLikes
-			memberId
 			createdAt
 			updatedAt
 		}

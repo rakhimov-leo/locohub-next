@@ -1,12 +1,13 @@
 #pc-wrap {
 	#my-page {
-		background: #f6f6f6;
+		background: #fafafa;
+		transition: background-color 0.3s ease;
 		.container {
 			.my-page {
 				position: relative;
 				width: 100%;
 				flex-direction: row;
-				gap: 25px;
+				gap: 15px;
 				padding-top: 96px;
 				.back-frame {
 					width: 1260px;
@@ -14,20 +15,21 @@
 					display: flex;
 					flex-direction: row;
 					margin: 100px 0 200px 0;
-					border-radius: 12px;
-					border: 1px solid #c4c4c4;
-					background: #fff;
-					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+					border-radius: 16px;
+					border: none;
+					background: transparent;
+					box-shadow: none;
 					.left-config {
 						position: relative;
 						padding: 0 0 0 0;
 						width: 266px;
-						height: 700px;
-						border-radius: 12px;
-						background: #fff;
-						border: 1px solid rgba(196, 196, 196, 0.79);
-						box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
-						margin: 180px 20px 40px 20px;
+						height: auto;
+						min-height: 700px;
+						border-radius: 16px;
+						background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+						border: 1px solid rgba(255, 255, 255, 0.1);
+						box-shadow: 0px 8px 24px 0px rgba(102, 126, 234, 0.25);
+						margin: 180px -20px 40px 0;
 						.profile {
 							margin-top: 5px;
 							position: relative;
@@ -41,6 +43,8 @@
 									right: 30px;
 									bottom: 12px;
 									object-fit: cover;
+									border: 3px solid rgba(255, 255, 255, 0.3);
+									box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 								}
 							}
 							.user-info {
@@ -48,12 +52,13 @@
 								display: flex;
 								flex-direction: column;
 								.user-name {
-									color: #181a20;
+									color: #ffffff;
 									font-family: $font;
 									font-size: 15px;
 									font-style: normal;
 									font-weight: 600;
 									line-height: normal;
+									text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 								}
 								.user-phone {
 									display: flex;
@@ -63,11 +68,17 @@
 										margin-right: 4px;
 										width: 16px;
 										height: 16px;
+										filter: brightness(0) invert(1);
+									}
+									.p-number {
+										color: rgba(255, 255, 255, 0.9);
+										text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 									}
 								}
 								.view-list {
 									font-weight: bold;
-									color: red;
+									color: #ffeb3b;
+									text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 								}
 							}
 						}
@@ -81,12 +92,14 @@
 									font-family: $font;
 									font-size: 15px;
 									font-style: normal;
-									font-weight: 400;
+									font-weight: 600;
 									line-height: 28px;
+									color: #ffffff;
+									text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 								}
 								.sub-section {
 									width: 230px;
-									height: 26px;
+									height: auto;
 									display: flex;
 									flex-direction: column;
 									align-items: center;
@@ -95,15 +108,24 @@
 									li {
 										height: 33px;
 										margin-bottom: 6px;
-										border-radius: 4px;
+										border-radius: 8px;
+										transition: all 0.3s ease;
+										
+										&:hover {
+											background: rgba(255, 255, 255, 0.1);
+										}
 									}
 									.focus {
 										height: 50px;
-										background: #000000;
+										background: rgba(255, 255, 255, 0.2);
 										border-radius: 10px;
+										backdrop-filter: blur(10px);
+										border: 1px solid rgba(255, 255, 255, 0.3);
+										box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 										p {
 											font-size: 14px;
 											color: #ffffff;
+											font-weight: 600;
 										}
 									}
 									.flex-box {
@@ -126,12 +148,18 @@
 								}
 								.sub-title {
 									margin-left: 12px;
-									color: #181a20;
+									color: rgba(255, 255, 255, 0.9);
 									font-family: $font;
 									font-size: 14px;
 									font-style: normal;
 									font-weight: 600;
 									line-height: 55px;
+									text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+									transition: color 0.3s ease;
+								}
+								
+								.sub-section li:hover .sub-title {
+									color: #ffffff;
 								}
 							}
 						}
@@ -140,8 +168,8 @@
 						position: relative;
 						width: 936px;
 						margin-top: 52px;
-						align-items: center;
-						gap: 109px;
+						align-items: flex-start;
+						gap: 20px;
 						.list-config {
 							display: flex;
 							width: 100%;
@@ -155,7 +183,13 @@
 								margin-bottom: 7px;
 								border-radius: 12px;
 								background: #fff;
-								box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+								box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
+								transition: all 0.3s ease-out;
+								
+								&:hover {
+									transform: translateY(-4px);
+									box-shadow: 0px 8px 24px 0px rgba(24, 26, 32, 0.12);
+								}
 								.top {
 									position: relative;
 									width: 100%;
@@ -323,6 +357,162 @@
 									font-style: normal;
 									font-weight: 275;
 									line-height: 26px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Dark Mode Styles for MyPage
+html.dark-mode {
+	#pc-wrap {
+		background-color: #0f0f0f;
+		
+		#my-page {
+			background: #0f0f0f !important;
+			color: #ffffff;
+			
+			.container {
+				.my-page {
+					.back-frame {
+						background: transparent;
+						
+						.left-config {
+							background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+							box-shadow: 0px 8px 24px 0px rgba(76, 29, 149, 0.4);
+							border: 1px solid rgba(255, 255, 255, 0.15);
+							
+							.profile {
+								.user-info {
+									.user-name {
+										color: #ffffff;
+									}
+									
+									.user-phone {
+										.p-number {
+											color: rgba(255, 255, 255, 0.9);
+										}
+									}
+									
+									.view-list {
+										color: #ffeb3b;
+									}
+								}
+							}
+							
+							.sections {
+								.section {
+									.title {
+										color: #ffffff;
+									}
+									
+									.sub-section {
+										li {
+											&:hover {
+												background: rgba(255, 255, 255, 0.15);
+											}
+										}
+										
+										.focus {
+											background: rgba(255, 255, 255, 0.25);
+										}
+										
+										.sub-title {
+											color: rgba(255, 255, 255, 0.9);
+										}
+									}
+								}
+							}
+						}
+						
+						.main-config {
+							.list-config {
+								.card-config {
+									background: #1a1a1a;
+									box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+									border: 1px solid rgba(255, 255, 255, 0.1);
+									
+									&:hover {
+										box-shadow: 0px 8px 24px 0px rgba(52, 211, 153, 0.2);
+										border-color: rgba(52, 211, 153, 0.3);
+									}
+									
+									.top {
+										.price-box {
+											background: rgba(26, 26, 26, 0.9);
+											border-color: rgba(255, 255, 255, 0.3);
+											
+											p {
+												color: #ffffff;
+											}
+										}
+									}
+									
+									.bottom {
+										.name-address {
+											.name {
+												p {
+													color: #ffffff;
+												}
+											}
+											
+											.address {
+												p {
+													color: #b0b0b0;
+												}
+											}
+										}
+										
+										.options {
+											.option {
+												p {
+													color: #b0b0b0;
+												}
+											}
+										}
+										
+										.divider {
+											background: rgba(255, 255, 255, 0.1);
+										}
+										
+										.type-buttons {
+											.type {
+												p {
+													color: #ffffff;
+													
+													&.disabled-type {
+														color: rgba(143, 143, 143, 0.54);
+													}
+												}
+											}
+											
+											.buttons {
+												svg {
+													color: #b0b0b0;
+													
+													&:hover {
+														color: #34d399;
+													}
+												}
+												
+												.view-cnt {
+													color: #b0b0b0;
+												}
+											}
+										}
+									}
+								}
+							}
+							
+							.pagination-config {
+								.total-result {
+									p {
+										color: #ffffff;
+									}
 								}
 							}
 						}

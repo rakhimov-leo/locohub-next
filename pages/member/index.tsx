@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { useMutation, useReactiveVar } from '@apollo/client';
 
-import MemberArticles from '../../libs/components/member/MemberArticles';
 import MemberFollowers from '../../libs/components/member/MemberFollowers';
 import MemberFollowings from '../../libs/components/member/MemberFollowings';
 import MemberMenu from '../../libs/components/member/MemberMenu';
@@ -137,7 +136,6 @@ const MemberPage: NextPage = () => {
 											redirectToMemberPageHandler={redirectToMemberPageHandler}
 										/>
 									)}
-									{category === 'articles' && <MemberArticles />}
 								</Stack>
 							</Stack>
 						</Stack>

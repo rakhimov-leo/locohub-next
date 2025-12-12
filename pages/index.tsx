@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import useDeviceDetect from '../libs/hooks/useDeviceDetect';
 import withLayoutMain from '../libs/components/layout/LayoutHome';
-import CommunityBoards from '../libs/components/homepage/CommunityBoards';
 import PopularProperties from '../libs/components/homepage/PopularProperties';
 import TopAgents from '../libs/components/homepage/TopAgents';
 import Events from '../libs/components/homepage/Events';
@@ -63,9 +62,6 @@ const Home: NextPage = () => {
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.5}>
 				<Events />
-				</AnimatedSection>
-				<AnimatedSection animationType="fade-up" animationDelay={0.6}>
-				<CommunityBoards />
 				</AnimatedSection>
 			</Stack>
 		);

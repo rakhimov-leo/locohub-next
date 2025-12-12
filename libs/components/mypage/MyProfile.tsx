@@ -101,13 +101,16 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 
 	const doDisabledCheck = () => {
 		if (
-			updateData.memberNick === '' ||
-			updateData.memberPhone === '' ||
-			updateData.memberAddress === '' ||
-			updateData.memberImage === ''
+			!updateData.memberNick ||
+			!updateData.memberPhone ||
+			!updateData.memberAddress ||
+			updateData.memberNick.trim() === '' ||
+			updateData.memberPhone.trim() === '' ||
+			updateData.memberAddress.trim() === ''
 		) {
 			return true;
 		}
+		return false;
 	};
 
 	console.log('+updateData', updateData);

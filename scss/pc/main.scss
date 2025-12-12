@@ -15,12 +15,6 @@
 @import '/scss/pc/mypage/myFavorites.scss';
 @import '/scss/pc/mypage/mySaved.scss';
 @import '/scss/pc/mypage/myProfile.scss';
-@import '/scss/pc/mypage/myArticles.scss';
-@import '/scss/pc/mypage/writeArticle.scss';
-
-@import '/scss/pc/community/community.scss';
-@import '/scss/pc/community/detail.scss';
-@import '/scss/pc/community/write.scss';
 
 @import '/scss/pc/cs/cs.scss';
 
@@ -30,7 +24,6 @@
 
 @import '/scss/pc/member/memberPage.scss';
 @import '/scss/pc/member/memberFollows.scss';
-@import '/scss/pc/member/memberArticles.scss';
 @import '/scss/pc/member/memberProperties.scss';
 
 body {
@@ -87,7 +80,7 @@ body::-webkit-scrollbar {
 					.logo-box {
 						display: flex;
 						align-items: center;
-						
+
 						a {
 							display: flex;
 							align-items: center;
@@ -95,7 +88,7 @@ body::-webkit-scrollbar {
 							text-decoration: none;
 							cursor: pointer;
 							transition: all 0.3s ease;
-							
+
 							&:hover {
 								.logo-text {
 									color: #34d399;
@@ -106,14 +99,14 @@ body::-webkit-scrollbar {
 								}
 							}
 						}
-						
+
 						.logo-icon {
 							display: flex;
 							align-items: center;
 							justify-content: center;
 							transition: transform 0.3s ease;
 						}
-						
+
 						.logo-text {
 							color: #ffffff;
 							font-family: $font;
@@ -124,7 +117,7 @@ body::-webkit-scrollbar {
 							letter-spacing: 0.5px;
 							transition: all 0.3s ease;
 							position: relative;
-							
+
 							&::after {
 								content: '';
 								position: absolute;
@@ -136,11 +129,11 @@ body::-webkit-scrollbar {
 								transition: width 0.3s ease;
 							}
 						}
-						
+
 						a:hover .logo-text::after {
 							width: 100%;
 						}
-						
+
 						img {
 							width: 250px;
 							margin-top: 20px;
@@ -190,7 +183,7 @@ body::-webkit-scrollbar {
 							transition: all 0.3s ease;
 							white-space: nowrap;
 							padding: 4px 0;
-							
+
 							&::after {
 								content: '';
 								position: absolute;
@@ -201,37 +194,14 @@ body::-webkit-scrollbar {
 								background: #34d399;
 								transition: width 0.3s ease;
 							}
-							
+
 							&:hover {
 								color: #34d399;
 								text-shadow: 0px 0px 15px rgba(52, 211, 153, 0.7);
 								transform: translateY(-2px);
-								
+
 								&::after {
 									width: 100%;
-								}
-							}
-
-							.community_menu {
-								position: absolute;
-								left: -177%;
-								top: 30px;
-								width: 434px;
-								height: 33px;
-								background: white;
-								transition: all ease 2s;
-
-								&:before {
-									content: '';
-									display: block;
-									position: absolute;
-									top: 0;
-									right: 50%;
-									width: 10px;
-									height: 10px;
-									background: white;
-									transform: translateY(-50%) rotate(45deg);
-									z-index: 0;
 								}
 							}
 						}
@@ -255,12 +225,12 @@ body::-webkit-scrollbar {
 							cursor: pointer;
 							border-radius: 50%;
 							transition: all 0.3s ease;
-							
+
 							&:hover {
 								background-color: rgba(255, 255, 255, 0.1);
 								transform: scale(1.05);
 							}
-							
+
 							img {
 								width: 36px;
 								height: 36px;
@@ -293,7 +263,6 @@ body::-webkit-scrollbar {
 								color: #ffffff;
 							}
 						}
-
 					}
 
 					.lan-box {
@@ -310,7 +279,7 @@ body::-webkit-scrollbar {
 							cursor: pointer;
 							border-radius: 50%;
 							transition: all 0.3s ease;
-							
+
 							&:hover {
 								background-color: rgba(255, 255, 255, 0.1);
 								transform: scale(1.05);
@@ -332,23 +301,23 @@ body::-webkit-scrollbar {
 							cursor: pointer;
 							transition: all 0.3s ease;
 							background: transparent;
-							
+
 							&:hover {
 								background: rgba(255, 255, 255, 0.1);
 								transform: scale(1.1);
 							}
-							
+
 							.dark-mode-icon {
 								color: rgba(255, 255, 255, 0.85);
 								font-size: 22px;
 								transition: all 0.3s ease;
 							}
-							
+
 							&:hover .dark-mode-icon {
 								color: #34d399;
 							}
 						}
-						
+
 						.btn-lang {
 							border-radius: 4px;
 
@@ -369,29 +338,29 @@ body::-webkit-scrollbar {
 				}
 			}
 		}
-		
+
 		// Dark Mode Styles for Navbar
 		html.dark-mode & {
 			.navbar {
 				.navbar-main {
 					background-color: rgba(15, 15, 15, 0.8);
 					border-color: rgba(255, 255, 255, 0.1);
-					
+
 					&.transparent {
 						background-color: rgba(15, 15, 15, 0.9);
 					}
-					
+
 					.container {
 						.router-box {
 							div {
 								color: rgba(255, 255, 255, 0.85);
-								
+
 								&:hover {
 									color: #34d399;
 								}
 							}
 						}
-						
+
 						.user-box {
 							.lan-box {
 								.icon-button {
@@ -399,16 +368,16 @@ body::-webkit-scrollbar {
 										background-color: rgba(255, 255, 255, 0.1);
 									}
 								}
-								
+
 								.notification-icon {
 									color: rgba(255, 255, 255, 0.85);
 								}
-								
+
 								.dark-mode-button {
 									.dark-mode-icon {
 										color: rgba(255, 255, 255, 0.85);
 									}
-									
+
 									&:hover .dark-mode-icon {
 										color: #34d399;
 									}
@@ -430,7 +399,7 @@ body::-webkit-scrollbar {
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
-		
+
 		.header-background-video {
 			position: absolute;
 			top: 50%;
@@ -444,13 +413,13 @@ body::-webkit-scrollbar {
 			object-fit: cover;
 			filter: brightness(1.3) contrast(1.1) saturate(1.2);
 		}
-		
+
 		// Fallback background image if video doesn't load
 		background-image: url('/img/banner/header1.svg');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		
+
 		// Overlay to make background brighter and lighter
 		&::before {
 			content: '';
@@ -459,7 +428,12 @@ body::-webkit-scrollbar {
 			left: 0;
 			right: 0;
 			bottom: 0;
-			background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.08) 100%);
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0.15) 50%,
+				rgba(255, 255, 255, 0.08) 100%
+			);
 			z-index: 1;
 		}
 
@@ -471,14 +445,14 @@ body::-webkit-scrollbar {
 			align-items: center;
 			justify-content: center;
 			z-index: 2;
-			
-				.hero-content {
+
+			.hero-content {
 				width: 100%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				margin-bottom: 50px;
-				
+
 				.hero-headline {
 					display: flex;
 					flex-direction: column;
@@ -486,7 +460,7 @@ body::-webkit-scrollbar {
 					text-align: center;
 					margin-bottom: 50px;
 					animation: fadeInUp 1s ease-out;
-					
+
 					.hero-subtitle {
 						color: rgba(255, 255, 255, 0.85);
 						font-family: $font;
@@ -497,7 +471,7 @@ body::-webkit-scrollbar {
 						margin-bottom: 12px;
 						letter-spacing: 1px;
 					}
-					
+
 					.hero-title {
 						color: #ffffff;
 						font-family: $font;
@@ -512,7 +486,7 @@ body::-webkit-scrollbar {
 				}
 			}
 
-				.search-box {
+			.search-box {
 				position: relative;
 				margin-top: 0;
 				padding: 12px 20px;
@@ -694,215 +668,215 @@ body::-webkit-scrollbar {
 					}
 				}
 
-			.filter-location-overlay,
-			.filter-type-overlay {
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: rgba(0, 0, 0, 0.5);
-				backdrop-filter: blur(4px);
-				z-index: 999;
-				opacity: 0;
-				animation: fadeIn 0.3s ease forwards;
-			}
-
-			@keyframes fadeIn {
-				to {
-					opacity: 1;
-				}
-			}
-
-			.filter-location {
-				position: fixed;
-				padding: 40px 50px;
-				width: fit-content;
-				max-width: 90vw;
-				min-height: 120px;
-				height: auto;
-				max-height: 80vh;
-				overflow-y: auto;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%) translateY(-20px) scale(0.95);
-				display: grid;
-				grid-template-columns: repeat(4, 280px);
-				grid-template-rows: repeat(2, auto);
-				gap: 24px;
-				justify-content: center;
-				align-content: center;
-				opacity: 0;
-				visibility: hidden;
-				border-radius: 12px;
-				background: transparent;
-				box-shadow: none;
-				box-sizing: border-box;
-				z-index: 1000;
-				transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-				
-				&::-webkit-scrollbar {
-					width: 6px;
-				}
-				
-				&::-webkit-scrollbar-track {
-					background: #f1f1f1;
-					border-radius: 10px;
-				}
-				
-				&::-webkit-scrollbar-thumb {
-					background: #888;
-					border-radius: 10px;
-					
-					&:hover {
-						background: #555;
-					}
-				}
-
-				&.on {
-					opacity: 1;
-					visibility: visible;
-					transform: translate(-50%, -50%) translateY(0) scale(1);
-					background: transparent;
-				}
-				
-				.location-item {
-					width: 240px;
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					position: relative;
+				.filter-location-overlay,
+				.filter-type-overlay {
+					position: fixed;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: rgba(0, 0, 0, 0.5);
+					backdrop-filter: blur(4px);
+					z-index: 999;
 					opacity: 0;
-					transform: translateX(-20px) translateY(40px) scale(0.85) rotateY(-5deg);
-					transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-					cursor: pointer;
-					box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+					animation: fadeIn 0.3s ease forwards;
+				}
+
+				@keyframes fadeIn {
+					to {
+						opacity: 1;
+					}
+				}
+
+				.filter-location {
+					position: fixed;
+					padding: 40px 50px;
+					width: fit-content;
+					max-width: 90vw;
+					min-height: 120px;
+					height: auto;
+					max-height: 80vh;
+					overflow-y: auto;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%) translateY(-20px) scale(0.95);
+					display: grid;
+					grid-template-columns: repeat(4, 280px);
+					grid-template-rows: repeat(2, auto);
+					gap: 24px;
+					justify-content: center;
+					align-content: center;
+					opacity: 0;
+					visibility: hidden;
 					border-radius: 12px;
-					padding: 8px;
-					background: rgba(255, 255, 255, 0.95);
-					
-					&:nth-child(1) {
-						transform: translateX(0) translateY(0) scale(0.85) rotateY(-5deg);
-						z-index: 8;
+					background: transparent;
+					box-shadow: none;
+					box-sizing: border-box;
+					z-index: 1000;
+					transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+					&::-webkit-scrollbar {
+						width: 6px;
 					}
-					
-					&:nth-child(2) {
-						transform: translateX(8px) translateY(8px) scale(0.88) rotateY(-3deg);
-						z-index: 7;
+
+					&::-webkit-scrollbar-track {
+						background: #f1f1f1;
+						border-radius: 10px;
 					}
-					
-					&:nth-child(3) {
-						transform: translateX(16px) translateY(16px) scale(0.91) rotateY(-1deg);
-						z-index: 6;
-					}
-					
-					&:nth-child(4) {
-						transform: translateX(24px) translateY(24px) scale(0.94) rotateY(1deg);
-						z-index: 5;
-					}
-					
-					&:nth-child(5) {
-						transform: translateX(32px) translateY(32px) scale(0.97) rotateY(3deg);
-						z-index: 4;
-					}
-					
-					&:nth-child(6) {
-						transform: translateX(40px) translateY(40px) scale(1) rotateY(5deg);
-						z-index: 3;
-					}
-					
-					&:nth-child(7) {
-						transform: translateX(48px) translateY(48px) scale(1) rotateY(5deg);
-						z-index: 2;
-					}
-					
-					&:nth-child(8) {
-						transform: translateX(56px) translateY(56px) scale(1) rotateY(5deg);
-						z-index: 1;
-					}
-					
-					&:hover {
-						transform: translateX(0) translateY(-8px) scale(1.02) rotateY(0deg) !important;
-						z-index: 10 !important;
-						box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
-						
-						img {
-							transform: scale(1.1);
-						}
-						
-						span {
-							color: #34d399;
+
+					&::-webkit-scrollbar-thumb {
+						background: #888;
+						border-radius: 10px;
+
+						&:hover {
+							background: #555;
 						}
 					}
 
-					img {
-						width: 100px;
-						height: 70px;
+					&.on {
+						opacity: 1;
+						visibility: visible;
+						transform: translate(-50%, -50%) translateY(0) scale(1);
+						background: transparent;
+					}
+
+					.location-item {
+						width: 240px;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						position: relative;
+						opacity: 0;
+						transform: translateX(-20px) translateY(40px) scale(0.85) rotateY(-5deg);
+						transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+						cursor: pointer;
+						box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 						border-radius: 12px;
-						cursor: pointer;
-						transition: transform 0.3s ease;
-						object-fit: cover;
+						padding: 8px;
+						background: rgba(255, 255, 255, 0.95);
+
+						&:nth-child(1) {
+							transform: translateX(0) translateY(0) scale(0.85) rotateY(-5deg);
+							z-index: 8;
+						}
+
+						&:nth-child(2) {
+							transform: translateX(8px) translateY(8px) scale(0.88) rotateY(-3deg);
+							z-index: 7;
+						}
+
+						&:nth-child(3) {
+							transform: translateX(16px) translateY(16px) scale(0.91) rotateY(-1deg);
+							z-index: 6;
+						}
+
+						&:nth-child(4) {
+							transform: translateX(24px) translateY(24px) scale(0.94) rotateY(1deg);
+							z-index: 5;
+						}
+
+						&:nth-child(5) {
+							transform: translateX(32px) translateY(32px) scale(0.97) rotateY(3deg);
+							z-index: 4;
+						}
+
+						&:nth-child(6) {
+							transform: translateX(40px) translateY(40px) scale(1) rotateY(5deg);
+							z-index: 3;
+						}
+
+						&:nth-child(7) {
+							transform: translateX(48px) translateY(48px) scale(1) rotateY(5deg);
+							z-index: 2;
+						}
+
+						&:nth-child(8) {
+							transform: translateX(56px) translateY(56px) scale(1) rotateY(5deg);
+							z-index: 1;
+						}
+
+						&:hover {
+							transform: translateX(0) translateY(-8px) scale(1.02) rotateY(0deg) !important;
+							z-index: 10 !important;
+							box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+
+							img {
+								transform: scale(1.1);
+							}
+
+							span {
+								color: #34d399;
+							}
+						}
+
+						img {
+							width: 100px;
+							height: 70px;
+							border-radius: 12px;
+							cursor: pointer;
+							transition: transform 0.3s ease;
+							object-fit: cover;
+						}
+
+						span {
+							margin-left: 16px;
+							color: #181a20;
+							font-family: $font;
+							font-size: 16px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 20px;
+							cursor: pointer;
+							text-transform: capitalize;
+							transition: color 0.3s ease;
+						}
 					}
 
-					span {
-						margin-left: 16px;
-						color: #181a20;
-						font-family: $font;
-						font-size: 16px;
-						font-style: normal;
-						font-weight: 400;
-						line-height: 20px;
-						cursor: pointer;
-						text-transform: capitalize;
-						transition: color 0.3s ease;
+					&.on .location-item {
+						opacity: 1;
+
+						// First row (4 columns)
+						&:nth-child(1) {
+							transform: translateY(0) scale(1) rotateY(0deg);
+							transition-delay: 0.05s;
+						}
+
+						&:nth-child(2) {
+							transform: translateY(-8px) scale(0.98) rotateY(-2deg);
+							transition-delay: 0.1s;
+						}
+
+						&:nth-child(3) {
+							transform: translateY(-16px) scale(0.96) rotateY(-4deg);
+							transition-delay: 0.15s;
+						}
+
+						&:nth-child(4) {
+							transform: translateY(-24px) scale(0.94) rotateY(-6deg);
+							transition-delay: 0.2s;
+						}
+
+						// Second row (4 columns)
+						&:nth-child(5) {
+							transform: translateY(0) scale(1) rotateY(0deg);
+							transition-delay: 0.25s;
+						}
+
+						&:nth-child(6) {
+							transform: translateY(-8px) scale(0.98) rotateY(-2deg);
+							transition-delay: 0.3s;
+						}
+
+						&:nth-child(7) {
+							transform: translateY(-16px) scale(0.96) rotateY(-4deg);
+							transition-delay: 0.35s;
+						}
+
+						&:nth-child(8) {
+							transform: translateY(-24px) scale(0.94) rotateY(-6deg);
+							transition-delay: 0.4s;
+						}
 					}
-				}
-				
-				&.on .location-item {
-					opacity: 1;
-					
-					// First row (4 columns)
-					&:nth-child(1) {
-						transform: translateY(0) scale(1) rotateY(0deg);
-						transition-delay: 0.05s;
-					}
-					
-					&:nth-child(2) {
-						transform: translateY(-8px) scale(0.98) rotateY(-2deg);
-						transition-delay: 0.1s;
-					}
-					
-					&:nth-child(3) {
-						transform: translateY(-16px) scale(0.96) rotateY(-4deg);
-						transition-delay: 0.15s;
-					}
-					
-					&:nth-child(4) {
-						transform: translateY(-24px) scale(0.94) rotateY(-6deg);
-						transition-delay: 0.2s;
-					}
-					
-					// Second row (4 columns)
-					&:nth-child(5) {
-						transform: translateY(0) scale(1) rotateY(0deg);
-						transition-delay: 0.25s;
-					}
-					
-					&:nth-child(6) {
-						transform: translateY(-8px) scale(0.98) rotateY(-2deg);
-						transition-delay: 0.3s;
-					}
-					
-					&:nth-child(7) {
-						transform: translateY(-16px) scale(0.96) rotateY(-4deg);
-						transition-delay: 0.35s;
-					}
-					
-					&:nth-child(8) {
-						transform: translateY(-24px) scale(0.94) rotateY(-6deg);
-						transition-delay: 0.4s;
-					}
-				}
 
 					div {
 						width: 295px;
@@ -959,12 +933,12 @@ body::-webkit-scrollbar {
 					z-index: 1000;
 					transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-				&.on {
-					opacity: 1;
-					visibility: visible;
-					transform: translate(-50%, -50%) translateY(0) scale(1);
-					background: transparent;
-				}
+					&.on {
+						opacity: 1;
+						visibility: visible;
+						transform: translate(-50%, -50%) translateY(0) scale(1);
+						background: transparent;
+					}
 
 					.property-type-item {
 						position: relative;
@@ -977,11 +951,11 @@ body::-webkit-scrollbar {
 						opacity: 0;
 						transform: translateY(50px) scale(0.85);
 						transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-						
+
 						&:hover {
 							transform: translateY(-8px) scale(1.05);
 							box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
-							
+
 							span {
 								background: rgba(52, 211, 153, 0.95);
 							}
@@ -991,26 +965,26 @@ body::-webkit-scrollbar {
 							transition: all 0.3s ease;
 						}
 					}
-					
+
 					&.on .property-type-item {
 						&:nth-child(1) {
 							opacity: 1;
 							transform: translateY(0) scale(1);
 							transition-delay: 0.1s;
 						}
-						
+
 						&:nth-child(2) {
 							opacity: 1;
 							transform: translateY(0) scale(1);
 							transition-delay: 0.2s;
 						}
-						
+
 						&:nth-child(3) {
 							opacity: 1;
 							transform: translateY(0) scale(1);
 							transition-delay: 0.3s;
 						}
-						
+
 						&:nth-child(4) {
 							opacity: 1;
 							transform: translateY(0) scale(1);
@@ -1065,7 +1039,7 @@ body::-webkit-scrollbar {
 						transform: translateY(0) scale(1) !important;
 						transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 						background: #fffdfd;
-						
+
 						span {
 							opacity: 1 !important;
 							visibility: visible !important;
@@ -1091,7 +1065,7 @@ body::-webkit-scrollbar {
 						transition: all 0.3s ease;
 						opacity: 0;
 						transform: translateY(20px);
-						
+
 						&:hover {
 							border: 1px solid #34d399;
 							background: #f0fdf4;
@@ -1100,7 +1074,7 @@ body::-webkit-scrollbar {
 							transform: translateY(-2px);
 						}
 					}
-					
+
 					&.on {
 						.room-item {
 							opacity: 1;
@@ -1108,7 +1082,7 @@ body::-webkit-scrollbar {
 							transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 						}
 					}
-					
+
 					span {
 						display: inline-flex;
 						align-items: center;
@@ -1869,30 +1843,30 @@ html.dark-mode {
 	#pc-wrap {
 		background-color: #0f0f0f;
 		color: #ffffff;
-		
+
 		// Dark mode for search box and filters
 		.search-box {
 			background: rgba(26, 26, 26, 0.9);
 			border-color: rgba(255, 255, 255, 0.1);
-			
+
 			.select-box .box {
 				color: #ffffff;
-				
+
 				&:hover {
 					background: rgba(255, 255, 255, 0.1);
 				}
 			}
-			
+
 			.search-btn {
 				background: #34d399;
 				color: #0f0f0f;
-				
+
 				&:hover {
 					background: #10b981;
 				}
 			}
 		}
-		
+
 		// Dark mode for property cards
 		.card-config,
 		.trend-card-box,
@@ -1904,17 +1878,17 @@ html.dark-mode {
 				background: #1a1a1a;
 				border-color: #333;
 				color: #ffffff;
-				
+
 				.name p,
 				.title {
 					color: #ffffff;
 				}
-				
+
 				.address p,
 				.desc {
 					color: #b0b0b0;
 				}
-				
+
 				.options span,
 				.option span {
 					color: #b0b0b0;

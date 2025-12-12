@@ -21,7 +21,6 @@ export const SIGN_UP = gql`
 			memberBlocks
 			memberProperties
 			memberRank
-			memberArticles
 			memberPoints
 			memberLikes
 			memberViews
@@ -76,7 +75,6 @@ export const UPDATE_MEMBER = gql`
 			memberDesc
 			memberProperties
 			memberRank
-			memberArticles
 			memberPoints
 			memberLikes
 			memberViews
@@ -203,64 +201,6 @@ export const LIKE_TARGET_PROPERTY = gql`
 			soldAt
 			deletedAt
 			constructedAt
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-/**************************
- *      BOARD-ARTICLE     *
- *************************/
-
-export const CREATE_BOARD_ARTICLE = gql`
-	mutation CreateBoardArticle($input: BoardArticleInput!) {
-		createBoardArticle(input: $input) {
-			_id
-			articleCategory
-			articleStatus
-			articleTitle
-			articleContent
-			articleImage
-			articleViews
-			articleLikes
-			memberId
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-export const UPDATE_BOARD_ARTICLE = gql`
-	mutation UpdateBoardArticle($input: BoardArticleUpdate!) {
-		updateBoardArticle(input: $input) {
-			_id
-			articleCategory
-			articleStatus
-			articleTitle
-			articleContent
-			articleImage
-			articleViews
-			articleLikes
-			memberId
-			createdAt
-			updatedAt
-		}
-	}
-`;
-
-export const LIKE_TARGET_BOARD_ARTICLE = gql`
-	mutation LikeTargetBoardArticle($input: String!) {
-		likeTargetBoardArticle(articleId: $input) {
-			_id
-			articleCategory
-			articleStatus
-			articleTitle
-			articleContent
-			articleImage
-			articleViews
-			articleLikes
-			memberId
 			createdAt
 			updatedAt
 		}

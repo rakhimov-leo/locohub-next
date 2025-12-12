@@ -19,6 +19,7 @@ import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { propertySquare } from '../../config';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import GlobeLocation from './GlobeLocation';
 
 const MenuProps = {
 	PaperProps: {
@@ -573,6 +574,57 @@ const Filter = (props: FilterType) => {
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
 						Location
 					</p>
+					<GlobeLocation
+						locations={propertyLocation as PropertyLocation[]}
+						selectedLocations={(searchFilter?.search?.locationList || []) as PropertyLocation[]}
+						onLocationClick={async (location) => {
+							const locationList = (searchFilter?.search?.locationList || []) as PropertyLocation[];
+							const isSelected = locationList.includes(location);
+							try {
+								if (isSelected) {
+									// Remove location
+									await router.push(
+										`/property?input=${JSON.stringify({
+											...searchFilter,
+											search: {
+												...searchFilter.search,
+												locationList: locationList.filter((l) => l !== location),
+											},
+										})}`,
+										`/property?input=${JSON.stringify({
+											...searchFilter,
+											search: {
+												...searchFilter.search,
+												locationList: locationList.filter((l) => l !== location),
+											},
+										})}`,
+										{ scroll: false },
+									);
+								} else {
+									// Add location
+									await router.push(
+										`/property?input=${JSON.stringify({
+											...searchFilter,
+											search: {
+												...searchFilter.search,
+												locationList: [...locationList, location],
+											},
+										})}`,
+										`/property?input=${JSON.stringify({
+											...searchFilter,
+											search: {
+												...searchFilter.search,
+												locationList: [...locationList, location],
+											},
+										})}`,
+										{ scroll: false },
+									);
+								}
+							} catch (err) {
+								console.log('ERROR, globe location click:', err);
+							}
+						}}
+					/>
 					<Stack
 						className={`property-location`}
 						style={{ height: showMore ? '253px' : '115px' }}

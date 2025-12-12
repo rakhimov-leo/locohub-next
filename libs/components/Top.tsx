@@ -187,9 +187,6 @@ const Top = () => {
 				<Link href={'/agent'}>
 					<div> {t('Agents')} </div>
 				</Link>
-				<Link href={'/community?articleCategory=FREE'}>
-					<div> {t('Community')} </div>
-				</Link>
 				<Link href={'/cs'}>
 					<div> {t('CS')} </div>
 				</Link>
@@ -217,9 +214,6 @@ const Top = () => {
 							</Link>
 							<Link href={'/agent'}>
 								<div> {t('Agents')} </div>
-							</Link>
-							<Link href={'/community?articleCategory=FREE'}>
-								<div> {t('Community')} </div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>

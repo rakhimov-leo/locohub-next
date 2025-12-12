@@ -56,7 +56,6 @@ query GetMember($input: String!) {
         memberAddress
         memberDesc
         memberProperties
-        memberArticles
         memberPoints
         memberLikes
         memberViews
@@ -273,7 +272,6 @@ export const GET_FAVORITES = gql`
 					memberAddress
 					memberDesc
 					memberProperties
-					memberArticles
 					memberPoints
 					memberLikes
 					memberViews
@@ -336,7 +334,6 @@ export const GET_VISITED = gql`
 					memberAddress
 					memberDesc
 					memberProperties
-					memberArticles
 					memberPoints
 					memberLikes
 					memberViews
@@ -350,107 +347,6 @@ export const GET_VISITED = gql`
 					createdAt
 					updatedAt
 					accessToken
-				}
-			}
-			metaCounter {
-				total
-			}
-		}
-	}
-`;
-
-/**************************
- *      BOARD-ARTICLE     *
- *************************/
-
-export const GET_BOARD_ARTICLE = gql`
-	query GetBoardArticle($input: String!) {
-		getBoardArticle(articleId: $input) {
-			_id
-			articleCategory
-			articleStatus
-			articleTitle
-			articleContent
-			articleImage
-			articleViews
-			articleLikes
-			articleComments
-			memberId
-			createdAt
-			updatedAt
-			memberData {
-				_id
-				memberType
-				memberStatus
-				memberAuthType
-				memberPhone
-				memberNick
-				memberFullName
-				memberImage
-				memberAddress
-				memberDesc
-				memberWarnings
-				memberBlocks
-				memberProperties
-				memberRank
-				memberPoints
-				memberLikes
-				memberViews
-				deletedAt
-				createdAt
-				updatedAt
-			}
-			meLiked {
-				memberId
-				likeRefId
-				myFavorite
-			}
-		}
-	}
-`;
-
-export const GET_BOARD_ARTICLES = gql`
-	query GetBoardArticles($input: BoardArticlesInquiry!) {
-		getBoardArticles(input: $input) {
-			list {
-				_id
-				articleCategory
-				articleStatus
-				articleTitle
-				articleContent
-				articleImage
-				articleViews
-				articleLikes
-				articleComments
-				memberId
-				createdAt
-				updatedAt
-				meLiked {
-					memberId
-					likeRefId
-					myFavorite
-				}
-				memberData {
-					_id
-					memberType
-					memberStatus
-					memberAuthType
-					memberPhone
-					memberNick
-					memberFullName
-					memberImage
-					memberAddress
-					memberDesc
-					memberWarnings
-					memberBlocks
-					memberProperties
-					memberRank
-					memberPoints
-					memberLikes
-					memberViews
-					deletedAt
-					createdAt
-					updatedAt
 				}
 			}
 			metaCounter {
@@ -541,7 +437,6 @@ export const GET_MEMBER_FOLLOWERS = gql`
 					memberAddress
 					memberDesc
 					memberProperties
-					memberArticles
 					memberPoints
 					memberLikes
 					memberViews
@@ -584,7 +479,6 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 					memberAddress
 					memberDesc
 					memberProperties
-					memberArticles
 					memberPoints
 					memberLikes
 					memberViews
