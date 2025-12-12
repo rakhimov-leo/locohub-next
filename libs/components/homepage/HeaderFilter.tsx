@@ -455,6 +455,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 												setOpenCalendar(false);
 											}
 										}}
+										renderInput={(params: any) => <div />}
 									/>
 								</Box>
 							</LocalizationProvider>

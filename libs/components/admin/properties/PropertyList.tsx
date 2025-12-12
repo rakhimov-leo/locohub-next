@@ -28,9 +28,9 @@ import { REACT_APP_API_URL } from '../../../config';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
+import { sweetErrorAlert, sweetMixinSuccessAlert, sweetErrorHandling } from '../../../sweetAlert';
 import { PropertyStatus, PropertyType, PropertyLocation } from '../../../enums/property.enum';
 import { PropertyUpdate } from '../../../types/property/property.update';
-import { sweetMixinSuccessAlert, sweetErrorHandling } from '../../../sweetAlert';
 
 interface Data {
 	id: string;
@@ -418,6 +418,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 							value={editData.propertyTitle}
 							onChange={(e) => setEditData({ ...editData, propertyTitle: e.target.value })}
 						/>
+						{/* @ts-ignore */}
 						<Box sx={{ display: 'flex', gap: 2 }}>
 							<TextField
 								label="Price"
