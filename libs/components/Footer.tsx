@@ -71,60 +71,64 @@ const Footer = () => {
 		return (
 			<Stack className={'footer-container'}>
 				<Stack className={'main'}>
-					<Stack className={'left'}>
-						<Box component={'div'} className={'footer-box'}>
-							{/* <img src="/img/logo/logoWhite.jpg" alt="" className={'logo'} /> */}
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>total free customer care</span>
-							<p>+82 10 8477 9503</p>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>need live</span>
-							<p>+82 10 8477 9503</p>
-							<span>Support?</span>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<p>follow us on social media</p>
-							<div className={'media-box'}>
-								<FacebookOutlinedIcon />
-								<TelegramIcon />
-								<InstagramIcon />
-								<TwitterIcon />
-							</div>
-						</Box>
-					</Stack>
-					<Stack className={'right'}>
-						<Box component={'div'} className={'top'}>
-							<strong>keep yourself up to date</strong>
-							<div>
-								<input type="text" placeholder={'Your Email'} />
-								<span>Subscribe</span>
-							</div>
-						</Box>
-						<Box component={'div'} className={'bottom'}>
-							<div>
-								<strong>Popular Search</strong>
-								<span>Property for Rent</span>
-								<span>Property Low to hide</span>
-							</div>
-							<div>
-								<strong>Quick Links</strong>
-								<span>Terms of Use</span>
-								<span>Privacy Policy</span>
-								<span>Pricing Plans</span>
-								<span>Our Services</span>
-								<span>Contact Support</span>
-								<span>FAQs</span>
-							</div>
-							<div>
-								<strong>Discover</strong>
-								<span>France</span>
-								<span>Spain</span>
-								<span>Italy</span>
-								<span>Germany</span>
-							</div>
-						</Box>
+					{/* Newsletter banner */}
+					<Box component={'div'} className={'newsletter-banner'}>
+						<div>
+							<input type="text" placeholder={'Your Email'} />
+							<span>Subscribe</span>
+						</div>
+					</Box>
+					
+					{/* Content row */}
+					<Stack className={'content-row'}>
+						<Stack className={'left'}>
+							<Box component={'div'} className={'footer-box'}>
+								{/* <img src="/img/logo/logoWhite.jpg" alt="" className={'logo'} /> */}
+							</Box>
+							<Box component={'div'} className={'footer-box'}>
+								<span>total free customer care</span>
+								<p>+82 10 8477 9503</p>
+							</Box>
+							<Box component={'div'} className={'footer-box'}>
+								<span>need live</span>
+								<p>+82 10 8477 9503</p>
+								<span>Support?</span>
+							</Box>
+							<Box component={'div'} className={'footer-box'}>
+								<p>follow us on social media</p>
+								<div className={'media-box'}>
+									<FacebookOutlinedIcon />
+									<TelegramIcon />
+									<InstagramIcon />
+									<TwitterIcon />
+								</div>
+							</Box>
+						</Stack>
+						<Stack className={'right'}>
+							<Box component={'div'} className={'bottom'}>
+								<div>
+									<strong>Popular Search</strong>
+									<span>Property for Rent</span>
+									<span>Property Low to hide</span>
+								</div>
+								<div>
+									<strong>Quick Links</strong>
+									<span>Terms of Use</span>
+									<span>Privacy Policy</span>
+									<span>Pricing Plans</span>
+									<span>Our Services</span>
+									<span>Contact Support</span>
+									<span>FAQs</span>
+								</div>
+								<div>
+									<strong>Discover</strong>
+									<span>France</span>
+									<span>Spain</span>
+									<span>Italy</span>
+									<span>Germany</span>
+								</div>
+							</Box>
+						</Stack>
 					</Stack>
 				</Stack>
 				<Stack className={'second'}>
