@@ -13,6 +13,14 @@ import '../scss/mobile/main.scss';
 
 const AppContent = ({ Component, pageProps }: AppProps) => {
 	useCursorGlow();
+	
+	// Disable browser's automatic scroll restoration
+	useEffect(() => {
+		if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+			window.history.scrollRestoration = 'manual';
+		}
+	}, []);
+	
 	return <Component {...pageProps} />;
 };
 

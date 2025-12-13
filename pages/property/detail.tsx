@@ -119,6 +119,38 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	});
 
 	/** LIFECYCLES **/
+	// Ensure dark mode is preserved when navigating to property detail page
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+			if (savedDarkMode) {
+				document.documentElement.classList.add('dark-mode');
+				document.body.style.backgroundColor = '#0f0f0f';
+				document.body.style.color = '#ffffff';
+			} else {
+				document.documentElement.classList.remove('dark-mode');
+				document.body.style.backgroundColor = '#ffffff';
+				document.body.style.color = '#212121';
+			}
+		}
+	}, []); // Run on mount
+
+	// Also check dark mode when route changes
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+			if (savedDarkMode) {
+				document.documentElement.classList.add('dark-mode');
+				document.body.style.backgroundColor = '#0f0f0f';
+				document.body.style.color = '#ffffff';
+			} else {
+				document.documentElement.classList.remove('dark-mode');
+				document.body.style.backgroundColor = '#ffffff';
+				document.body.style.color = '#212121';
+			}
+		}
+	}, [router.asPath]);
+
 	useEffect(() => {
 		if (router.query.id) {
 			setPropertyId(router.query.id as string);
@@ -135,11 +167,67 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 		}
 	}, [router]);
 
+	// Scroll to top on route change
+	useEffect(() => {
+		const handleRouteChange = () => {
+			// Always scroll to top when entering property detail page
+			window.scrollTo(0, 0);
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+		};
+
+		router.events.on('routeChangeComplete', handleRouteChange);
+		
+		// Also scroll immediately when component mounts
+		window.scrollTo(0, 0);
+		document.documentElement.scrollTop = 0;
+		document.body.scrollTop = 0;
+
+		return () => {
+			router.events.off('routeChangeComplete', handleRouteChange);
+		};
+	}, [router.events]);
+
 	useEffect(() => {
 		if (commentInquiry.search.commentRefId) {
 			getCommentsRefetch({ input: commentInquiry });
 		}
 	}, [commentInquiry]);
+
+	// Scroll to top when property ID changes
+	useEffect(() => {
+		if (router.query.id) {
+			// Force scroll to top using multiple methods
+			const scrollToTop = () => {
+				window.scrollTo(0, 0);
+				document.documentElement.scrollTop = 0;
+				document.body.scrollTop = 0;
+			};
+			
+			// Instant scroll to top
+			scrollToTop();
+			
+			// Also scroll after delays to ensure it works after page load
+			const timeout1 = setTimeout(scrollToTop, 50);
+			const timeout2 = setTimeout(scrollToTop, 200);
+			const timeout3 = setTimeout(scrollToTop, 500);
+
+			return () => {
+				clearTimeout(timeout1);
+				clearTimeout(timeout2);
+				clearTimeout(timeout3);
+			};
+		}
+	}, [router.query.id]);
+
+	// Also scroll when property data is loaded
+	useEffect(() => {
+		if (property) {
+			window.scrollTo(0, 0);
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+		}
+	}, [property]);
 
 	/** HANDLERS **/
 	const changeImageHandler = (image: string) => {

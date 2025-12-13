@@ -754,3 +754,264 @@
 		}
 	}
 }
+
+// Dark Mode Styles for Property Detail Page
+html.dark-mode {
+	#pc-wrap {
+		#property-detail-page {
+			background: #0f0f0f !important;
+			color: #ffffff;
+			
+			.container {
+				background: #0f0f0f !important;
+			}
+			
+			.property-detail-config {
+				.property-info-config {
+					.info {
+						.left-box {
+							.title-main {
+								color: #ffffff;
+							}
+							.top-box {
+								.city {
+									color: #b0b0b0;
+								}
+								.divider {
+									background: #444;
+								}
+								.date {
+									color: #ffffff;
+								}
+							}
+							.bottom-box {
+								.option {
+									p {
+										color: #ffffff;
+									}
+								}
+							}
+						}
+						.right-box {
+							.buttons {
+								p {
+									color: #ffffff;
+								}
+							}
+							p {
+								color: #ffffff;
+							}
+							span {
+								color: #ffffff;
+							}
+						}
+					}
+				}
+				.property-desc-config {
+					.left-config {
+						.options-config {
+							.option {
+								.svg-box {
+									border-color: #444;
+									background: #1a1a1a;
+								}
+								.option-includes {
+									.title {
+										color: #ffffff;
+									}
+									.option-data {
+										color: #ffffff;
+									}
+								}
+							}
+						}
+						.prop-desc-config {
+							background: #1a1a1a;
+							border-color: #444;
+							.top {
+								.title {
+									color: #ffffff;
+								}
+								.desc {
+									color: #b0b0b0;
+								}
+							}
+							.bottom {
+								.title {
+									color: #ffffff;
+								}
+								.info-box {
+									.left,
+									.right {
+										.info {
+											.title {
+												color: #ffffff;
+											}
+											.data {
+												color: #ffffff;
+											}
+										}
+									}
+								}
+							}
+						}
+						.floor-plans-config {
+							background: #1a1a1a;
+							border-color: #444;
+							.title {
+								color: #ffffff;
+							}
+							.image-box {
+								border-color: #444;
+							}
+						}
+						.address-config {
+							background: #1a1a1a;
+							border-color: #444;
+							.title {
+								color: #ffffff;
+							}
+						}
+						.reviews-config {
+							background: #1a1a1a;
+							border-color: #444;
+							.filter-box {
+								.review-cnt {
+									.reviews {
+										color: #ffffff;
+									}
+								}
+								.select-box {
+									.sort-title {
+										color: #b0b0b0;
+									}
+									.select-main {
+										color: #ffffff;
+									}
+								}
+							}
+							.review-list {
+								.review-config {
+									border-bottom-color: #444;
+									.review-mb-info {
+										.img-name-box {
+											.img-box {
+												background: #0f0f0f;
+												border-color: #444;
+											}
+											.name {
+												color: #ffffff;
+											}
+											.date {
+												color: #b0b0b0;
+											}
+										}
+									}
+									.desc-box {
+										.description {
+											color: #b0b0b0;
+										}
+									}
+								}
+							}
+						}
+						.leave-review-config {
+							background: #1a1a1a;
+							border-color: #444;
+							.main-title {
+								color: #ffffff;
+							}
+							.review-title {
+								color: #ffffff;
+							}
+							textarea {
+								background: #0f0f0f;
+								border-color: #444;
+								color: #ffffff;
+								&::placeholder {
+									color: #888;
+								}
+							}
+							.submit-btn {
+								.submit-review {
+									background: #eb6753;
+									border-color: #eb6753;
+									.title {
+										color: #ffffff;
+									}
+								}
+							}
+						}
+					}
+					.right-config {
+						background: #1a1a1a;
+						border-color: #444;
+						.info-box {
+							.main-title {
+								color: #ffffff;
+							}
+							.image-info {
+								.name-phone-listings {
+									.name {
+										color: #ffffff;
+									}
+									.phone-number {
+										.number {
+											color: #ffffff;
+										}
+									}
+									.listings {
+										color: #ffffff;
+									}
+								}
+							}
+							.sub-title {
+								color: #ffffff;
+							}
+							input {
+								background: #0f0f0f;
+								border-color: #444;
+								color: #ffffff;
+								&::placeholder {
+									color: #888;
+								}
+								&:focus {
+									border-color: #ffffff;
+								}
+							}
+							textarea {
+								background: #0f0f0f;
+								border-color: #444;
+								color: #ffffff;
+								&::placeholder {
+									color: #888;
+								}
+								&:focus {
+									border-color: #ffffff;
+								}
+							}
+							.send-message {
+								background: #eb6753;
+								.title {
+									color: #ffffff;
+								}
+							}
+						}
+					}
+				}
+				.similar-properties-config {
+					.title-pagination-box {
+						.title-box {
+							.main-title {
+								color: #ffffff;
+							}
+							.sub-title {
+								color: #b0b0b0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

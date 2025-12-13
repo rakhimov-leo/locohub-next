@@ -417,7 +417,7 @@ const Faq = () => {
 							changeCategoryHandler('agents');
 						}}
 					>
-						For Agents
+						For Advisors
 					</div>
 					<div
 						className={category === 'membership' ? 'active' : ''}

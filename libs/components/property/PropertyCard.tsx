@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Property } from '../../types/property/property';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { formatterStr } from '../../utils';
 import { REACT_APP_API_URL, topPropertyRank } from '../../config';
 import { useReactiveVar } from '@apollo/client';
@@ -23,6 +24,7 @@ interface PropertyCardType {
 const PropertyCard = (props: PropertyCardType) => {
 	const { property, likePropertyHandler, myFavorites, recentlyVisited } = props;
 	const device = useDeviceDetect();
+	const router = useRouter();
 	const user = useReactiveVar(userVar);
 	const bedNumberRef = useRef<AnimatedNumberRef>(null);
 	const roomNumberRef = useRef<AnimatedNumberRef>(null);
@@ -40,6 +42,29 @@ const PropertyCard = (props: PropertyCardType) => {
 		roomNumberRef.current?.reset();
 	};
 
+	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		// Save scroll position before navigating (always save if we're on homepage)
+		if (typeof window !== 'undefined') {
+			const currentPath = window.location.pathname;
+			if (currentPath === '/' || currentPath.startsWith('/?')) {
+				const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
+				sessionStorage.setItem('fromDetailPage', 'true');
+				console.log('Saved scroll position:', scrollY);
+			}
+		}
+		// Prevent default scroll behavior
+		e.preventDefault();
+		router.push(
+			{
+				pathname: '/property/detail',
+				query: { id: property?._id },
+			},
+			undefined,
+			{ scroll: false }
+		);
+	};
+
 	if (device === 'mobile') {
 		return <div>PROPERTY CARD</div>;
 	} else {
@@ -51,6 +76,7 @@ const PropertyCard = (props: PropertyCardType) => {
 							pathname: '/property/detail',
 							query: { id: property?._id },
 						}}
+						onClick={handleLinkClick}
 					>
 						<img src={imagePath} alt="" />
 					</Link>
@@ -72,6 +98,7 @@ const PropertyCard = (props: PropertyCardType) => {
 									pathname: '/property/detail',
 									query: { id: property?._id },
 								}}
+								onClick={handleLinkClick}
 							>
 								<Typography>{property.propertyTitle}</Typography>
 							</Link>

@@ -22,7 +22,7 @@ const Footer = () => {
 							<p>+82 10 8477 9503</p>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
-							<span>nee live</span>
+							<span>need live</span>
 							<p>+82 10 8477 9503</p>
 							<span>Support?</span>
 						</Box>
@@ -80,7 +80,7 @@ const Footer = () => {
 							<p>+82 10 8477 9503</p>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
-							<span>nee live</span>
+							<span>need live</span>
 							<p>+82 10 8477 9503</p>
 							<span>Support?</span>
 						</Box>
@@ -129,7 +129,13 @@ const Footer = () => {
 				</Stack>
 				<Stack className={'second'}>
 					<span>© LocoHub - All rights reserved. LocoHub {moment().year()}</span>
-					<span>Privacy · Terms · Sitemap</span>
+					<Stack direction="row" spacing={1} sx={{ display: 'flex', gap: '12px' }}>
+						<span style={{ cursor: 'pointer' }}>Privacy</span>
+						<span style={{ color: 'rgba(255, 255, 255, 0.4)' }}>·</span>
+						<span style={{ cursor: 'pointer' }}>Terms</span>
+						<span style={{ color: 'rgba(255, 255, 255, 0.4)' }}>·</span>
+						<span style={{ cursor: 'pointer' }}>Sitemap</span>
+					</Stack>
 				</Stack>
 			</Stack>
 		);

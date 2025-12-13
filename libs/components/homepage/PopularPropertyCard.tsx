@@ -27,8 +27,22 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	/** HANDLERS **/
 
 	const pushDetailHandler = async (propertyId: string) => {
+		// Save scroll position before navigating (always save if we're on homepage)
+		if (typeof window !== 'undefined') {
+			const currentPath = window.location.pathname;
+			if (currentPath === '/' || currentPath.startsWith('/?')) {
+				const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
+				sessionStorage.setItem('fromDetailPage', 'true');
+				console.log('Saved scroll position:', scrollY);
+			}
+		}
 		console.log('propertyId:', propertyId);
-		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
+		await router.push(
+			{ pathname: '/property/detail', query: { id: propertyId } },
+			undefined,
+			{ scroll: false }
+		);
 	};
 
 	const handleCardMouseEnter = () => {

@@ -27,7 +27,21 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 
 	/** HANDLERS **/
 	const goPropertyDetatilPage = (propertyId: string) => {
-		router.push(`/property/detail?id=${propertyId}`);
+		// Save scroll position before navigating (always save if we're on homepage)
+		if (typeof window !== 'undefined') {
+			const currentPath = window.location.pathname;
+			if (currentPath === '/' || currentPath.startsWith('/?')) {
+				const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
+				sessionStorage.setItem('fromDetailPage', 'true');
+				console.log('Saved scroll position:', scrollY);
+			}
+		}
+		router.push(
+			`/property/detail?id=${propertyId}`,
+			undefined,
+			{ scroll: false }
+		);
 	};
 
 	const handleCardMouseEnter = () => {

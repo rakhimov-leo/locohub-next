@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +12,7 @@ import { AgentsInquiry } from '../../types/member/member.input';
 import { GET_AGENTS } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 import { T } from '../../types/common';
+import { REACT_APP_API_URL } from '../../config';
 
 interface TopAgentsProps {
 	initialInput: AgentsInquiry;
@@ -44,7 +45,7 @@ const TopAgents = (props: TopAgentsProps) => {
 			<Stack className={'top-agents'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Top Agents</span>
+						<span>Top Advisors</span>
 					</Stack>
 					<Stack className={'wrapper'}>
 						<Swiper
@@ -74,44 +75,46 @@ const TopAgents = (props: TopAgentsProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Top Agents</span>
-							<p>Our Top Agents always ready to serve you</p>
+							<span>Top Advisors</span>
+							<p>Our Top Advisors always ready to serve you</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
-								<span>See All Agents</span>
+								<span>See All Advisors</span>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>
 						</Box>
 					</Stack>
 					<Stack className={'wrapper'}>
-						<Box component={'div'} className={'switch-btn swiper-agents-prev'}>
-							<ArrowBackIosNewIcon />
-						</Box>
 						<Box component={'div'} className={'card-wrapper'}>
-							<Swiper
-								className={'top-agents-swiper'}
-								slidesPerView={'auto'}
-								spaceBetween={29}
-								modules={[Autoplay, Navigation, Pagination]}
-								navigation={{
-									nextEl: '.swiper-agents-next',
-									prevEl: '.swiper-agents-prev',
-								}}
-							>
-								{topAgents.map((agent: Member, index: number) => {
+							{/* 4 profile images in center */}
+							<Box className={'central-profiles'}>
+								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
 									return (
-										<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
-											<AnimatedListItem index={index}>
-											<TopAgentCard agent={agent} key={agent?.memberNick} />
-											</AnimatedListItem>
-										</SwiperSlide>
+										<Box key={agent?._id} className={'profile-item'}>
+											<img
+												src={
+													agent?.memberImage
+														? `${REACT_APP_API_URL}/${agent?.memberImage}`
+														: '/img/profile/defaultUser.svg'
+												}
+												alt={agent?.memberNick}
+											/>
+										</Box>
 									);
 								})}
-							</Swiper>
-						</Box>
-						<Box component={'div'} className={'switch-btn swiper-agents-next'}>
-							<ArrowBackIosNewIcon />
+							</Box>
+							{/* Names below */}
+							<Box className={'agent-names-row'}>
+								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
+									return (
+										<Box key={agent?._id} className={'agent-name-item'}>
+											<Typography className={'agent-name'}>{agent?.memberNick}</Typography>
+											<Typography className={'agent-role'}>AGENT</Typography>
+										</Box>
+									);
+								})}
+							</Box>
 						</Box>
 					</Stack>
 				</Stack>
@@ -123,7 +126,7 @@ const TopAgents = (props: TopAgentsProps) => {
 TopAgents.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 10,
+		limit: 4,
 		sort: 'memberRank',
 		direction: 'DESC',
 		search: {},

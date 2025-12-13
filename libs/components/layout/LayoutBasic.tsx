@@ -34,7 +34,7 @@ const withLayoutBasic = (Component: any) => {
 					bgImage = '/img/banner/properties.png';
 					break;
 				case '/agent':
-					title = 'Agents';
+					title = 'Advisors';
 					desc = 'Home / For Rent';
 					bgImage = '/img/banner/agents.webp';
 					break;
@@ -44,7 +44,7 @@ const withLayoutBasic = (Component: any) => {
 					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/mypage':
-					title = 'my page';
+					title = 'Me';
 					desc = 'Home / For Rent';
 					bgImage = '/img/banner/header1.svg';
 					break;

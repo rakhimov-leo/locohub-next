@@ -1,8 +1,8 @@
 {
 	"Home": "Главная",
-	"Properties": "Имущество",
-	"Agents": "Агенты",
-	"My Page": "Моя страница",
+	"Properties": "Здания",
+	"Agents": "Советники",
+	"My Page": "Я",
 	"CS": "Обслуживание",
 	"Login": "Логин",
 	"Register": "регистрация",
@@ -14,7 +14,7 @@
 	"We are glad to see you again!": "Мы рады видеть вас снова!",
 	"Home / For Rent": "Дом / В аренду",
 	"Agent Page": "Страница агента",
-	"my page": "моя страница",
+	"my page": "Я",
 	"Login/Signup": "Логин/регистрация",
 	"Member Page": "Страница участника"
 }

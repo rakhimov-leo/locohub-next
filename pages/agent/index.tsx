@@ -178,7 +178,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							<AnimatedSection animationType="fade-in" animationDelay={0.2}>
 								<div className={'no-data'}>
 									<img src="/img/icons/icoAlert.svg" alt="" />
-									<p>No Agents found!</p>
+									<p>No Advisors found!</p>
 								</div>
 							</AnimatedSection>
 						) : (

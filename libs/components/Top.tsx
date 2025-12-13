@@ -198,14 +198,14 @@ const Top = () => {
 								<div className={router.pathname === '/' ? 'active' : ''}>{t('Home')}</div>
 							</Link>
 							<Link href={'/property'}>
-								<div className={router.pathname.startsWith('/property') ? 'active' : ''}>{t('Properties')}</div>
+								<div className={router.pathname.startsWith('/property') ? 'active' : ''}>Buildings</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div className={router.pathname.startsWith('/agent') ? 'active' : ''}> {t('Agents')} </div>
+								<div className={router.pathname.startsWith('/agent') ? 'active' : ''}> Advisors </div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div className={router.pathname.startsWith('/mypage') ? 'active' : ''}> {t('My Page')} </div>
+									<div className={router.pathname.startsWith('/mypage') ? 'active' : ''}> Me </div>
 								</Link>
 							)}
 							<Link href={'/cs'}>
@@ -338,14 +338,14 @@ const Top = () => {
 								<div>{t('Home')}</div>
 							</Link>
 							<Link href={'/property'}>
-								<div>{t('Properties')}</div>
+								<div>Buildings</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div> {t('Agents')} </div>
+								<div> Advisors </div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div> {t('My Page')} </div>
+									<div> Me </div>
 								</Link>
 							)}
 							<Link href={'/cs'}>

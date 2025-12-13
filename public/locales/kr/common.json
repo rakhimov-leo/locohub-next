@@ -1,8 +1,8 @@
 {
   "Home": "홈",
-  "Properties": "매물",
-  "Agents": "에이전트",
-  "My Page": "마이 페이지",
+  "Properties": "건물",
+  "Agents": "어드바이저",
+  "My Page": "나",
   "CS": "고객센터",
   "Login": "로그인",
   "Register": "가입",
@@ -14,7 +14,7 @@
   "We are glad to see you again!": "다시 만나서 반갑습니다!",
   "Home / For Rent": "홈 / 임대용",
   "Agent Page": "에이전트 페이지",
-  "my page": "마이 페이지",
+  "my page": "나",
   "Login/Signup": "로그인/가입",
   "Member Page": "멤버 페이지"
 }

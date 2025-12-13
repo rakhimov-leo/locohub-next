@@ -256,6 +256,7 @@
 			height: 697px;
 			display: flex;
 			flex-direction: row;
+			background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 			.container {
 				flex-direction: column;
 				.card-box {
@@ -288,25 +289,70 @@
 						height: 375px;
 						display: flex;
 						flex-direction: column;
-						transition: transform 0.3s, opacity 0.3s;
+						border-radius: 20px;
+						overflow: hidden;
+						box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+						border: 2px solid rgba(255, 255, 255, 0.3);
+						background: #fff;
+						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+						
+						// Glow effect for trend properties (matching gradient colors)
+						&::before {
+							content: '';
+							position: absolute;
+							top: -2px;
+							left: -2px;
+							right: -2px;
+							bottom: -2px;
+							background: linear-gradient(135deg, #c3cfe2 0%, #f5f7fa 100%);
+							border-radius: 20px;
+							z-index: -1;
+							opacity: 0;
+							transition: opacity 0.4s;
+						}
+						
 						&:hover {
 							opacity: 1;
-							transform: scale(1.05);
+							transform: translateY(-10px) scale(1.03);
+							box-shadow: 0px 20px 50px rgba(195, 207, 226, 0.5);
+							border-color: rgba(195, 207, 226, 0.6);
+							
+							&::before {
+								opacity: 0.6;
+							}
 							
 							.card-img {
 								background-size: 120%;
+								
+								&::after {
+									opacity: 0.3;
+								}
 							}
 						}
+						
 						.card-img {
 							position: relative;
 							width: 100%;
 							height: 203px;
 							background-size: cover;
 							background-position: center;
-							border-radius: 12px 12px 0px 0px;
+							border-radius: 20px 20px 0px 0px;
 							cursor: pointer;
 							overflow: hidden;
 							transition: background-size 0.8s ease-in-out;
+							
+							// Overlay gradient for better text readability
+							&::after {
+								content: '';
+								position: absolute;
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+								background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.4) 100%);
+								opacity: 0.5;
+								transition: opacity 0.4s;
+							}
 							
 							div {
 								position: absolute;
@@ -314,13 +360,22 @@
 								left: 12px;
 								bottom: 12px;
 								border-radius: 6px;
-								background: #fff;
+								background: rgba(255, 255, 255, 0.95);
+								backdrop-filter: blur(10px);
 								color: #181a20;
 								font-family: $font;
 								font-size: 15px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
+								z-index: 2;
+								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+								transition: all 0.3s;
+								
+								&:hover {
+									transform: translateY(-2px);
+									box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+								}
 							}
 						}
 						.info {
@@ -328,11 +383,11 @@
 							display: flex;
 							flex-direction: column;
 							box-sizing: border-box;
-							border-radius: 0px 0px 12px 12px;
-							border: 1px solid rgba(196, 196, 196, 0.71);
+							border-radius: 0px 0px 20px 20px;
+							border: none;
 							border-top: none;
 							background: #fff;
-							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+							box-shadow: none;
 							.title {
 								overflow: hidden;
 								color: #181a20;
@@ -449,10 +504,21 @@
 			height: 816px;
 			display: flex;
 			flex-direction: row;
-			background: #f6f6f6;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 			.container {
 				flex-direction: column;
 				align-items: center;
+				
+				.info-box {
+					.left {
+						span {
+							color: #ffffff;
+						}
+						p {
+							color: rgba(255, 255, 255, 0.9);
+						}
+					}
+				}
 				.card-box {
 					margin-top: 34px;
 					width: 100%;
@@ -480,29 +546,70 @@
 						min-height: 425px;
 						display: flex;
 						flex-direction: column;
-						border-radius: 12px;
-						overflow: visible;
+						border-radius: 20px;
+						overflow: hidden;
 						background: #fff;
-						box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
-						transition: transform 0.3s, opacity 0.3s;
+						box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+						border: 2px solid rgba(255, 255, 255, 0.3);
+						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+						
+						// Glow effect for popular properties (matching purple gradient)
+						&::before {
+							content: '';
+							position: absolute;
+							top: -2px;
+							left: -2px;
+							right: -2px;
+							bottom: -2px;
+							background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+							border-radius: 20px;
+							z-index: -1;
+							opacity: 0;
+							transition: opacity 0.4s;
+						}
+						
 						&:hover {
 							opacity: 1;
-							transform: scale(1.05);
+							transform: translateY(-10px) scale(1.03);
+							box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.5);
+							border-color: rgba(102, 126, 234, 0.6);
+							
+							&::before {
+								opacity: 0.6;
+							}
 							
 							.card-img {
 								background-size: 120%;
+								
+								&::after {
+									opacity: 0.3;
+								}
 							}
 						}
+						
 						.card-img {
 							position: relative;
 							width: 100%;
 							height: 203px;
 							background-size: cover;
 							background-position: center;
-							border-radius: 12px 12px 0px 0px;
+							border-radius: 20px 20px 0px 0px;
 							cursor: pointer;
 							overflow: hidden;
 							transition: background-size 0.8s ease-in-out;
+							
+							// Overlay gradient for better text readability
+							&::after {
+								content: '';
+								position: absolute;
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+								background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.4) 100%);
+								opacity: 0.5;
+								transition: opacity 0.4s;
+							}
 							
 							div.status {
 								position: absolute;
@@ -534,13 +641,27 @@
 								left: 20px;
 								bottom: 20px;
 								border-radius: 6px;
-								background: #fff;
+								background: rgba(255, 255, 255, 0.95);
+								backdrop-filter: blur(10px);
 								color: #181a20;
 								font-family: $font;
 								font-size: 15px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
+								z-index: 2;
+								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+								transition: all 0.3s;
+								
+								&:hover {
+									transform: translateY(-2px);
+									box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+								}
+							}
+							
+							div.status {
+								z-index: 2;
+								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 							}
 						}
 						.info {
@@ -549,7 +670,7 @@
 							flex-direction: column;
 							flex: 1;
 							box-sizing: border-box;
-							border-radius: 0px 0px 12px 12px;
+							border-radius: 0px 0px 20px 20px;
 							border: none;
 							border-top: none;
 							background: #fff;
@@ -696,8 +817,20 @@
 			display: flex;
 			flex-direction: row;
 			perspective: 1200px; // Add perspective for 3D layered effect
+			background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 			.container {
 				flex-direction: column;
+				
+				.info-box {
+					.left {
+						span {
+							color: #ffffff;
+						}
+						p {
+							color: rgba(255, 255, 255, 0.9);
+						}
+					}
+				}
 				.card-box {
 					position: relative;
 					margin-top: 64px;
@@ -761,29 +894,72 @@
 						height: 375px;
 						display: flex;
 						flex-direction: column;
-					transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s, box-shadow 0.3s;
-					transform-origin: center center;
-					
+						border-radius: 20px;
+						overflow: hidden;
+						box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+						border: 2px solid rgba(255, 255, 255, 0.3);
+						background: #fff;
+						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+						transform-origin: center center;
+						
+						// Glow effect for top properties (matching pink-red gradient)
+						&::before {
+							content: '';
+							position: absolute;
+							top: -2px;
+							left: -2px;
+							right: -2px;
+							bottom: -2px;
+							background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+							border-radius: 20px;
+							z-index: -1;
+							opacity: 0;
+							transition: opacity 0.4s;
+						}
+						
 						&:hover {
 							opacity: 1;
-						transform: scale(1.08) translateY(-5px);
-						box-shadow: 0px 10px 30px rgba(24, 26, 32, 0.15);
-						z-index: 10;
-						
+							transform: translateY(-10px) scale(1.03);
+							box-shadow: 0px 20px 50px rgba(240, 147, 251, 0.5);
+							border-color: rgba(240, 147, 251, 0.6);
+							z-index: 10;
+							
+							&::before {
+								opacity: 0.6;
+							}
+							
 							.card-img {
 								background-size: 120%;
+								
+								&::after {
+									opacity: 0.3;
+								}
 							}
 						}
+						
 						.card-img {
 							position: relative;
 							width: 100%;
 							height: 203px;
 							background-size: cover;
 							background-position: center;
-							border-radius: 12px 12px 0px 0px;
+							border-radius: 20px 20px 0px 0px;
 							cursor: pointer;
 							overflow: hidden;
 							transition: background-size 0.8s ease-in-out;
+							
+							// Overlay gradient for better text readability
+							&::after {
+								content: '';
+								position: absolute;
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+								background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.4) 100%);
+								opacity: 0.5;
+								transition: opacity 0.4s;
+							}
 							
 							div {
 								position: absolute;
@@ -791,13 +967,22 @@
 								left: 12px;
 								bottom: 12px;
 								border-radius: 6px;
-								background: #fff;
+								background: rgba(255, 255, 255, 0.95);
+								backdrop-filter: blur(10px);
 								color: #181a20;
 								font-family: $font;
 								font-size: 15px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
+								z-index: 2;
+								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+								transition: all 0.3s;
+								
+								&:hover {
+									transform: translateY(-2px);
+									box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+								}
 							}
 						}
 						.info {
@@ -805,11 +990,11 @@
 							display: flex;
 							flex-direction: column;
 							box-sizing: border-box;
-							border-radius: 0px 0px 12px 12px;
-							border: 1px solid rgba(196, 196, 196, 0.71);
+							border-radius: 0px 0px 20px 20px;
+							border: none;
 							border-top: none;
 							background: #fff;
-							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+							box-shadow: none;
 							.title {
 								overflow: hidden;
 								color: #181a20;
@@ -927,8 +1112,38 @@
 			height: 722px;
 			display: flex;
 			flex-direction: row;
-			background: #f6f6f6;
+			background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #f0f2f5 100%);
+			overflow: hidden;
+			
+			// Light effect overlay
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+				pointer-events: none;
+				z-index: 1;
+			}
+			
+			// Additional light effect
+			&::after {
+				content: '';
+				position: absolute;
+				top: -50%;
+				right: -20%;
+				width: 60%;
+				height: 200%;
+				background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+				pointer-events: none;
+				z-index: 1;
+			}
+			
 			.container {
+				position: relative;
+				z-index: 2;
 				position: relative;
 				flex-direction: column;
 				align-items: center;
@@ -938,7 +1153,7 @@
 					display: flex;
 					flex-direction: row;
 					align-items: center;
-					justify-content: space-between;
+					justify-content: center;
 					.switch-btn {
 						width: 53px;
 						height: 53px;
@@ -949,9 +1164,11 @@
 						background: #ffffff;
 						filter: drop-shadow(0px 10px 35px rgba(5, 16, 54, 0.1));
 						cursor: pointer;
+						z-index: 10;
 						svg {
 							width: 14px;
 							height: 14px;
+							color: #000000;
 						}
 						&.swiper-agents-next {
 							transform: rotate(180deg);
@@ -959,18 +1176,153 @@
 					}
 					.card-wrapper {
 						width: 1174px;
-						height: 280px;
+						height: auto;
 						display: flex;
-						flex-direction: row;
-						.top-agents-swiper {
-							width: 99.7%;
-							height: 280px;
+						flex-direction: column;
+						align-items: center;
+						justify-content: center;
+						position: relative;
+						.central-profiles {
+							width: 100%;
 							display: flex;
 							flex-direction: row;
+							justify-content: center;
+							align-items: center;
+							gap: 30px;
+							margin-bottom: 40px;
+							.profile-item {
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								position: relative;
+								img {
+									width: 250px;
+									height: 250px;
+									border-radius: 50%;
+									object-fit: cover;
+									background: #f0f0f0;
+									cursor: pointer;
+									transition: all 0.3s ease;
+									box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1), 
+												0px 0px 20px rgba(255, 255, 255, 0.5) inset;
+									&:hover {
+										transform: scale(1.05);
+										box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.15), 
+													0px 0px 30px rgba(255, 255, 255, 0.6) inset;
+									}
+								}
+								// Light effect on profile images
+								&::before {
+									content: '';
+									position: absolute;
+									top: -10px;
+									left: 50%;
+									transform: translateX(-50%);
+									width: 80%;
+									height: 40%;
+									background: radial-gradient(ellipse, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+									border-radius: 50%;
+									pointer-events: none;
+									z-index: 1;
+								}
+							}
+						}
+						.agent-names-row {
+							width: 100%;
+							display: flex;
+							flex-direction: row;
+							justify-content: center;
+							align-items: center;
+							gap: 30px;
+							.agent-name-item {
+								display: flex;
+								flex-direction: column;
+								align-items: center;
+								justify-content: center;
+								cursor: pointer;
+								padding: 10px 20px;
+								transition: all 0.3s ease;
+								width: 250px;
+								.agent-name {
+									color: #181a20;
+									font-family: $font;
+									font-size: 18px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+									text-transform: capitalize;
+									margin-bottom: 4px;
+									text-align: center;
+								}
+								.agent-role {
+									color: #181a20;
+									font-family: $font;
+									font-size: 14px;
+									font-style: normal;
+									font-weight: 400;
+									line-height: normal;
+									text-transform: uppercase;
+									text-align: center;
+								}
+								&:hover {
+									opacity: 0.7;
+								}
+							}
+						}
+						.top-agents-swiper {
+							width: 100%;
+							height: auto;
+							display: flex;
+							flex-direction: row;
+							padding: 0 20px;
 							.top-agents-slide {
-								width: auto;
+								width: 25%;
 								height: auto;
 								display: flex;
+								justify-content: center;
+								&.swiper-slide-active {
+									.agent-name-item {
+										.agent-name {
+											font-weight: 700;
+											font-size: 20px;
+										}
+										.agent-role {
+											font-weight: 500;
+										}
+									}
+								}
+								.agent-name-item {
+									display: flex;
+									flex-direction: column;
+									align-items: center;
+									justify-content: center;
+									cursor: pointer;
+									padding: 10px 20px;
+									transition: all 0.3s ease;
+									width: 100%;
+									.agent-name {
+										color: #181a20;
+										font-family: $font;
+										font-size: 18px;
+										font-style: normal;
+										font-weight: 600;
+										line-height: normal;
+										text-transform: capitalize;
+										margin-bottom: 4px;
+									}
+									.agent-role {
+										color: #181a20;
+										font-family: $font;
+										font-size: 14px;
+										font-style: normal;
+										font-weight: 400;
+										line-height: normal;
+										text-transform: uppercase;
+									}
+									&:hover {
+										opacity: 0.7;
+									}
+								}
 							}
 						}
 						.top-agent-card {
@@ -1018,8 +1370,25 @@
 			height: 810px;
 			display: flex;
 			flex-direction: row;
-			background: #181a20;
+			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+			overflow: hidden;
+			
+			// Decorative elements
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+							radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+				pointer-events: none;
+			}
+			
 			.container {
+				position: relative;
+				z-index: 1;
 				flex-direction: column;
 				align-items: center;
 				.card-wrapper {
@@ -1030,70 +1399,156 @@
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+					gap: 30px;
+					
+					a {
+						text-decoration: none;
+						color: inherit;
+					}
+					
 					.event-card {
 						position: relative;
-						width: 300px;
-						height: 420px;
-						border-radius: 12px;
-						opacity: 0.9;
+						width: 380px;
+						height: 480px;
+						border-radius: 20px;
+						opacity: 0.95;
 						cursor: pointer;
-						transition: opacity 0.4s, transform 0.3s;
+						overflow: hidden;
+						box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+						border: 2px solid rgba(255, 255, 255, 0.1);
+						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+						
+						// Overlay gradient for better text readability
+						&::after {
+							content: '';
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.6) 100%);
+							opacity: 0.7;
+							transition: opacity 0.4s;
+						}
+						
 						&:hover {
 							opacity: 1;
-							transform: scale(1.05);
-							transition: 0.3s;
+							transform: translateY(-10px) scale(1.03);
+							box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.4);
+							border-color: rgba(102, 126, 234, 0.5);
+							
+							&::after {
+								opacity: 0.5;
+							}
+							
+							.info {
+								strong {
+									color: #ffffff;
+									text-shadow: 0px 2px 10px rgba(102, 126, 234, 0.8);
+								}
+								span {
+									color: #ffffff;
+									text-shadow: 0px 2px 8px rgba(118, 75, 162, 0.6);
+								}
+							}
+							
 							.more {
 								opacity: 1;
+								transform: translateY(0);
 							}
 						}
+						
 						.info {
 							position: absolute;
 							display: flex;
 							flex-direction: column;
-							top: 35px;
-							left: 10px;
-							right: 10px;
+							top: 40px;
+							left: 30px;
+							right: 30px;
+							z-index: 2;
+							gap: 12px;
 							strong {
-								color: #f64747;
+								color: #ff6b6b;
 								font-family: $font;
-								font-size: 25px;
+								font-size: 28px;
 								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-								text-transform: capitalize;
+								font-weight: 700;
+								line-height: 1.2;
+								text-transform: uppercase;
+								letter-spacing: 1px;
+								transition: all 0.4s;
+								text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
 							}
 							span {
-								color: #f66767;
+								color: #ff8787;
 								font-family: $font;
-								font-size: 20px;
+								font-size: 22px;
 								font-style: normal;
-								font-weight: 500;
-								line-height: 28px;
+								font-weight: 600;
+								line-height: 1.4;
 								text-transform: capitalize;
+								transition: all 0.4s;
+								text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
 							}
 						}
 						.more {
 							position: absolute;
-							left: 10px;
-							right: 10px;
-							bottom: 41px;
+							left: 30px;
+							right: 30px;
+							bottom: 50px;
 							display: flex;
 							flex-direction: row;
 							align-items: center;
+							z-index: 2;
 							opacity: 0;
+							transform: translateY(20px);
+							transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 							span {
-								padding: 0px 5px;
-								border-radius: 5px;
-								background: #fffdfdc4;
-								color: #9c67f6;
+								padding: 16px 20px;
+								border-radius: 12px;
+								background: rgba(255, 255, 255, 0.95);
+								backdrop-filter: blur(10px);
+								color: #667eea;
 								font-family: $font;
-								font-size: 16px;
+								font-size: 15px;
 								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-								text-align: justify;
+								font-weight: 500;
+								line-height: 1.6;
+								text-align: left;
 								cursor: pointer;
+								box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+								border: 1px solid rgba(102, 126, 234, 0.2);
+								transition: all 0.3s;
+								
+								&:hover {
+									background: rgba(255, 255, 255, 1);
+									box-shadow: 0px 12px 30px rgba(102, 126, 234, 0.4);
+									transform: translateY(-2px);
+								}
 							}
+						}
+					}
+				}
+				.footer-text {
+					margin-top: 60px;
+					width: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					p {
+						color: rgba(255, 255, 255, 0.8);
+						font-family: $font;
+						font-size: 18px;
+						font-style: normal;
+						font-weight: 500;
+						line-height: normal;
+						letter-spacing: 1px;
+						text-transform: uppercase;
+						transition: all 0.3s;
+						
+						&:hover {
+							color: #ffffff;
+							text-shadow: 0px 0px 20px rgba(102, 126, 234, 0.6);
 						}
 					}
 				}
@@ -1249,6 +1704,8 @@ html.dark-mode {
 		.trend-properties,
 		.popular-properties,
 		.top-properties {
+			background: #0f0f0f !important;
+			
 			.info-box {
 				.left {
 					span {
@@ -1357,7 +1814,39 @@ html.dark-mode {
 		}
 		
 		.events {
-			background: #0a0a0a;
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f1419 100%);
+			
+			.event-card {
+				border-color: rgba(255, 255, 255, 0.15);
+				
+				&:hover {
+					border-color: rgba(102, 126, 234, 0.6);
+					box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.5);
+				}
+				
+				.more {
+					span {
+						background: rgba(26, 26, 46, 0.95);
+						color: #ffffff;
+						border-color: rgba(102, 126, 234, 0.3);
+						
+						&:hover {
+							background: rgba(26, 26, 46, 1);
+						}
+					}
+				}
+			}
+			
+			.footer-text {
+				p {
+					color: rgba(255, 255, 255, 0.9);
+					
+					&:hover {
+						color: #ffffff;
+						text-shadow: 0px 0px 25px rgba(102, 126, 234, 0.8);
+					}
+				}
+			}
 		}
 	}
 }

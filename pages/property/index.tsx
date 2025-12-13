@@ -129,7 +129,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 		if (device === 'mobile') {
-		return <h1>PROPERTIES MOBILE</h1>;
+		return <h1>BUILDINGS MOBILE</h1>;
 	} else {
 		return (
 			<div id="property-list-page" style={{ position: 'relative' }}>
@@ -183,7 +183,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									<AnimatedSection animationType="fade-in" animationDelay={0.2}>
 										<div className={'no-data'}>
 											<img src="/img/icons/icoAlert.svg" alt="" />
-											<p>No Properties found!</p>
+											<p>No Buildings found!</p>
 										</div>
 									</AnimatedSection>
 								) : (
@@ -213,7 +213,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									{properties.length !== 0 && (
 										<Stack className="total-result">
 											<Typography>
-												Total {total} propert{total > 1 ? 'ies' : 'y'} available
+												Total {total} building{total > 1 ? 's' : ''} available
 											</Typography>
 										</Stack>
 									)}
