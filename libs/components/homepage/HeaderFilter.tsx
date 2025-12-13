@@ -40,11 +40,16 @@ const MenuProps = {
 const thisYear = new Date().getFullYear();
 
 interface HeaderFilterProps {
-	initialInput: PropertiesInquiry;
+	initialInput?: PropertiesInquiry;
 }
 
 const HeaderFilter = (props: HeaderFilterProps) => {
-	const { initialInput } = props;
+	const defaultInput: PropertiesInquiry = {
+		page: 1,
+		limit: 10,
+		search: {},
+	};
+	const { initialInput = defaultInput } = props;
 	const device = useDeviceDetect();
 	const { t, i18n } = useTranslation('common');
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
@@ -359,7 +364,329 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>HEADER FILTER MOBILE</div>;
+		return (
+			<>
+				<Stack className={'hero-content'}>
+					<Stack className={'hero-headline'}>
+						<Box component={'span'} className={'hero-subtitle'}>
+							Let's Explore Your
+						</Box>
+						<Box component={'h1'} className={'hero-title'}>
+							LocoHub.
+						</Box>
+					</Stack>
+				</Stack>
+				<Stack className={'search-box'}>
+					<Stack className={'select-box'}>
+						<Box component={'div'} className={`box location-box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
+							<LocationOnIcon className="location-icon" />
+							<span className="location-text">{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}</span>
+							<ExpandMoreIcon className="dropdown-icon" />
+						</Box>
+						{searchFilter?.search?.locationList && searchFilter?.search?.locationList.length > 0 && (
+							<>
+								<Divider orientation="vertical" className="separator" />
+								<Box className={`box property-type-box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
+									<span>{searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')}</span>
+									<ExpandMoreIcon />
+								</Box>
+							</>
+						)}
+					</Stack>
+					<Stack className={'search-box-other'}>
+						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
+							<CalendarTodayIcon className="calendar-icon" />
+							{selectedDate && (
+								<span className="date-text">
+									{selectedDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}
+								</span>
+							)}
+						</Box>
+						<Popover
+							open={openCalendar}
+							anchorEl={calendarAnchorRef.current}
+							onClose={() => setOpenCalendar(false)}
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'left',
+							}}
+						>
+							<LocalizationProvider dateAdapter={AdapterDateFns}>
+								<Box sx={{ 
+									p: 2, 
+									'& .MuiPickersLayout-root': { width: 'auto' }, 
+									'& .MuiDateCalendar-root': { width: '280px' }, 
+									'& .MuiPickersCalendarHeader-root': { 
+										paddingLeft: '12px', 
+										paddingRight: '12px',
+										marginBottom: '12px'
+									}, 
+									'& .MuiPickersCalendarHeader-label': {
+										fontSize: '14px',
+										fontWeight: 600
+									},
+									'& .MuiDayCalendar-weekContainer': { 
+										margin: 0 
+									}, 
+									'& .MuiPickersDay-root': { 
+										width: '36px', 
+										height: '36px', 
+										fontSize: '13px',
+										margin: '3px',
+										fontWeight: 500
+									},
+									'& .MuiPickersCalendarHeader-switchViewButton': {
+										width: '36px',
+										height: '36px'
+									},
+									'& .MuiDayCalendar-weekDayLabel': {
+										fontSize: '12px',
+										fontWeight: 600,
+										width: '36px',
+										margin: '3px'
+									}
+								}}>
+									<StaticDatePicker
+										value={selectedDate}
+										onChange={(newValue) => {
+											setSelectedDate(newValue);
+											if (newValue) {
+												setOpenCalendar(false);
+											}
+										}}
+										renderInput={(params: any) => <div />}
+									/>
+								</Box>
+							</LocalizationProvider>
+						</Popover>
+						<Box className={'search-btn'} onClick={pushSearchHandler}>
+							<img src="/img/icons/search_white.svg" alt="" />
+							<span>Search</span>
+						</Box>
+					</Stack>
+
+					{/*MENU */}
+					{openLocation && (
+						<div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>
+					)}
+					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
+						{propertyLocation.map((location: string, index: number) => {
+							return (
+								<div
+									className="location-item"
+									style={{ animationDelay: `${index * 0.08}s` }}
+									onClick={() => propertyLocationSelectHandler(location)}
+									key={location}
+								>
+									<img src={`img/banner/cities/${location}.jpg`} alt="" />
+									<span>{location}</span>
+								</div>
+							);
+						})}
+					</div>
+
+					{openType && (
+						<div className="filter-type-overlay" onClick={() => setOpenType(false)}></div>
+					)}
+					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
+						{propertyType.map((type: string, index: number) => {
+							return (
+								<div
+									className="property-type-item"
+									style={{
+										backgroundImage: `url(/img/banner/types/${type.toLowerCase()}.webp)`,
+									}}
+									onClick={() => propertyTypeSelectHandler(type)}
+									key={type}
+									data-index={index}
+								>
+									<span>{type}</span>
+								</div>
+							);
+						})}
+					</div>
+				</Stack>
+
+				{/* ADVANCED FILTER MODAL */}
+				<Modal
+					open={openAdvancedFilter}
+					onClose={() => advancedFilterHandler(false)}
+					aria-labelledby="modal-modal-title"
+					aria-describedby="modal-modal-description"
+				>
+					{/* @ts-ignore */}
+					<Box sx={style}>
+						<Box className={'advanced-filter-modal'}>
+							<div className={'close'} onClick={() => advancedFilterHandler(false)}>
+								<CloseIcon />
+							</div>
+							<div className={'top'}>
+								<span>Find your home</span>
+								<div className={'search-input-box'}>
+									<img src="/img/icons/search.svg" alt="" />
+									<input
+										value={searchFilter?.search?.text ?? ''}
+										type="text"
+										placeholder={'What are you looking for?'}
+										onChange={(e: any) => {
+											setSearchFilter({
+												...searchFilter,
+												search: { ...searchFilter.search, text: e.target.value },
+											});
+										}}
+									/>
+								</div>
+							</div>
+							<Divider sx={{ mt: '30px', mb: '35px' }} />
+							<div className={'middle'}>
+								<div className={'row-box'}>
+									<div className={'box'}>
+										<span>bedrooms</span>
+										<div className={'inside'}>
+											<div
+												className={`room ${!searchFilter?.search?.bedsList ? 'active' : ''}`}
+												onClick={() => propertyBedSelectHandler(0)}
+											>
+												Any
+											</div>
+											{[1, 2, 3, 4, 5].map((bed: number) => (
+												<div
+													className={`room ${searchFilter?.search?.bedsList?.includes(bed) ? 'active' : ''}`}
+													onClick={() => propertyBedSelectHandler(bed)}
+													key={bed}
+												>
+													{bed == 0 ? 'Any' : bed}
+												</div>
+											))}
+										</div>
+									</div>
+									<div className={'box'}>
+										<span>options</span>
+										<div className={'inside'}>
+											<FormControl>
+												<Select
+													value={optionCheck}
+													onChange={propertyOptionSelectHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+												>
+													<MenuItem value={'all'}>All Options</MenuItem>
+													<MenuItem value={'propertyBarter'}>Barter</MenuItem>
+													<MenuItem value={'propertyRent'}>Rent</MenuItem>
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+								</div>
+								<div className={'row-box'} style={{ marginTop: '44px' }}>
+									<div className={'box'}>
+										<span>Year Built</span>
+										<div className={'inside space-between align-center'}>
+											<FormControl sx={{ width: '122px' }}>
+												<Select
+													value={yearCheck.start.toString()}
+													onChange={yearStartChangeHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{propertyYears?.slice(0)?.map((year: number) => (
+														<MenuItem value={year} disabled={yearCheck.end <= year} key={year}>
+															{year}
+														</MenuItem>
+													))}
+												</Select>
+											</FormControl>
+											<div className={'minus-line'}></div>
+											<FormControl sx={{ width: '122px' }}>
+												<Select
+													value={yearCheck.end.toString()}
+													onChange={yearEndChangeHandler}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{propertyYears
+														?.slice(0)
+														.reverse()
+														.map((year: number) => (
+															<MenuItem value={year} disabled={yearCheck.start >= year} key={year}>
+																{year}
+															</MenuItem>
+														))}
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+									<div className={'box'}>
+										<span>square meter</span>
+										<div className={'inside space-between align-center'}>
+											<FormControl sx={{ width: '122px' }}>
+												<Select
+													value={searchFilter?.search?.squaresRange?.start}
+													onChange={(e: any) => propertySquareHandler(e, 'start')}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{propertySquare.map((square: number) => (
+														<MenuItem
+															value={square}
+															disabled={(searchFilter?.search?.squaresRange?.end || 0) < square}
+															key={square}
+														>
+															{square}
+														</MenuItem>
+													))}
+												</Select>
+											</FormControl>
+											<div className={'minus-line'}></div>
+											<FormControl sx={{ width: '122px' }}>
+												<Select
+													value={searchFilter?.search?.squaresRange?.end}
+													onChange={(e: any) => propertySquareHandler(e, 'end')}
+													displayEmpty
+													inputProps={{ 'aria-label': 'Without label' }}
+													MenuProps={MenuProps}
+												>
+													{propertySquare.map((square: number) => (
+														<MenuItem
+															value={square}
+															disabled={(searchFilter?.search?.squaresRange?.start || 0) > square}
+															key={square}
+														>
+															{square}
+														</MenuItem>
+													))}
+												</Select>
+											</FormControl>
+										</div>
+									</div>
+								</div>
+							</div>
+							<Divider sx={{ mt: '60px', mb: '18px' }} />
+							<div className={'bottom'}>
+								<div onClick={resetFilterHandler}>
+									<img src="/img/icons/reset.svg" alt="" />
+									<span>Reset all filters</span>
+								</div>
+								<Button
+									startIcon={<img src={'/img/icons/search.svg'} />}
+									className={'search-btn'}
+									onClick={pushSearchHandler}
+								>
+									Search
+								</Button>
+							</div>
+						</Box>
+					</Box>
+				</Modal>
+			</>
+		);
 	} else {
 		return (
 			<>

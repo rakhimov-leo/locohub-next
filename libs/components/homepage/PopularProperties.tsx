@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Stack, Box } from '@mui/material';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { Stack, Box, Pagination } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper';
+import { Autoplay, Navigation, Pagination as SwiperPagination } from 'swiper';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import PopularPropertyCard from './PopularPropertyCard';
@@ -22,6 +22,12 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const [popularProperties, setPopularProperties] = useState<Property[]>([]);
+	const [total, setTotal] = useState<number>(0);
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>({
+		...initialInput,
+		limit: device === 'mobile' ? 4 : initialInput.limit,
+	});
 
 	/** APOLLO REQUESTS **/
 
@@ -32,13 +38,31 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 		refetch: getPropertiesRefetch,
 	} = useQuery(GET_PROPERTIES, {
 		fetchPolicy: 'cache-and-network',
-		variables: { input: initialInput },
+		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			setPopularProperties(data?.getProperties?.list);
+			setTotal(data?.getProperties?.metaCounter[0]?.total ?? 0);
 		},
 	});
+
+	useEffect(() => {
+		if (device === 'mobile') {
+			setSearchFilter({
+				...initialInput,
+				limit: 4,
+				page: 1,
+			});
+			setCurrentPage(1);
+		}
+	}, [device, initialInput]);
+
 	/** HANDLERS **/
+
+	const paginationHandler = (event: ChangeEvent<unknown>, value: number) => {
+		setCurrentPage(value);
+		setSearchFilter({ ...searchFilter, page: value });
+	};
 
 	if (!popularProperties) return null;
 
@@ -50,24 +74,29 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 						<span>Popular properties</span>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'popular-property-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={25}
-							modules={[Autoplay]}
-						>
+						<Box className={'popular-property-grid'}>
 							{popularProperties.map((property: Property, index: number) => {
 								return (
-									<SwiperSlide key={property._id} className={'popular-property-slide'}>
+									<Box key={property._id} className={'popular-property-item'}>
 										<AnimatedListItem index={index}>
 										<PopularPropertyCard property={property} />
 										</AnimatedListItem>
-									</SwiperSlide>
+									</Box>
 								);
 							})}
-						</Swiper>
+						</Box>
 					</Stack>
+					{total > 4 && (
+						<Stack className={'pagination-box'}>
+							<Pagination
+								count={Math.ceil(total / 4)}
+								page={currentPage}
+								onChange={paginationHandler}
+								shape="circular"
+								color="primary"
+							/>
+						</Stack>
+					)}
 				</Stack>
 			</Stack>
 		);
@@ -94,7 +123,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 							className={'popular-property-swiper'}
 							slidesPerView={'auto'}
 							spaceBetween={25}
-							modules={[Autoplay, Navigation, Pagination]}
+							modules={[Autoplay, Navigation, SwiperPagination]}
 							navigation={{
 								nextEl: '.swiper-popular-next',
 								prevEl: '.swiper-popular-prev',
