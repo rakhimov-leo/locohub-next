@@ -3,13 +3,13 @@
 		position: relative;
 		width: 100%;
 		height: auto;
-		
+
 		// Scroll animation styles - works for both scroll directions
 		.animate-hidden {
 			opacity: 0;
 			pointer-events: none;
 		}
-		
+
 		.animate-fade-up {
 			&.animate-hidden {
 				opacity: 0;
@@ -20,7 +20,7 @@
 				transform: translateY(0);
 			}
 		}
-		
+
 		.animate-fade-in {
 			&.animate-hidden {
 				opacity: 0;
@@ -29,7 +29,7 @@
 				opacity: 1;
 			}
 		}
-		
+
 		.animate-slide-left {
 			&.animate-hidden {
 				opacity: 0;
@@ -40,7 +40,7 @@
 				transform: translateX(0);
 			}
 		}
-		
+
 		.animate-slide-right {
 			&.animate-hidden {
 				opacity: 0;
@@ -51,7 +51,7 @@
 				transform: translateX(0);
 			}
 		}
-		
+
 		// Removed separate image animations - images now animate with their parent cards
 		.info-box {
 			width: 100%;
@@ -170,11 +170,11 @@
 			padding: 30px 0;
 			background: #f6f6f6;
 			position: relative;
-			
+
 			.brand-carousel-wrapper {
 				width: 100%;
 				overflow: hidden;
-				
+
 				.brand-carousel-track {
 					display: flex;
 					align-items: center;
@@ -182,11 +182,11 @@
 					width: fit-content;
 					animation: scrollBrands 30s linear infinite;
 					will-change: transform;
-					
+
 					&.paused {
 						animation-play-state: paused;
 					}
-					
+
 					.brand-item {
 						flex-shrink: 0;
 						display: flex;
@@ -197,11 +197,11 @@
 						min-width: 180px;
 						opacity: 0.7;
 						transition: opacity 0.3s ease;
-						
+
 						&:hover {
 							opacity: 1;
 						}
-						
+
 						.brand-link {
 							display: flex;
 							flex-direction: column;
@@ -214,7 +214,7 @@
 							width: 100%;
 							height: 100%;
 						}
-						
+
 						img {
 							width: 60px;
 							height: 60px;
@@ -222,7 +222,7 @@
 							filter: grayscale(100%);
 							transition: filter 0.3s ease, transform 0.3s ease;
 						}
-						
+
 						span {
 							font-family: $font;
 							font-size: 14px;
@@ -233,13 +233,13 @@
 							white-space: nowrap;
 							transition: color 0.3s ease;
 						}
-						
+
 						&:hover {
 							img {
 								filter: grayscale(0%);
 								transform: scale(1.1);
 							}
-							
+
 							span {
 								color: #181a20;
 								font-weight: 500;
@@ -249,7 +249,7 @@
 				}
 			}
 		}
-		
+
 		.trend-properties {
 			padding: 108px 0px 76px;
 			width: 100%;
@@ -295,7 +295,7 @@
 						border: 2px solid rgba(255, 255, 255, 0.3);
 						background: #fff;
 						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-						
+
 						// Glow effect for trend properties (matching gradient colors)
 						&::before {
 							content: '';
@@ -310,26 +310,26 @@
 							opacity: 0;
 							transition: opacity 0.4s;
 						}
-						
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
 							box-shadow: 0px 20px 50px rgba(195, 207, 226, 0.5);
 							border-color: rgba(195, 207, 226, 0.6);
-							
+
 							&::before {
 								opacity: 0.6;
 							}
-							
+
 							.card-img {
 								background-size: 120%;
-								
+
 								&::after {
 									opacity: 0.3;
 								}
 							}
 						}
-						
+
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -340,7 +340,7 @@
 							cursor: pointer;
 							overflow: hidden;
 							transition: background-size 0.8s ease-in-out;
-							
+
 							// Overlay gradient for better text readability
 							&::after {
 								content: '';
@@ -349,11 +349,16 @@
 								left: 0;
 								width: 100%;
 								height: 100%;
-								background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.4) 100%);
+								background: linear-gradient(
+									to bottom,
+									rgba(0, 0, 0, 0.2) 0%,
+									rgba(0, 0, 0, 0.05) 50%,
+									rgba(0, 0, 0, 0.4) 100%
+								);
 								opacity: 0.5;
 								transition: opacity 0.4s;
 							}
-							
+
 							div {
 								position: absolute;
 								padding: 8px 12px;
@@ -371,7 +376,7 @@
 								z-index: 2;
 								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 								transition: all 0.3s;
-								
+
 								&:hover {
 									transform: translateY(-2px);
 									box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
@@ -410,7 +415,7 @@
 								transform: translateY(20px);
 								animation: fadeInUpText 0.6s ease-out 0.3s forwards;
 								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-								
+
 								&:hover {
 									color: #34d399;
 									background: rgba(52, 211, 153, 0.15);
@@ -504,18 +509,18 @@
 			height: 816px;
 			display: flex;
 			flex-direction: row;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 			.container {
 				flex-direction: column;
 				align-items: center;
-				
+
 				.info-box {
 					.left {
 						span {
-							color: #ffffff;
+							color: #181a20;
 						}
 						p {
-							color: rgba(255, 255, 255, 0.9);
+							color: rgba(24, 26, 32, 0.7);
 						}
 					}
 				}
@@ -552,7 +557,7 @@
 						box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
 						border: 2px solid rgba(255, 255, 255, 0.3);
 						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-						
+
 						// Glow effect for popular properties (matching purple gradient)
 						&::before {
 							content: '';
@@ -567,26 +572,26 @@
 							opacity: 0;
 							transition: opacity 0.4s;
 						}
-						
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
 							box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.5);
 							border-color: rgba(102, 126, 234, 0.6);
-							
+
 							&::before {
 								opacity: 0.6;
 							}
-							
+
 							.card-img {
 								background-size: 120%;
-								
+
 								&::after {
 									opacity: 0.3;
 								}
 							}
 						}
-						
+
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -597,7 +602,7 @@
 							cursor: pointer;
 							overflow: hidden;
 							transition: background-size 0.8s ease-in-out;
-							
+
 							// Overlay gradient for better text readability
 							&::after {
 								content: '';
@@ -606,11 +611,16 @@
 								left: 0;
 								width: 100%;
 								height: 100%;
-								background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.4) 100%);
+								background: linear-gradient(
+									to bottom,
+									rgba(0, 0, 0, 0.2) 0%,
+									rgba(0, 0, 0, 0.05) 50%,
+									rgba(0, 0, 0, 0.4) 100%
+								);
 								opacity: 0.5;
 								transition: opacity 0.4s;
 							}
-							
+
 							div.status {
 								position: absolute;
 								padding: 6px 34px;
@@ -652,13 +662,13 @@
 								z-index: 2;
 								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 								transition: all 0.3s;
-								
+
 								&:hover {
 									transform: translateY(-2px);
 									box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
 								}
 							}
-							
+
 							div.status {
 								z-index: 2;
 								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
@@ -697,7 +707,7 @@
 								transform: none;
 								animation: none;
 								transition: color 0.3s ease;
-								
+
 								&:hover {
 									color: #34d399;
 									background: transparent;
@@ -817,17 +827,17 @@
 			display: flex;
 			flex-direction: row;
 			perspective: 1200px; // Add perspective for 3D layered effect
-			background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+			background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 			.container {
 				flex-direction: column;
-				
+
 				.info-box {
 					.left {
 						span {
-							color: #ffffff;
+							color: #181a20;
 						}
 						p {
-							color: rgba(255, 255, 255, 0.9);
+							color: rgba(24, 26, 32, 0.7);
 						}
 					}
 				}
@@ -848,44 +858,59 @@
 							height: auto;
 							display: flex;
 							margin: 10px 0 0 10px;
-						transform-style: preserve-3d;
-					}
-					
-					// Layered spreading animation for top properties
-					.animated-top-property-card {
-						position: relative;
-						width: 100%;
-						height: 100%;
-						will-change: transform, opacity, filter;
-						transform-style: preserve-3d;
-						
-						// Create layered z-index effect - center cards have higher z-index for depth
-						&:nth-child(1) { z-index: 5; }
-						&:nth-child(2) { z-index: 6; }
-						&:nth-child(3) { z-index: 7; }
-						&:nth-child(4) { z-index: 8; }
-						&:nth-child(5) { z-index: 7; }
-						&:nth-child(6) { z-index: 6; }
-						&:nth-child(7) { z-index: 5; }
-						&:nth-child(8) { z-index: 4; }
-						
-						// Enhanced card transitions with 3D perspective
-						.top-card-box {
-							transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
-							            box-shadow 0.4s ease-out,
-							            opacity 0.3s ease-out;
 							transform-style: preserve-3d;
-							backface-visibility: hidden;
 						}
-						
-						// Enhanced hover effect with depth and elevation
-						&:hover {
-							z-index: 20 !important;
-							.top-card-box {
-								transform: scale(1.12) translateY(-10px) translateZ(30px);
-								box-shadow: 0px 20px 50px rgba(24, 26, 32, 0.25);
+
+						// Layered spreading animation for top properties
+						.animated-top-property-card {
+							position: relative;
+							width: 100%;
+							height: 100%;
+							will-change: transform, opacity, filter;
+							transform-style: preserve-3d;
+
+							// Create layered z-index effect - center cards have higher z-index for depth
+							&:nth-child(1) {
+								z-index: 5;
 							}
-						}
+							&:nth-child(2) {
+								z-index: 6;
+							}
+							&:nth-child(3) {
+								z-index: 7;
+							}
+							&:nth-child(4) {
+								z-index: 8;
+							}
+							&:nth-child(5) {
+								z-index: 7;
+							}
+							&:nth-child(6) {
+								z-index: 6;
+							}
+							&:nth-child(7) {
+								z-index: 5;
+							}
+							&:nth-child(8) {
+								z-index: 4;
+							}
+
+							// Enhanced card transitions with 3D perspective
+							.top-card-box {
+								transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out,
+									opacity 0.3s ease-out;
+								transform-style: preserve-3d;
+								backface-visibility: hidden;
+							}
+
+							// Enhanced hover effect with depth and elevation
+							&:hover {
+								z-index: 20 !important;
+								.top-card-box {
+									transform: scale(1.12) translateY(-10px) translateZ(30px);
+									box-shadow: 0px 20px 50px rgba(24, 26, 32, 0.25);
+								}
+							}
 						}
 					}
 					.top-card-box {
@@ -901,7 +926,7 @@
 						background: #fff;
 						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 						transform-origin: center center;
-						
+
 						// Glow effect for top properties (matching pink-red gradient)
 						&::before {
 							content: '';
@@ -916,27 +941,27 @@
 							opacity: 0;
 							transition: opacity 0.4s;
 						}
-						
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
 							box-shadow: 0px 20px 50px rgba(240, 147, 251, 0.5);
 							border-color: rgba(240, 147, 251, 0.6);
 							z-index: 10;
-							
+
 							&::before {
 								opacity: 0.6;
 							}
-							
+
 							.card-img {
 								background-size: 120%;
-								
+
 								&::after {
 									opacity: 0.3;
 								}
 							}
 						}
-						
+
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -947,7 +972,7 @@
 							cursor: pointer;
 							overflow: hidden;
 							transition: background-size 0.8s ease-in-out;
-							
+
 							// Overlay gradient for better text readability
 							&::after {
 								content: '';
@@ -956,11 +981,16 @@
 								left: 0;
 								width: 100%;
 								height: 100%;
-								background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.4) 100%);
+								background: linear-gradient(
+									to bottom,
+									rgba(0, 0, 0, 0.2) 0%,
+									rgba(0, 0, 0, 0.05) 50%,
+									rgba(0, 0, 0, 0.4) 100%
+								);
 								opacity: 0.5;
 								transition: opacity 0.4s;
 							}
-							
+
 							div {
 								position: absolute;
 								padding: 8px 12px;
@@ -978,7 +1008,7 @@
 								z-index: 2;
 								box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 								transition: all 0.3s;
-								
+
 								&:hover {
 									transform: translateY(-2px);
 									box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
@@ -1017,7 +1047,7 @@
 								transform: translateY(20px);
 								animation: fadeInUpText 0.6s ease-out 0.3s forwards;
 								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-								
+
 								&:hover {
 									color: #34d399;
 									background: rgba(52, 211, 153, 0.15);
@@ -1114,7 +1144,7 @@
 			flex-direction: row;
 			background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #f0f2f5 100%);
 			overflow: hidden;
-			
+
 			// Light effect overlay
 			&::before {
 				content: '';
@@ -1127,7 +1157,7 @@
 				pointer-events: none;
 				z-index: 1;
 			}
-			
+
 			// Additional light effect
 			&::after {
 				content: '';
@@ -1140,7 +1170,7 @@
 				pointer-events: none;
 				z-index: 1;
 			}
-			
+
 			.container {
 				position: relative;
 				z-index: 2;
@@ -1203,12 +1233,10 @@
 									background: #f0f0f0;
 									cursor: pointer;
 									transition: all 0.3s ease;
-									box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1), 
-												0px 0px 20px rgba(255, 255, 255, 0.5) inset;
+									box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1), 0px 0px 20px rgba(255, 255, 255, 0.5) inset;
 									&:hover {
 										transform: scale(1.05);
-										box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.15), 
-													0px 0px 30px rgba(255, 255, 255, 0.6) inset;
+										box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.15), 0px 0px 30px rgba(255, 255, 255, 0.6) inset;
 									}
 								}
 								// Light effect on profile images
@@ -1372,7 +1400,7 @@
 			flex-direction: row;
 			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 			overflow: hidden;
-			
+
 			// Decorative elements
 			&::before {
 				content: '';
@@ -1382,10 +1410,10 @@
 				width: 100%;
 				height: 100%;
 				background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-							radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+					radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
 				pointer-events: none;
 			}
-			
+
 			.container {
 				position: relative;
 				z-index: 1;
@@ -1400,12 +1428,12 @@
 					flex-direction: row;
 					justify-content: space-between;
 					gap: 30px;
-					
+
 					a {
 						text-decoration: none;
 						color: inherit;
 					}
-					
+
 					.event-card {
 						position: relative;
 						width: 380px;
@@ -1417,7 +1445,7 @@
 						box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
 						border: 2px solid rgba(255, 255, 255, 0.1);
 						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-						
+
 						// Overlay gradient for better text readability
 						&::after {
 							content: '';
@@ -1426,21 +1454,26 @@
 							left: 0;
 							width: 100%;
 							height: 100%;
-							background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.6) 100%);
+							background: linear-gradient(
+								to bottom,
+								rgba(0, 0, 0, 0.3) 0%,
+								rgba(0, 0, 0, 0.1) 50%,
+								rgba(0, 0, 0, 0.6) 100%
+							);
 							opacity: 0.7;
 							transition: opacity 0.4s;
 						}
-						
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
 							box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.4);
 							border-color: rgba(102, 126, 234, 0.5);
-							
+
 							&::after {
 								opacity: 0.5;
 							}
-							
+
 							.info {
 								strong {
 									color: #ffffff;
@@ -1451,13 +1484,13 @@
 									text-shadow: 0px 2px 8px rgba(118, 75, 162, 0.6);
 								}
 							}
-							
+
 							.more {
 								opacity: 1;
 								transform: translateY(0);
 							}
 						}
-						
+
 						.info {
 							position: absolute;
 							display: flex;
@@ -1519,7 +1552,7 @@
 								box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
 								border: 1px solid rgba(102, 126, 234, 0.2);
 								transition: all 0.3s;
-								
+
 								&:hover {
 									background: rgba(255, 255, 255, 1);
 									box-shadow: 0px 12px 30px rgba(102, 126, 234, 0.4);
@@ -1545,7 +1578,7 @@
 						letter-spacing: 1px;
 						text-transform: uppercase;
 						transition: all 0.3s;
-						
+
 						&:hover {
 							color: #ffffff;
 							text-shadow: 0px 0px 20px rgba(102, 126, 234, 0.6);
@@ -1645,54 +1678,52 @@
 html.dark-mode {
 	#pc-wrap .home-page {
 		background-color: #0f0f0f;
-		
+
 		.info-box {
 			.left {
 				span {
 					color: #ffffff !important;
 				}
-				
+
 				p {
 					color: #b0b0b0 !important;
 				}
 			}
 		}
-		
+
 		.brand-carousel-container {
 			background: #1a1a1a;
-			
+
 			.brand-carousel-wrapper {
 				.brand-carousel-track {
 					.brand-item {
 						opacity: 0.85; // Dark mode'da yorqinroq
 						transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-						
+
 						img {
 							filter: grayscale(70%); // Dark mode'da kamroq grayscale
 							transition: filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 						}
-						
+
 						span {
 							color: #d0d0d0; // Dark mode'da yorqinroq text
 							transition: color 0.3s ease, text-shadow 0.3s ease;
 						}
-						
+
 						&:hover {
 							opacity: 1; // Hover bo'lganda to'liq yorqin
 							transform: scale(1.05) translateY(-3px);
-							
+
 							img {
 								filter: grayscale(0%); // Hover'da rangli
 								transform: scale(1.1);
-								box-shadow: 0 0 20px rgba(52, 211, 153, 0.5),
-								            0 0 40px rgba(52, 211, 153, 0.3),
-								            0 0 60px rgba(52, 211, 153, 0.2);
+								box-shadow: 0 0 20px rgba(52, 211, 153, 0.5), 0 0 40px rgba(52, 211, 153, 0.3),
+									0 0 60px rgba(52, 211, 153, 0.2);
 							}
-							
+
 							span {
 								color: #34d399; // Hover'da yashil rang
-								text-shadow: 0 0 10px rgba(52, 211, 153, 0.6),
-								             0 0 20px rgba(52, 211, 153, 0.4);
+								text-shadow: 0 0 10px rgba(52, 211, 153, 0.6), 0 0 20px rgba(52, 211, 153, 0.4);
 								font-weight: 500;
 							}
 						}
@@ -1700,66 +1731,66 @@ html.dark-mode {
 				}
 			}
 		}
-		
+
 		.trend-properties,
 		.popular-properties,
 		.top-properties {
 			background: #0f0f0f !important;
-			
+
 			.info-box {
 				.left {
 					span {
 						color: #ffffff;
 					}
-					
+
 					p {
 						color: #b0b0b0;
 					}
 				}
 			}
-			
+
 			.trend-card-box,
 			.popular-card-box,
 			.top-card-box {
 				background: #1a1a1a !important;
 				box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3) !important;
 				border: 1px solid rgba(255, 255, 255, 0.1) !important;
-				
+
 				&:hover {
 					box-shadow: 0px 8px 24px 0px rgba(52, 211, 153, 0.2) !important;
 					border-color: rgba(52, 211, 153, 0.3) !important;
 				}
-				
+
 				.info {
 					background: #1a1a1a !important;
 					border: none !important;
 					border-top: none !important;
-					
+
 					.title {
 						color: #ffffff !important;
 						background: rgba(26, 26, 26, 0.7) !important;
-						
+
 						&:hover {
 							color: #34d399 !important;
 							background: rgba(52, 211, 153, 0.15) !important;
 						}
 					}
-					
+
 					.desc {
 						color: #b0b0b0 !important;
 					}
-					
+
 					.options {
 						span {
 							color: #ffffff !important;
 						}
 					}
-					
+
 					.bott {
 						p {
 							color: #b0b0b0 !important;
 						}
-						
+
 						.view-like-box {
 							.view-cnt {
 								color: #b0b0b0 !important;
@@ -1767,19 +1798,19 @@ html.dark-mode {
 						}
 					}
 				}
-				
+
 				.card-img {
 					div {
 						background: #1a1a1a;
 						color: #ffffff;
 					}
-					
+
 					div.price {
 						background: #fff !important;
 						border: none !important;
 						color: #181a20 !important;
 					}
-					
+
 					div.status {
 						background: #eb6753;
 						color: #fff;
@@ -1787,24 +1818,24 @@ html.dark-mode {
 				}
 			}
 		}
-		
+
 		.popular-properties {
 			background: #141414;
 		}
-		
+
 		.top-agents {
 			background: #141414;
-			
+
 			.info-box {
 				span {
 					color: #ffffff;
 				}
-				
+
 				p {
 					color: #b0b0b0;
 				}
 			}
-			
+
 			.top-agent-card {
 				strong,
 				span {
@@ -1812,35 +1843,35 @@ html.dark-mode {
 				}
 			}
 		}
-		
+
 		.events {
 			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f1419 100%);
-			
+
 			.event-card {
 				border-color: rgba(255, 255, 255, 0.15);
-				
+
 				&:hover {
 					border-color: rgba(102, 126, 234, 0.6);
 					box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.5);
 				}
-				
+
 				.more {
 					span {
 						background: rgba(26, 26, 46, 0.95);
 						color: #ffffff;
 						border-color: rgba(102, 126, 234, 0.3);
-						
+
 						&:hover {
 							background: rgba(26, 26, 46, 1);
 						}
 					}
 				}
 			}
-			
+
 			.footer-text {
 				p {
 					color: rgba(255, 255, 255, 0.9);
-					
+
 					&:hover {
 						color: #ffffff;
 						text-shadow: 0px 0px 25px rgba(102, 126, 234, 0.8);

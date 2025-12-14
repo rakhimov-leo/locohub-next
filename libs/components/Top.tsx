@@ -59,7 +59,7 @@ const Top = () => {
 	useEffect(() => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
-		
+
 		// Load dark mode preference from localStorage
 		if (typeof window !== 'undefined') {
 			const savedDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -111,6 +111,25 @@ const Top = () => {
 		}
 	};
 
+	const handleNavigationClick = () => {
+		// Scroll to top immediately when clicking navigation links
+		if (typeof window !== 'undefined') {
+			// Clear any saved scroll positions
+			sessionStorage.removeItem('homepageScrollPosition');
+			sessionStorage.removeItem('fromDetailPage');
+
+			// Scroll to top immediately
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: 'auto',
+			});
+			// Also set scroll position directly to ensure it works
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+		}
+	};
+
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
@@ -126,10 +145,10 @@ const Top = () => {
 	const toggleDarkMode = () => {
 		const newDarkMode = !darkMode;
 		setDarkMode(newDarkMode);
-		
+
 		if (typeof window !== 'undefined') {
 			localStorage.setItem('darkMode', newDarkMode.toString());
-			
+
 			if (newDarkMode) {
 				document.documentElement.classList.add('dark-mode');
 				document.body.style.backgroundColor = '#0f0f0f';
@@ -195,21 +214,40 @@ const Top = () => {
 						</Box>
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
-								<div className={router.pathname === '/' ? 'active' : ''}>{t('Home')}</div>
+								<div className={router.pathname === '/' ? 'active' : ''} onClick={handleNavigationClick}>
+									{t('Home')}
+								</div>
 							</Link>
 							<Link href={'/property'}>
-								<div className={router.pathname.startsWith('/property') ? 'active' : ''}>Buildings</div>
+								<div
+									className={router.pathname.startsWith('/property') ? 'active' : ''}
+									onClick={handleNavigationClick}
+								>
+									Buildings
+								</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div className={router.pathname.startsWith('/agent') ? 'active' : ''}> Advisors </div>
+								<div className={router.pathname.startsWith('/agent') ? 'active' : ''} onClick={handleNavigationClick}>
+									{' '}
+									Advisors{' '}
+								</div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div className={router.pathname.startsWith('/mypage') ? 'active' : ''}> Me </div>
+									<div
+										className={router.pathname.startsWith('/mypage') ? 'active' : ''}
+										onClick={handleNavigationClick}
+									>
+										{' '}
+										Me{' '}
+									</div>
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('CS')} </div>
+								<div className={router.pathname.startsWith('/cs') ? 'active' : ''} onClick={handleNavigationClick}>
+									{' '}
+									{t('CS')}{' '}
+								</div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>
@@ -306,7 +344,7 @@ const Top = () => {
 										{t('Russian')}
 									</MenuItem>
 								</StyledMenu>
-								
+
 								<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
 									{darkMode ? (
 										<LightModeOutlinedIcon className={'dark-mode-icon'} />
@@ -335,21 +373,40 @@ const Top = () => {
 						</Box>
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
-								<div>{t('Home')}</div>
+								<div className={router.pathname === '/' ? 'active' : ''} onClick={handleNavigationClick}>
+									{t('Home')}
+								</div>
 							</Link>
 							<Link href={'/property'}>
-								<div>Buildings</div>
+								<div
+									className={router.pathname.startsWith('/property') ? 'active' : ''}
+									onClick={handleNavigationClick}
+								>
+									Buildings
+								</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div> Advisors </div>
+								<div className={router.pathname.startsWith('/agent') ? 'active' : ''} onClick={handleNavigationClick}>
+									{' '}
+									Advisors{' '}
+								</div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div> Me </div>
+									<div
+										className={router.pathname.startsWith('/mypage') ? 'active' : ''}
+										onClick={handleNavigationClick}
+									>
+										{' '}
+										Me{' '}
+									</div>
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div> {t('CS')} </div>
+								<div className={router.pathname.startsWith('/cs') ? 'active' : ''} onClick={handleNavigationClick}>
+									{' '}
+									{t('CS')}{' '}
+								</div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>
@@ -446,7 +503,7 @@ const Top = () => {
 										{t('Russian')}
 									</MenuItem>
 								</StyledMenu>
-								
+
 								<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
 									{darkMode ? (
 										<LightModeOutlinedIcon className={'dark-mode-icon'} />

@@ -57,6 +57,19 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	});
 	/** LIFECYCLES **/
 	useEffect(() => {
+		// Scroll to top when page mounts
+		if (typeof window !== 'undefined') {
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: 'auto',
+			});
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+		}
+	}, []);
+
+	useEffect(() => {
 		if (router.query.input) {
 			const inputObj = JSON.parse(router?.query?.input as string);
 			setSearchFilter(inputObj);
@@ -128,7 +141,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		setAnchorEl(null);
 	};
 
-		if (device === 'mobile') {
+	if (device === 'mobile') {
 		return <h1>BUILDINGS MOBILE</h1>;
 	} else {
 		return (

@@ -39,13 +39,7 @@ const withLayoutMain = (Component: any) => {
 						</Stack>
 
 						<Stack className={'header-main'}>
-							<video 
-								className={'header-background-video'}
-								autoPlay 
-								loop 
-								muted 
-								playsInline
-							>
+							<video className={'header-background-video'} autoPlay loop muted playsInline>
 								<source src="/video/header-background.mp4" type="video/mp4" />
 								Your browser does not support the video tag.
 							</video>
@@ -77,13 +71,7 @@ const withLayoutMain = (Component: any) => {
 						</Stack>
 
 						<Stack className={'header-main'}>
-							<video 
-								className={'header-background-video'}
-								autoPlay 
-								loop 
-								muted 
-								playsInline
-							>
+							<video className={'header-background-video'} autoPlay loop muted playsInline>
 								<source src="/video/header-background.mp4" type="video/mp4" />
 								Your browser does not support the video tag.
 							</video>
