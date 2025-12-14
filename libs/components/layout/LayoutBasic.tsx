@@ -26,7 +26,10 @@ const withLayoutBasic = (Component: any) => {
 			let title = '',
 				desc = '',
 				bgImage = '',
-				bgVideo = '';
+				bgVideo = '',
+				videoHeight = '100%',
+				videoPosition = 'center center',
+				headerHeight = '557px';
 
 			switch (router.pathname) {
 				case '/property':
@@ -34,11 +37,17 @@ const withLayoutBasic = (Component: any) => {
 					desc = 'We are glad to see you again!';
 					bgImage = '/img/banner/Buildings-page2.jpg';
 					bgVideo = '/video/buildings-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center center';
+					headerHeight = '450px';
 					break;
 				case '/agent':
 					title = 'Advisors';
 					bgImage = '/img/banner/agents.webp';
 					bgVideo = '/video/advisors-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center center';
+					headerHeight = '450px';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
@@ -47,8 +56,12 @@ const withLayoutBasic = (Component: any) => {
 					break;
 				case '/mypage':
 					title = 'Me';
-					desc = 'Home / For Rent';
+					desc = '';
 					bgImage = '/img/banner/header1.svg';
+					bgVideo = '/video/mypage-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center center';
+					headerHeight = '450px';
 					break;
 				case '/cs':
 					title = 'CS';
@@ -70,7 +83,7 @@ const withLayoutBasic = (Component: any) => {
 					break;
 			}
 
-			return { title, desc, bgImage, bgVideo };
+			return { title, desc, bgImage, bgVideo, videoHeight, videoPosition, headerHeight };
 		}, [router.pathname]);
 
 		/** LIFECYCLES **/
@@ -120,6 +133,7 @@ const withLayoutBasic = (Component: any) => {
 							style={{
 								position: 'relative',
 								overflow: 'hidden',
+								height: memoizedValues.headerHeight,
 								backgroundImage: memoizedValues.bgVideo ? 'none' : `url(${memoizedValues.bgImage})`,
 								backgroundSize: 'cover',
 								backgroundPosition: 'center 30%',
@@ -127,41 +141,27 @@ const withLayoutBasic = (Component: any) => {
 							}}
 						>
 							{memoizedValues.bgVideo && (
-								<>
-									<video
-										style={{
-											position: 'absolute',
-											top: 0,
-											left: 0,
-											width: '100%',
-											height: '100%',
-											objectFit: 'cover',
-											zIndex: 0,
-											pointerEvents: 'none',
-										}}
-										autoPlay
-										loop
-										muted
-										playsInline
-										preload="auto"
-									>
-										<source src={memoizedValues.bgVideo} type="video/mp4" />
-										Your browser does not support the video tag.
-									</video>
-									<div className="rain-effect">
-										{Array.from({ length: 50 }).map((_, i) => (
-											<div
-												key={i}
-												className="rain-drop"
-												style={{
-													left: `${Math.random() * 100}%`,
-													animationDelay: `${Math.random() * 2}s`,
-													animationDuration: `${0.5 + Math.random() * 0.5}s`,
-												}}
-											/>
-										))}
-									</div>
-								</>
+								<video
+									style={{
+										position: 'absolute',
+										top: 0,
+										left: 0,
+										width: '100%',
+										height: memoizedValues.videoHeight,
+										objectFit: 'cover',
+										objectPosition: memoizedValues.videoPosition,
+										zIndex: 0,
+										pointerEvents: 'none',
+									}}
+									autoPlay
+									loop
+									muted
+									playsInline
+									preload="auto"
+								>
+									<source src={memoizedValues.bgVideo} type="video/mp4" />
+									Your browser does not support the video tag.
+								</video>
 							)}
 							<Stack
 								className={'container'}
