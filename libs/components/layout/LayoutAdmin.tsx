@@ -141,10 +141,6 @@ const withAdminLayout = (Component: ComponentType) => {
 						className="aside"
 					>
 						<Toolbar sx={{ flexDirection: 'column', alignItems: 'flexStart' }}>
-							<Stack className={'logo-box'}>
-								<img src={'/img/logo/logoText.svg'} alt={'logo'} />
-							</Stack>
-
 							<Stack
 								className="user"
 								direction={'row'}
@@ -154,6 +150,7 @@ const withAdminLayout = (Component: ComponentType) => {
 									borderRadius: '8px',
 									px: '24px',
 									py: '11px',
+									mt: '100px', // keep user block visually where it was when logo existed
 								}}
 							>
 								<Avatar

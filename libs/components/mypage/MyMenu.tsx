@@ -5,7 +5,7 @@ import useDeviceDetect from '../../hooks/useDeviceDetect';
 import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
-import PortraitIcon from '@mui/icons-material/Portrait';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import LogoutIcon from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
 import { REACT_APP_API_URL } from '../../config';
@@ -264,7 +264,7 @@ const MyMenu = () => {
 									scroll={false}
 								>
 									<div className={'flex-box'}>
-										<PortraitIcon
+										<PersonRoundedIcon
 											className="com-icon"
 											sx={{
 												fontSize: 22,
