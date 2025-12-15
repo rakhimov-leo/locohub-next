@@ -519,12 +519,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 													<Typography className={'title'}>Property Type</Typography>
 													<Typography className={'data'}>{property?.propertyType}</Typography>
 												</Box>
-												<Box component={'div'} className={'info'}>
-													<Typography className={'title'}>Property Options</Typography>
-													<Typography className={'data'}>
-														For {property?.propertyBarter && 'Barter'} {property?.propertyRent && 'Rent'}
-													</Typography>
-												</Box>
+												{/* Property options (Barter/Rent) removed as per design */}
 											</Stack>
 										</Stack>
 									</Stack>
@@ -946,12 +941,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 													<Typography className={'title'}>Property Type</Typography>
 													<Typography className={'data'}>{property?.propertyType}</Typography>
 												</Box>
-												<Box component={'div'} className={'info'}>
-													<Typography className={'title'}>Property Options</Typography>
-													<Typography className={'data'}>
-														For {property?.propertyBarter && 'Barter'} {property?.propertyRent && 'Rent'}
-													</Typography>
-												</Box>
+												{/* Property options (Barter/Rent) removed as per design */}
 											</Stack>
 										</Stack>
 									</Stack>

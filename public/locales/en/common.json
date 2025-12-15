@@ -16,5 +16,18 @@
   "Agent Page": "Agent Page",
   "my page": "Me",
   "Login/Signup": "Login/Signup",
-  "Member Page": "Member Page"
+  "Member Page": "Member Page",
+  "cs.centerTitle": "CS center",
+  "cs.centerDesc": "I will answer your questions",
+  "cs.tab.notice": "Notice",
+  "cs.tab.faq": "FAQ",
+  "cs.faq.category.property": "Property",
+  "cs.faq.category.payment": "Payment",
+  "cs.faq.category.buyers": "For buyers",
+  "cs.faq.category.agents": "For advisors",
+  "cs.faq.category.membership": "Membership",
+  "cs.faq.category.other": "Other",
+  "cs.notice.number": "number",
+  "cs.notice.title": "title",
+  "cs.notice.date": "date"
 }

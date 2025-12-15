@@ -8,13 +8,15 @@
 				width: 100%;
 				flex-direction: row;
 				gap: 15px;
-				padding-top: 96px;
+				// Reduce top padding so content is closer to the header video
+				padding-top: 1px;
 				.back-frame {
 					width: 1260px;
 					height: auto;
 					display: flex;
 					flex-direction: row;
-					margin: 100px 0 200px 0;
+					// Bring the whole mypage card block closer to the header
+					margin: 40px 0 160px 0;
 					border-radius: 16px;
 					border: none;
 					background: transparent;
@@ -29,7 +31,8 @@
 						background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 						border: 1px solid rgba(255, 255, 255, 0.1);
 						box-shadow: 0px 8px 24px 0px rgba(102, 126, 234, 0.25);
-						margin: 180px -20px 40px 0;
+						// Reduce top margin so sidebar aligns closer to the main content
+						margin: 80px -20px 40px 0;
 						.profile {
 							margin-top: 5px;
 							position: relative;
@@ -110,7 +113,7 @@
 										margin-bottom: 6px;
 										border-radius: 8px;
 										transition: all 0.3s ease;
-										
+
 										&:hover {
 											background: rgba(255, 255, 255, 0.1);
 										}
@@ -157,7 +160,7 @@
 									text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 									transition: color 0.3s ease;
 								}
-								
+
 								.sub-section li:hover .sub-title {
 									color: #ffffff;
 								}
@@ -167,7 +170,8 @@
 					.main-config {
 						position: relative;
 						width: 936px;
-						margin-top: 52px;
+						// Pull main content closer to the top of the frame
+						margin-top: 20px;
 						align-items: flex-start;
 						gap: 20px;
 						.list-config {
@@ -185,7 +189,7 @@
 								background: #fff;
 								box-shadow: 0px 2px 8px 0px rgba(24, 26, 32, 0.08);
 								transition: all 0.3s ease-out;
-								
+
 								&:hover {
 									transform: translateY(-4px);
 									box-shadow: 0px 8px 24px 0px rgba(24, 26, 32, 0.12);
@@ -371,56 +375,56 @@
 html.dark-mode {
 	#pc-wrap {
 		background-color: #0f0f0f;
-		
+
 		#my-page {
 			background: #0f0f0f !important;
 			color: #ffffff;
-			
+
 			.container {
 				.my-page {
 					.back-frame {
 						background: transparent;
-						
+
 						.left-config {
 							background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
 							box-shadow: 0px 8px 24px 0px rgba(76, 29, 149, 0.4);
 							border: 1px solid rgba(255, 255, 255, 0.15);
-							
+
 							.profile {
 								.user-info {
 									.user-name {
 										color: #ffffff;
 									}
-									
+
 									.user-phone {
 										.p-number {
 											color: rgba(255, 255, 255, 0.9);
 										}
 									}
-									
+
 									.view-list {
 										color: #ffeb3b;
 									}
 								}
 							}
-							
+
 							.sections {
 								.section {
 									.title {
 										color: #ffffff;
 									}
-									
+
 									.sub-section {
 										li {
 											&:hover {
 												background: rgba(255, 255, 255, 0.15);
 											}
 										}
-										
+
 										.focus {
 											background: rgba(255, 255, 255, 0.25);
 										}
-										
+
 										.sub-title {
 											color: rgba(255, 255, 255, 0.9);
 										}
@@ -428,30 +432,30 @@ html.dark-mode {
 								}
 							}
 						}
-						
+
 						.main-config {
 							.list-config {
 								.card-config {
 									background: #1a1a1a;
 									box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
 									border: 1px solid rgba(255, 255, 255, 0.1);
-									
+
 									&:hover {
 										box-shadow: 0px 8px 24px 0px rgba(52, 211, 153, 0.2);
 										border-color: rgba(52, 211, 153, 0.3);
 									}
-									
+
 									.top {
 										.price-box {
 											background: rgba(26, 26, 26, 0.9);
 											border-color: rgba(255, 255, 255, 0.3);
-											
+
 											p {
 												color: #ffffff;
 											}
 										}
 									}
-									
+
 									.bottom {
 										.name-address {
 											.name {
@@ -459,14 +463,14 @@ html.dark-mode {
 													color: #ffffff;
 												}
 											}
-											
+
 											.address {
 												p {
 													color: #b0b0b0;
 												}
 											}
 										}
-										
+
 										.options {
 											.option {
 												p {
@@ -474,31 +478,31 @@ html.dark-mode {
 												}
 											}
 										}
-										
+
 										.divider {
 											background: rgba(255, 255, 255, 0.1);
 										}
-										
+
 										.type-buttons {
 											.type {
 												p {
 													color: #ffffff;
-													
+
 													&.disabled-type {
 														color: rgba(143, 143, 143, 0.54);
 													}
 												}
 											}
-											
+
 											.buttons {
 												svg {
 													color: #b0b0b0;
-													
+
 													&:hover {
 														color: #34d399;
 													}
 												}
-												
+
 												.view-cnt {
 													color: #b0b0b0;
 												}
@@ -507,7 +511,7 @@ html.dark-mode {
 									}
 								}
 							}
-							
+
 							.pagination-config {
 								.total-result {
 									p {

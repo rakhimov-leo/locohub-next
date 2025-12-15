@@ -37,10 +37,10 @@ const CS: NextPage = () => {
 		return (
 			<Stack className={'cs-page'}>
 				<Stack className={'container'}>
-					<Box component={'div'} className={'cs-main-info'}>
-						<Box component={'div'} className={'info'}>
-							<span>Cs center</span>
-							<p>I will answer your questions</p>
+						<Box component={'div'} className={'cs-main-info'}>
+							<Box component={'div'} className={'info'}>
+								<span>Cs center</span>
+								<p>I will answer your questions</p>
 						</Box>
 						<Box component={'div'} className={'btns'}>
 							<div

@@ -75,7 +75,6 @@ const Footer = () => {
 					<Box component={'div'} className={'newsletter-banner'}>
 						<div>
 							<input type="text" placeholder={'Your Email'} />
-							<div className="divider"></div>
 							<span>Subscribe</span>
 						</div>
 					</Box>

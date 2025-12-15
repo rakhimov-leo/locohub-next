@@ -38,16 +38,18 @@ const withLayoutBasic = (Component: any) => {
 					bgImage = '/img/banner/Buildings-page2.jpg';
 					bgVideo = '/video/buildings-background.mp4';
 					videoHeight = '100%';
-					videoPosition = 'center center';
-					headerHeight = '450px';
+					// Slightly lower focus so both top and bottom are more visible
+					videoPosition = 'center 30%';
+					headerHeight = '520px';
 					break;
 				case '/agent':
 					title = 'Advisors';
 					bgImage = '/img/banner/agents.webp';
 					bgVideo = '/video/advisors-background.mp4';
 					videoHeight = '100%';
-					videoPosition = 'center center';
-					headerHeight = '450px';
+					// Slightly lower focus so both top and bottom are more visible
+					videoPosition = 'center 10%';
+					headerHeight = '520px';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
@@ -60,13 +62,18 @@ const withLayoutBasic = (Component: any) => {
 					bgImage = '/img/banner/header1.svg';
 					bgVideo = '/video/mypage-background.mp4';
 					videoHeight = '100%';
-					videoPosition = 'center center';
-					headerHeight = '450px';
+					// Slightly lower focus so both top and bottom are more visible
+					videoPosition = 'center 65%';
+					headerHeight = '520px';
 					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';
 					bgImage = '/img/banner/header2.svg';
+					bgVideo = '/video/cs-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center 30%';
+					headerHeight = '520px';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';

@@ -35,6 +35,8 @@ const Top = () => {
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
 	const [darkMode, setDarkMode] = useState<boolean>(false);
+	const [showNotifications, setShowNotifications] = useState<boolean>(false);
+	const notificationRef = useRef<HTMLDivElement | null>(null);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -74,6 +76,20 @@ const Top = () => {
 			}
 		}
 	}, []);
+
+	// Close notifications when clicking outside
+	useEffect(() => {
+		if (!showNotifications) return;
+		const handleClickOutside = (event: MouseEvent) => {
+			if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+				setShowNotifications(false);
+			}
+		};
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [showNotifications]);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -160,6 +176,19 @@ const Top = () => {
 			}
 		}
 	};
+
+	const dummyNotifications = [
+		{
+			id: 1,
+			title: 'New buildings available',
+			desc: 'We’ve added fresh buildings to the Buildings page. Take a look!',
+		},
+		{
+			id: 2,
+			title: 'Saved favorites',
+			desc: 'You can now manage your favorite buildings from the Me page.',
+		},
+	];
 
 	const StyledMenu = styled((props: MenuProps) => (
 		<Menu
@@ -293,8 +322,22 @@ const Top = () => {
 
 							<div className={'lan-box'}>
 								{user?._id && (
-									<div className={'icon-button'}>
+									<div
+										className={'icon-button notification-button'}
+										onClick={() => setShowNotifications((prev) => !prev)}
+										ref={notificationRef}
+									>
 										<NotificationsOutlinedIcon className={'notification-icon'} />
+										{showNotifications && (
+											<div className="notification-dropdown">
+												{dummyNotifications.map((n) => (
+													<div key={n.id} className="notification-item">
+														<strong>{n.title}</strong>
+														<p>{n.desc}</p>
+													</div>
+												))}
+											</div>
+										)}
 									</div>
 								)}
 								<Button
@@ -304,11 +347,12 @@ const Top = () => {
 									endIcon={<CaretDown size={12} color="#616161" weight="fill" />}
 								>
 									<Box component={'div'} className={'flag'}>
-										{lang !== null ? (
-											<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
-										) : (
-											<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
-										)}
+										{(() => {
+											if (lang === 'kr') return <img src={'/img/flag/langkr.png'} alt={'koreanFlag'} />;
+											if (lang === 'ru') return <img src={'/img/flag/langru.png'} alt={'russiaFlag'} />;
+											if (lang === 'uz') return <img src={'/img/flag/langru.png'} alt={'uzbekFlag'} />;
+											return <img src={'/img/flag/langen.png'} alt={'usaFlag'} />;
+										})()}
 									</Box>
 								</Button>
 
@@ -328,7 +372,7 @@ const Top = () => {
 											className="img-flag"
 											src={'/img/flag/langkr.png'}
 											onClick={langChoice}
-											id="uz"
+											id="kr"
 											alt={'koreanFlag'}
 										/>
 										{t('Korean')}
@@ -342,6 +386,16 @@ const Top = () => {
 											alt={'russiaFlag'}
 										/>
 										{t('Russian')}
+									</MenuItem>
+									<MenuItem disableRipple onClick={langChoice} id="uz">
+										<img
+											className="img-flag"
+											src={'/img/flag/langru.png'}
+											onClick={langChoice}
+											id="uz"
+											alt={'uzbekFlag'}
+										/>
+										Uzbek
 									</MenuItem>
 								</StyledMenu>
 
@@ -452,8 +506,22 @@ const Top = () => {
 
 							<div className={'lan-box'}>
 								{user?._id && (
-									<div className={'icon-button'}>
+									<div
+										className={'icon-button notification-button'}
+										onClick={() => setShowNotifications((prev) => !prev)}
+										ref={notificationRef}
+									>
 										<NotificationsOutlinedIcon className={'notification-icon'} />
+										{showNotifications && (
+											<div className="notification-dropdown">
+												{dummyNotifications.map((n) => (
+													<div key={n.id} className="notification-item">
+														<strong>{n.title}</strong>
+														<p>{n.desc}</p>
+													</div>
+												))}
+											</div>
+										)}
 									</div>
 								)}
 								<Button

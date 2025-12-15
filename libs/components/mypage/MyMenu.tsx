@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import PortraitIcon from '@mui/icons-material/Portrait';
+import LogoutIcon from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
 import { REACT_APP_API_URL } from '../../config';
 import { logOut } from '../../auth';
@@ -263,11 +264,13 @@ const MyMenu = () => {
 									scroll={false}
 								>
 									<div className={'flex-box'}>
-										{category === 'myProfile' ? (
-											<img className={'com-icon'} src={'/img/icons/userWhite.svg'} alt={'com-icon'} />
-										) : (
-											<img className={'com-icon'} src={'/img/icons/user.svg'} alt={'com-icon'} />
-										)}
+										<PortraitIcon
+											className="com-icon"
+											sx={{
+												fontSize: 22,
+												color: category === 'myProfile' ? '#ffffff' : '#4b5563',
+											}}
+										/>
 										<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 											My Profile
 										</Typography>
@@ -276,7 +279,13 @@ const MyMenu = () => {
 							</ListItem>
 							<ListItem onClick={logoutHandler}>
 								<div className={'flex-box'}>
-									<img className={'com-icon'} src={'/img/icons/logout.svg'} alt={'com-icon'} />
+									<LogoutIcon
+										className="com-icon"
+										sx={{
+											fontSize: 22,
+											color: '#ef4444', // red
+										}}
+									/>
 									<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 										Logout
 									</Typography>

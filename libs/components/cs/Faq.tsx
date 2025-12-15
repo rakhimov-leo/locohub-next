@@ -52,331 +52,372 @@ const Faq = () => {
 		property: [
 			{
 				id: '00f5a45ed8897f8090116a01',
-				subject: 'Are the properties displayed on the site reliable?',
-				content: 'of course we only have verified properties',
+				subject: 'Are the buildings listed on LocoHub verified?',
+				content: 'Most listings are uploaded by trusted partners and advisors. We review new buildings and remove anything that looks suspicious or inaccurate.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a22',
-				subject: 'What types of properties do you offer?',
-				content: 'We offer single-family homes, condos, townhouses, apartments, and penthouses',
+				subject: 'What types of buildings can I find on LocoHub?',
+				content:
+					'You can browse apartments, offices, mixed‑use buildings and new developments in major city areas that our advisors actively work with.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a21',
-				subject: 'How can I search for properties on your website?',
-				content: 'Simply use our search bar to enter location, price range, bedrooms/bathrooms, and property type.',
+				subject: 'How do I search for a building on the site?',
+				content:
+					'Use the Buildings search page to filter by city, price range, building type and key features. You can combine filters and sort results by newest or most popular.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a23',
-				subject: 'Do you provide assistance for first-time homebuyers?',
-				content: 'Yes, we guide you through the process and help find suitable financing.',
+				subject: 'Can I save interesting buildings and come back later?',
+				content:
+					'Yes. When you are logged in you can add any building to Favorites, and manage them from the Me ▸ Favorites section.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a24',
-				subject: 'What should I consider when buying a property?',
-				content: 'Location, condition, size, amenities, and future development plans.',
+				subject: 'How can I get more details about a specific building?',
+				content:
+					'Open the building detail page to see photos, key numbers and advisor info. From there you can send an inquiry or request a callback.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a25',
-				subject: 'How long does the home-buying process typically take?',
-				content: 'Usually 3 to 6 days, depending on various factors.',
+				subject: 'Does LocoHub handle the full transaction?',
+				content:
+					'LocoHub helps you discover buildings and connect with advisors. The actual contract, legal checks and payment flow are handled directly with the advisor and developer.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a29',
-				subject: 'What happens if I encounter issues with the property after purchase?',
-				content: 'We offer post-purchase support to address any concerns promptly.',
+				subject: 'What should I do if building information looks incorrect?',
+				content:
+					'Use the inquiry form on the detail page or contact CS and we will re‑check the listing with the advisor and update or remove it if needed.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a28',
-				subject: 'Do you offer properties in specific neighborhoods?',
-				content: 'Yes, we have listings in various neighborhoods based on your preferences.',
+				subject: 'Can I search only in specific districts or neighborhoods?',
+				content:
+					'Yes. On the Buildings page you can narrow down by city and area, then refine further using filters such as price, size and usage type.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a27',
-				subject: 'Can I sell my property through your website?',
-				content: 'Absolutely, we provide services for selling properties as well.',
+				subject: 'Can I list my own building on LocoHub?',
+				content:
+					'If you are an owner or developer, please contact our team through CS. We will review your project and connect you with an advisor for onboarding.',
 			},
 			{
 				id: '00f5a45ed8897f8090116b99',
-				subject: 'What if I need help understanding legal aspects of property purchase?',
-				content: 'Our team can provide basic guidance and recommend legal professionals if needed.',
+				subject: 'Does LocoHub provide legal or tax advice?',
+				content:
+					'We do not provide professional legal or tax advice. Your advisor can share general guidance and recommend licensed specialists when needed.',
 			},
 		],
 		payment: [
 			{
 				id: '00f5a45ed8897f8090116a02',
-				subject: 'How can I make the payment?',
-				content: 'you make the payment through an agent!',
+				subject: 'Do I pay anything to use LocoHub as a buyer?',
+				content: 'Browsing buildings, saving favorites and sending inquiries on LocoHub are free for buyers.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a91',
-				subject: 'Are there any additional fees for using your services?',
-				content: 'No, our services are free for buyers. Sellers pay a commission upon successful sale.',
+				subject: 'How are advisor fees and commissions handled?',
+				content:
+					'Advisor commissions and any extra fees are agreed directly between you, the advisor and the developer. LocoHub does not add hidden platform fees.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a92',
-				subject: 'Is there an option for installment payments?',
-				content: 'Yes, we offer installment payment plans for certain properties. Please inquire for more details.',
+				subject: 'Can I pay in installments for a building?',
+				content:
+					'Installment plans depend on each project. Check the payment section on the building detail page or ask the advisor about available options.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a93',
-				subject: 'Is my payment information secure on your website?',
+				subject: 'Does LocoHub process my payments directly?',
 				content:
-					'Yes, we use industry-standard encryption technology to ensure the security of your payment information.',
+					'No. At the moment payments are processed outside the platform through the advisor or developer according to your contract.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a94',
-				subject: 'Can I make payments online through your website?',
-				content: "Yes, you can securely make payments online through our website's payment portal.",
+				subject: 'Will my personal and payment‑related data be safe?',
+				content:
+					'We protect your account data with modern security practices and only share information with advisors when you send an inquiry or request.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a95',
-				subject: "What happens if there's an issue with my payment?",
-				content: 'If you encounter any issues with your payment, please contact our support team for assistance.',
+				subject: "What if I have an issue with a payment or contract?",
+				content:
+					'First contact your advisor or developer so they can check the transaction. If something still looks wrong, share details with CS and we will help coordinate.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a96',
-				subject: 'Do you offer refunds for payments made?',
+				subject: 'Do you offer refunds through LocoHub?',
 				content:
-					'Refund policies vary depending on the circumstances. Please refer to our refund policy or contact us for more information.',
+					'Refunds and cancellations follow the terms of your agreement with the advisor or developer. Please review that contract or ask them directly.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a97',
-				subject: 'Are there any discounts or incentives for early payments?',
+				subject: 'Can I see all costs before I decide?',
 				content:
-					'We occasionally offer discounts or incentives for early payments. Check our promotions or contact us for current offers.',
+					'Yes. Advisors will share the full payment schedule, expected fees and any additional costs before you sign anything.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a99',
-				subject: 'How long does it take for payments to be processed?',
+				subject: 'Which currency and payment methods are usually supported?',
 				content:
-					'Payment processing times vary depending on the payment method used. Typically, credit/debit card payments are processed instantly',
+					'Supported currencies and methods differ by project, but most advisors work with standard bank transfers and local payment options.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a98',
-				subject: 'Are there penalties for late payments?',
+				subject: 'Can I track payment‑related updates in LocoHub?',
 				content:
-					'Late payment penalties may apply depending on the terms of your agreement. Please refer to your contract or contact us for details.',
+					'Important status changes are usually shared by your advisor. You can also use the Me page to review recent activity and messages.',
 			},
 		],
 		buyers: [
 			{
 				id: '00f5a45ed8897f8090116a03',
-				subject: 'What should buyers pay attention to?',
-				content: 'Buyers should check and decide whether the property they want to buy or rent is actually suitable!',
+				subject: 'I am buying for the first time. Where should I start?',
+				content:
+					'Create an account, explore Buildings, add favorites, then contact an advisor on a project you like. They will walk you through each step.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a85',
-				subject: 'How can I determine if a property is within my budget?',
+				subject: 'How can I check if a building fits my budget?',
 				content:
-					'Calculate your budget by considering your income, down payment, and potential mortgage payments. Our agents can assist you within your budget.',
+					'Use filters by price, compare several options in Favorites and ask your advisor for a detailed payment schedule based on your situation.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a84',
-				subject: 'What documents do I need to provide when purchasing a property?',
+				subject: 'What information should I prepare before talking to an advisor?',
 				content:
-					"You'll typically need identification, proof of income, bank statements, and any necessary loan documentation. Our team will guide you through.",
+					'Have an idea of your budget, preferred area, building size and timeline. Sharing this early helps the advisor recommend realistic options.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a83',
-				subject: 'What factors should I consider when choosing a neighborhood?',
+				subject: 'What should I look at when choosing a neighborhood?',
 				content:
-					'Consider factors such as location, safety, schools, amenities, transportation, and future development plans.',
+					'Check commute time, nearby services, schools, safety and future development plans. Use our map and photos as a starting point, then visit in person.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a82',
-				subject: 'Can I negotiate the price of a property?',
+				subject: 'Can I negotiate the price or conditions?',
 				content:
-					'Yes, you can negotiate the price of a property. Our agents will assist you in making competitive offers and negotiating terms with the seller.',
+					'In many projects the price or terms are negotiable. Your advisor represents you in these discussions and will suggest a realistic strategy.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a81',
-				subject: 'What are some red flags to watch out for when viewing properties?',
+				subject: 'What are common red flags when reviewing a building?',
 				content:
-					'Watch out for signs of structural damage, water damage, mold, outdated systems, and undesirable neighborhood conditions.',
+					'Be careful with unclear ownership, missing documents, unrealistic discounts or poor construction quality. Always ask your advisor to explain anything you do not understand.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a80',
-				subject: 'Do you provide assistance with property inspections?',
+				subject: 'Can LocoHub help me organize site visits?',
 				content:
-					'Yes, we can recommend reputable inspectors and accompany you during property inspections to identify any potential issues.',
+					'Yes. Send an inquiry from the building page and the advisor will coordinate viewing times and on‑site meetings.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a79',
-				subject: 'How long does it typically take to find the right property?',
+				subject: 'How long does it usually take to find the right building?',
 				content:
-					'The timeframe varies depending on your preferences and market conditions. Our agents will work diligently to find the right property as quickly as possible.',
+					'It depends on your requirements and market conditions. Some buyers decide within a few weeks, others need more time to compare options.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a78',
-				subject: 'What are the advantages of using a real estate agent when buying a property?',
+				subject: 'Why should I use LocoHub instead of searching manually?',
 				content:
-					'Real estate agents provide expertise, negotiation skills, and guidance throughout the buying process, ultimately saving you time and hassle.',
+					'LocoHub brings verified projects, professional advisors and useful tools like favorites and My Page together in one place, saving you time and coordination effort.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a77',
-				subject: 'What happens if I change my mind about a property after making an offer?',
+				subject: 'What if I change my mind after showing interest in a building?',
 				content:
-					'Depending on the terms of the offer and the stage of the transaction, you may have options to withdraw your offer.',
+					'You can always stop the process before signing any binding contract. Let your advisor know so they can close the case and suggest alternatives if you want.',
 			},
 		],
 
 		agents: [
 			{
 				id: '00f5a45ed8897f8090116a04',
-				subject: 'What do I need to do if I want to become an agent?',
+				subject: 'I want to work as an advisor on LocoHub. Where do I start?',
 				content:
-					'If you really decide to become an agent, you should read our terms and conditions and contact the admin!',
+					'Send us a short introduction through the CS form. Our team will review your profile and contact you with the next steps if there is a fit.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a62',
-				subject: 'What qualifications do I need to become a real estate agent?',
-				content: 'Complete pre-licensing course, pass licensing exam, meet state requirements.',
+				subject: 'What kind of advisors are you looking for?',
+				content:
+					'We collaborate with licensed real‑estate professionals and project specialists who actively work with new buildings and can provide on‑site support.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a63',
-				subject: 'How do I find clients as a new real estate agent?',
-				content: 'Build network, use online/offline marketing, join reputable brokerage.',
+				subject: 'How does LocoHub help advisors find clients?',
+				content:
+					'LocoHub promotes buildings and advisors to buyers who are already searching. Inquiries from those projects are routed directly to the responsible advisor.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a64',
-				subject: 'What are some effective marketing strategies for selling properties?',
-				content: 'Use social media, online platforms, networking events, and direct mail.',
+				subject: 'Do you provide any tools for managing leads?',
+				content:
+					'Advisors can see project inquiries, contact info and key notes in one place. We are gradually improving these tools based on advisor feedback.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a65',
-				subject: 'How do I handle negotiations with buyers and sellers?',
-				content: 'Develop strong negotiation skills, understand market trends, represent client interests.',
+				subject: 'How are responsibilities between LocoHub and advisors divided?',
+				content:
+					'LocoHub focuses on technology, traffic and matching. Advisors handle on‑site visits, explanations, contracts and long‑term client relationships.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a66',
-				subject: 'What should I do to stay updated with market trends and changes?',
-				content: 'Attend industry events, follow real estate news, participate in training.',
+				subject: 'Can advisors choose which projects to work with?',
+				content:
+					'Yes. We usually match you with buildings that fit your area and expertise, and you can discuss specific projects with our team.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a67',
-				subject: 'How do I handle difficult clients or situations?',
+				subject: 'Is there training or onboarding for new advisors?',
 				content:
-					'Approach with professionalism, empathy, and patience. Listen actively, address issues collaboratively.',
+					'We share product walkthroughs, best practices and example flows so new advisors can start working smoothly on LocoHub.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a68',
-				subject: 'What tools and technologies should I utilize as a real estate agent?',
-				content: 'Use CRM software, virtual tours, digital marketing tools, and mobile apps.',
+				subject: 'How do advisors get support if something goes wrong?',
+				content:
+					'You can reach our CS team directly from your advisor contact channel. We help with account access, listing issues and basic product questions.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a69',
-				subject: 'How do I ensure compliance with real estate laws and regulations?',
-				content: 'Stay updated with laws, attend education courses, consult legal professionals.',
+				subject: 'Can I pause or stop working as an advisor on LocoHub?',
+				content:
+					'Yes, just let our team know. We can hide your profile, reassign active projects and keep your data for future cooperation if needed.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a70',
-				subject: 'What strategies can I use to grow my real estate business?',
-				content: 'Build relationships, provide exceptional service, seek referrals, and continuously improve skills.',
+				subject: 'How can I share feedback about LocoHub as an advisor?',
+				content:
+					'We welcome product feedback. Send it through CS or your advisor manager and we will consider it in our roadmap.',
 			},
 		],
 		membership: [
 			{
 				id: '00f5a45ed8897f8090116a05',
-				subject: 'Do you have a membership service on your site?',
-				content: 'membership service is not available on our site yet!',
+				subject: 'Do I need a paid membership to use LocoHub?',
+				content:
+					'No. Creating an account, browsing buildings, saving favorites and using Me page features are currently free.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a60',
-				subject: 'What are the benefits of becoming a member on your website?',
-				content: 'We currently do not offer membership benefits, but stay tuned for updates on any future offerings.',
+				subject: 'What are the benefits of creating a LocoHub account?',
+				content:
+					'With an account you can manage favorites, see recently viewed buildings, edit your profile and keep all activity in one place.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a59',
-				subject: 'Is there a fee associated with becoming a member?',
-				content: 'As membership services are not available, there are no associated fees at this time.',
+				subject: 'How do I sign up or log in?',
+				content:
+					'Use the Login/Signup option in the top‑right corner, fill in the short form and confirm your details. After that you can access the Me page.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a58',
-				subject: 'Will membership provide access to exclusive content or features?',
-				content: "We don't currently have membership-exclusive content or features.",
+				subject: 'Can I edit or delete my profile information later?',
+				content:
+					'Yes. Go to Me ▸ Profile to update your personal details. If you want your account removed completely, contact CS.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a57',
-				subject: 'How can I sign up for a membership on your site?',
-				content: 'As of now, we do not have a sign-up process for memberships.',
+				subject: 'Is there a premium or paid plan?',
+				content:
+					'We are currently focused on improving the core free experience. If we introduce paid features in the future, we will announce them clearly in advance.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a56',
-				subject: 'Do members receive discounts on property listings or services?',
-				content: 'Membership discounts are not part of our current offerings.',
+				subject: 'What should I do if I forget my password?',
+				content:
+					'Use the “Forgot password” flow on the login page. If you still cannot access your account, contact CS with the email you registered with.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a55',
-				subject: 'Are there plans to introduce a membership program in the future?',
+				subject: 'Can I use my account on different devices?',
 				content:
-					"While we can't confirm any plans at this time, we're always exploring ways to enhance our services for users.",
+					'Yes. You can sign in to the same LocoHub account from desktop or mobile browser. Just keep your login data private.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a54',
-				subject: 'What kind of content or benefits can members expect if a membership program is introduced?',
-				content: "We're evaluating potential benefits and features, but specifics are not available yet.",
+				subject: 'Will you notify me about new buildings or updates?',
+				content:
+					'We may occasionally share important updates or recommended projects. You can control basic communication preferences in your profile.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a33',
-				subject: 'Do you offer a premium membership option on your platform?',
-				content: 'Currently, we do not provide a premium membership option.',
+				subject: 'Can multiple people share one account?',
+				content:
+					'For security and tracking reasons we recommend one account per person. If you are a company, talk to us about the best setup.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a32',
-				subject: 'Will membership grant access to exclusive deals or discounts?',
-				content: 'Membership perks, including deals or discounts, are not available at this time.',
+				subject: 'How is my account data protected?',
+				content:
+					'We store account data securely and only use it to provide LocoHub services in line with our privacy policy.',
 			},
 		],
 		other: [
 			{
 				id: '00f5a45ed8897f8090116a40',
-				subject: 'Who should I contact if I want to buy your site?',
-				content: 'We have no plans to sell the site at this time!',
+				subject: 'How can I contact the LocoHub team?',
+				content:
+					'Use the CS page, send an inquiry from any building, or reach out via the contact information shown in the footer of the site.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a39',
-				subject: 'Can I advertise my services on your website?',
-				content: 'We currently do not offer advertising opportunities on our site.',
+				subject: 'I found a bug or something looks wrong. What should I do?',
+				content:
+					'Please send us a short description and, if possible, a screenshot through CS. It helps us reproduce and fix the issue faster.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a38',
-				subject: 'Are there sponsorship opportunities available on your platform?',
-				content: 'At this time, we do not have sponsorship opportunities.',
+				subject: 'Can I suggest a new feature for LocoHub?',
+				content:
+					'Yes, we appreciate ideas. Share how the feature would help you and we will review it for our product roadmap.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a36',
-				subject: 'Can I contribute guest posts or articles to your website?',
-				content: "We're not accepting guest posts or articles at the moment.",
+				subject: 'Do you have a mobile app?',
+				content:
+					'Right now LocoHub is optimized for desktop and mobile browsers. If we release a native app in the future, we will announce it on the site.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a35',
-				subject: 'Is there a referral program for recommending your website to others?',
-				content: "We don't have a referral program in place currently.",
+				subject: 'In which languages is LocoHub available?',
+				content:
+					'You can switch site language from the header. Content availability may differ slightly by language, but the main features are the same.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a34',
-				subject: 'Do you offer affiliate partnerships for promoting your services?',
-				content: 'Affiliate partnerships are not available at this time.',
+				subject: 'Does LocoHub operate in all cities?',
+				content:
+					'We focus on selected key cities and neighborhoods. Coverage will gradually expand as we onboard new projects and advisors.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a33',
-				subject: 'Can I purchase merchandise related to your website?',
-				content: "We don't have merchandise available for purchase.",
+				subject: 'Can I follow news or updates about new projects?',
+				content:
+					'Keep an eye on the homepage and Buildings section for highlighted projects. We may also share important news through CS and notifications.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a32',
-				subject: 'Are there any job openings or opportunities to work with your team?',
-				content: 'Currently, we do not have any job openings or opportunities available.',
+				subject: 'Do you work with corporate or bulk buyers?',
+				content:
+					'Yes, in many projects we can support corporate buyers. Contact us through CS with more details about your requirements.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a31',
-				subject: 'Do you host events or webinars related to real estate?',
-				content: "We're not hosting events or webinars at this time.",
+				subject: 'Can I remove my data from LocoHub completely?',
+				content:
+					'If you want to close your account and request data removal, contact CS. Some information may need to be kept where the law requires it.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a30',
-				subject: 'Can I request custom features or functionalities for your website?',
-				content: "We're not accepting requests for custom features or functionalities.",
+				subject: 'Where can I read more about your privacy and terms?',
+				content:
+					'Links to our privacy policy and terms of use are available in the footer. Please review them before using the service.',
 			},
 		],
 	};
@@ -409,7 +450,7 @@ const Faq = () => {
 							changeCategoryHandler('buyers');
 						}}
 					>
-						Foy Buyers
+						For Buyers
 					</div>
 					<div
 						className={category === 'agents' ? 'active' : ''}

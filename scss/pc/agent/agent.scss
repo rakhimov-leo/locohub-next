@@ -1,7 +1,8 @@
 #pc-wrap {
 	.agent-list-page {
 		position: relative;
-		padding: 147px 0 75px;
+		// Reduce top padding so content is closer to the header video
+		padding: 60px 0 75px;
 		width: 100%;
 		height: auto;
 		display: flex;
@@ -35,7 +36,7 @@
 						line-height: 26px;
 						box-sizing: border-box;
 						transition: all 0.3s ease;
-						
+
 						&:focus {
 							border-color: rgba(52, 211, 153, 0.5);
 							box-shadow: 0px 4px 12px rgba(52, 211, 153, 0.1);
@@ -103,10 +104,10 @@
 html.dark-mode {
 	#pc-wrap {
 		background-color: #0f0f0f;
-		
+
 		.agent-list-page {
 			background: #0f0f0f !important;
-			
+
 			.container {
 				.filter {
 					.left {
@@ -114,63 +115,63 @@ html.dark-mode {
 							background: rgba(255, 255, 255, 0.95);
 							border-color: rgba(255, 255, 255, 0.3);
 							color: #181a20;
-							
+
 							&:focus {
 								background: #ffffff;
 								border-color: rgba(52, 211, 153, 0.5);
 							}
 						}
 					}
-					
+
 					.right {
 						span {
 							color: #ffffff;
 						}
-						
+
 						button {
 							color: #ffffff;
-							
+
 							&:hover {
 								background: rgba(255, 255, 255, 0.1);
 							}
 						}
 					}
 				}
-				
+
 				.card-wrap {
 					.agent-general-card {
 						.agent-img {
 							box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
-							
+
 							&:hover {
 								box-shadow: 0px 8px 24px 0px rgba(52, 211, 153, 0.2);
 							}
 						}
-						
+
 						.agent-desc {
 							.agent-info {
 								strong {
 									color: #ffffff;
-									
+
 									&:hover {
 										color: #34d399;
 									}
 								}
-								
+
 								span {
 									color: #b0b0b0;
 								}
 							}
-							
+
 							.buttons {
 								svg {
 									color: #b0b0b0;
-									
+
 									&:hover {
 										color: #34d399;
 									}
 								}
-								
+
 								.view-cnt {
 									color: #b0b0b0;
 								}
@@ -178,7 +179,7 @@ html.dark-mode {
 						}
 					}
 				}
-				
+
 				.pagination {
 					span {
 						color: #ffffff;

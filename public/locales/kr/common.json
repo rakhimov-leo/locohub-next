@@ -16,5 +16,18 @@
   "Agent Page": "에이전트 페이지",
   "my page": "나",
   "Login/Signup": "로그인/가입",
-  "Member Page": "멤버 페이지"
+  "Member Page": "멤버 페이지",
+  "cs.centerTitle": "고객센터",
+  "cs.centerDesc": "궁금한 점에 답해 드릴게요",
+  "cs.tab.notice": "공지사항",
+  "cs.tab.faq": "FAQ",
+  "cs.faq.category.property": "매물",
+  "cs.faq.category.payment": "결제",
+  "cs.faq.category.buyers": "구매자용",
+  "cs.faq.category.agents": "어드바이저용",
+  "cs.faq.category.membership": "멤버십",
+  "cs.faq.category.other": "기타",
+  "cs.notice.number": "번호",
+  "cs.notice.title": "제목",
+  "cs.notice.date": "날짜"
 }

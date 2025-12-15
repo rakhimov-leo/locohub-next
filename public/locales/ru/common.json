@@ -16,5 +16,18 @@
 	"Agent Page": "Страница агента",
 	"my page": "Я",
 	"Login/Signup": "Логин/регистрация",
-	"Member Page": "Страница участника"
+	"Member Page": "Страница участника",
+	"cs.centerTitle": "Служба поддержки",
+	"cs.centerDesc": "Мы ответим на ваши вопросы",
+	"cs.tab.notice": "Уведомления",
+	"cs.tab.faq": "FAQ",
+	"cs.faq.category.property": "Недвижимость",
+	"cs.faq.category.payment": "Оплата",
+	"cs.faq.category.buyers": "Для покупателей",
+	"cs.faq.category.agents": "Для советников",
+	"cs.faq.category.membership": "Участие",
+	"cs.faq.category.other": "Другое",
+	"cs.notice.number": "№",
+	"cs.notice.title": "заголовок",
+	"cs.notice.date": "дата"
 }
