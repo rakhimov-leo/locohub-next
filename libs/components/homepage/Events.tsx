@@ -108,8 +108,8 @@ const Events = () => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span className={'white'}>Events</span>
-							<p className={'white'}>Events waiting your attention!</p>
+							<span>Events</span>
+							<p>Events waiting your attention!</p>
 						</Box>
 					</Stack>
 					<Stack className={'card-wrapper'}>

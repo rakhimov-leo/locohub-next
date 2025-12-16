@@ -142,47 +142,12 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>BUILDINGS MOBILE</h1>;
+		return <h1>HOTELS MOBILE</h1>;
 	} else {
 		return (
 			<div id="property-list-page" style={{ position: 'relative' }}>
 				<div className="container">
-					<AnimatedSection animationType="fade-up" animationDelay={0}>
-						<Box component={'div'} className={'right'}>
-							<span>Sort by</span>
-							<div>
-								<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
-									{filterSortName}
-								</Button>
-								<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
-									<MenuItem
-										onClick={sortingHandler}
-										id={'new'}
-										disableRipple
-										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-									>
-										New
-									</MenuItem>
-									<MenuItem
-										onClick={sortingHandler}
-										id={'lowest'}
-										disableRipple
-										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-									>
-										Lowest Price
-									</MenuItem>
-									<MenuItem
-										onClick={sortingHandler}
-										id={'highest'}
-										disableRipple
-										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-									>
-										Highest Price
-									</MenuItem>
-								</Menu>
-							</div>
-						</Box>
-					</AnimatedSection>
+					{/* Sort by dropdown removed as requested */}
 					<Stack className={'property-page'}>
 						<AnimatedSection animationType="slide-left" animationDelay={0.1}>
 							<Stack className={'filter-config'}>
@@ -196,7 +161,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									<AnimatedSection animationType="fade-in" animationDelay={0.2}>
 										<div className={'no-data'}>
 											<img src="/img/icons/icoAlert.svg" alt="" />
-											<p>No Buildings found!</p>
+											<p>No Hotels found!</p>
 										</div>
 									</AnimatedSection>
 								) : (
@@ -226,7 +191,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									{properties.length !== 0 && (
 										<Stack className="total-result">
 											<Typography>
-												Total {total} building{total > 1 ? 's' : ''} available
+												Total {total} hotel{total > 1 ? 's' : ''} available
 											</Typography>
 										</Stack>
 									)}

@@ -83,11 +83,11 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 
 			ctx.clearRect(0, 0, width, height);
 
-			// Draw globe base (sphere)
+			// Draw globe base (sphere) - softer green/blue tones
 			const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
-			gradient.addColorStop(0, 'rgba(102, 126, 234, 0.3)');
-			gradient.addColorStop(0.5, 'rgba(118, 75, 162, 0.2)');
-			gradient.addColorStop(1, 'rgba(52, 211, 153, 0.1)');
+			gradient.addColorStop(0, 'rgba(190, 242, 255, 0.8)'); // light cyan center
+			gradient.addColorStop(0.5, 'rgba(187, 247, 208, 0.55)'); // soft mint
+			gradient.addColorStop(1, 'rgba(220, 252, 231, 0.9)'); // pale green edge
 
 			ctx.beginPath();
 			ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
@@ -95,7 +95,7 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 			ctx.fill();
 
 			// Draw globe outline
-			ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+			ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)'; // darker black-ish outline
 			ctx.lineWidth = 2;
 			ctx.stroke();
 
@@ -176,8 +176,9 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 
 					// Draw location name next to marker (rotates with globe)
 					ctx.save();
-					ctx.font = 'bold 10px sans-serif';
-					ctx.fillStyle = selected ? '#34d399' : 'rgba(255, 255, 255, 0.9)';
+					ctx.font = 'bold 11px sans-serif';
+					// make labels dark for better readability on light globe
+					ctx.fillStyle = selected ? '#16a34a' : '#181a20';
 					ctx.textAlign = 'left';
 					ctx.textBaseline = 'middle';
 					
@@ -327,19 +328,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 					borderRadius: '12px',
 				}}
 			/>
-			<div
-				style={{
-					position: 'absolute',
-					bottom: '10px',
-					left: '50%',
-					transform: 'translateX(-50%)',
-					color: 'rgba(255, 255, 255, 0.7)',
-					fontSize: '11px',
-					fontFamily: 'inherit',
-				}}
-			>
-				Click and drag to rotate
-			</div>
 		</Stack>
 	);
 };

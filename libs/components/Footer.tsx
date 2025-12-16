@@ -5,9 +5,52 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import { Stack, Box } from '@mui/material';
 import moment from 'moment';
+import { useRouter } from 'next/router';
+import { Direction } from '../enums/common.enum';
 
 const Footer = () => {
 	const device = useDeviceDetect();
+	const router = useRouter();
+
+	/** HANDLERS **/
+	const navigateToProperty = () => {
+		router.push('/property').then();
+	};
+
+	const navigateToAbout = () => {
+		router.push('/about').then();
+	};
+
+	const navigateToCS = () => {
+		router.push('/cs').then();
+	};
+
+	const navigateToLocation = (location: string) => {
+		const input = {
+			page: 1,
+			limit: 9,
+			sort: 'createdAt',
+			direction: Direction.DESC,
+			search: {
+				locationList: [location],
+				squaresRange: {
+					start: 0,
+					end: 500,
+				},
+				pricesRange: {
+					start: 0,
+					end: 2000000,
+				},
+			},
+		};
+
+		const inputStr = JSON.stringify(input);
+		router
+			.push(`/property?input=${inputStr}`, `/property?input=${inputStr}`, {
+				scroll: false,
+			})
+			.then();
+	};
 
 	if (device == 'mobile') {
 		return (
@@ -19,11 +62,11 @@ const Footer = () => {
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
 							<span>total free customer care</span>
-							<p>+82 10 8477 9503</p>
+							<p onClick={() => (window.location.href = 'tel:+821084779503')}>+82 10 8477 9503</p>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
 							<span>need live</span>
-							<p>+82 10 8477 9503</p>
+							<p onClick={() => (window.location.href = 'tel:+821084779503')}>+82 10 8477 9503</p>
 							<span>Support?</span>
 						</Box>
 						<Box component={'div'} className={'footer-box'}>
@@ -40,24 +83,24 @@ const Footer = () => {
 						<Box component={'div'} className={'bottom'}>
 							<div>
 								<strong>Popular Search</strong>
-								<span>Property for Rent</span>
-								<span>Property Low to hide</span>
+								<span onClick={navigateToProperty}>Property for Rent</span>
+								<span onClick={navigateToProperty}>Property Low to hide</span>
 							</div>
 							<div>
 								<strong>Quick Links</strong>
-								<span>Terms of Use</span>
-								<span>Privacy Policy</span>
-								<span>Pricing Plans</span>
-								<span>Our Services</span>
-								<span>Contact Support</span>
-								<span>FAQs</span>
+								<span onClick={navigateToAbout}>Terms of Use</span>
+								<span onClick={navigateToAbout}>Privacy Policy</span>
+								<span onClick={navigateToAbout}>Pricing Plans</span>
+								<span onClick={navigateToAbout}>Our Services</span>
+								<span onClick={navigateToCS}>Contact Support</span>
+								<span onClick={navigateToCS}>FAQs</span>
 							</div>
 							<div>
 								<strong>Discover</strong>
-								<span>France</span>
-								<span>Spain</span>
-								<span>Italy</span>
-								<span>Germany</span>
+								<span onClick={() => navigateToLocation('FRANCE')}>France</span>
+								<span onClick={() => navigateToLocation('SPAIN')}>Spain</span>
+								<span onClick={() => navigateToLocation('ITALY')}>Italy</span>
+								<span onClick={() => navigateToLocation('GERMANY')}>Germany</span>
 							</div>
 						</Box>
 					</Stack>
@@ -87,11 +130,11 @@ const Footer = () => {
 							</Box>
 							<Box component={'div'} className={'footer-box'}>
 								<span>total free customer care</span>
-								<p>+82 10 8477 9503</p>
+								<p onClick={() => (window.location.href = 'tel:+821084779503')}>+82 10 8477 9503</p>
 							</Box>
 							<Box component={'div'} className={'footer-box'}>
 								<span>need live</span>
-								<p>+82 10 8477 9503</p>
+								<p onClick={() => (window.location.href = 'tel:+821084779503')}>+82 10 8477 9503</p>
 								<span>Support?</span>
 							</Box>
 							<Box component={'div'} className={'footer-box'}>
@@ -116,24 +159,26 @@ const Footer = () => {
 							<Box component={'div'} className={'bottom'}>
 								<div>
 									<strong>Popular Search</strong>
-									<span>Property for Rent</span>
-									<span>Property Low to hide</span>
+									<span onClick={navigateToProperty}>Hotels for Rent</span>
+									<span onClick={navigateToProperty}>Best Hotel Deals</span>
+									<span onClick={navigateToProperty}>Hotels for Rent</span>
+									<span onClick={navigateToProperty}>Best Hotel Deals</span>
 								</div>
 								<div>
 									<strong>Quick Links</strong>
-									<span>Terms of Use</span>
-									<span>Privacy Policy</span>
-									<span>Pricing Plans</span>
-									<span>Our Services</span>
-									<span>Contact Support</span>
-									<span>FAQs</span>
+									<span onClick={navigateToAbout}>Terms of Use</span>
+									<span onClick={navigateToAbout}>Privacy Policy</span>
+									<span onClick={navigateToAbout}>Pricing Plans</span>
+									<span onClick={navigateToAbout}>Our Services</span>
+									<span onClick={navigateToCS}>Contact Support</span>
+									<span onClick={navigateToCS}>FAQs</span>
 								</div>
 								<div>
 									<strong>Discover</strong>
-									<span>France</span>
-									<span>Spain</span>
-									<span>Italy</span>
-									<span>Germany</span>
+									<span onClick={() => navigateToLocation('FRANCE')}>France</span>
+									<span onClick={() => navigateToLocation('SPAIN')}>Spain</span>
+									<span onClick={() => navigateToLocation('ITALY')}>Italy</span>
+									<span onClick={() => navigateToLocation('GERMANY')}>Germany</span>
 								</div>
 							</Box>
 						</Stack>

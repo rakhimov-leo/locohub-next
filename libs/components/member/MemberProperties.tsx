@@ -48,13 +48,13 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>LocoHub BUILDINGS MOBILE</div>;
+		return <div>LocoHub HOTELS MOBILE</div>;
 	} else {
 		return (
 			<div id="member-properties-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">Buildings</Typography>
+						<Typography className="main-title">Hotels</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="properties-list-box">

@@ -229,7 +229,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 							) : (
 								<div className={'no-data'}>
 									<img src="/img/icons/icoAlert.svg" alt="" />
-									<p>No buildings found!</p>
+									<p>No hotels found!</p>
 								</div>
 							)}
 						</Stack>

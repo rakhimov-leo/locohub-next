@@ -37,6 +37,11 @@ const Top = () => {
 	const [darkMode, setDarkMode] = useState<boolean>(false);
 	const [showNotifications, setShowNotifications] = useState<boolean>(false);
 	const notificationRef = useRef<HTMLDivElement | null>(null);
+	const [showDarkOverlay, setShowDarkOverlay] = useState<boolean>(false);
+	const [darkCountdown, setDarkCountdown] = useState<number | null>(null);
+	const [darkOverlayMessage, setDarkOverlayMessage] = useState<string>('Are you ready?');
+	const [targetDarkMode, setTargetDarkMode] = useState<boolean | null>(null);
+	const countdownRef = useRef<any>(null);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -158,8 +163,7 @@ const Top = () => {
 		}
 	};
 
-	const toggleDarkMode = () => {
-		const newDarkMode = !darkMode;
+	const applyDarkMode = (newDarkMode: boolean) => {
 		setDarkMode(newDarkMode);
 
 		if (typeof window !== 'undefined') {
@@ -177,16 +181,65 @@ const Top = () => {
 		}
 	};
 
+	const toggleDarkMode = () => {
+		const nextMode = !darkMode;
+		setTargetDarkMode(nextMode);
+		setDarkOverlayMessage('Are you ready?');
+		setDarkCountdown(3);
+		setShowDarkOverlay(true);
+
+		if (countdownRef.current) {
+			clearInterval(countdownRef.current);
+		}
+
+		countdownRef.current = setInterval(() => {
+			setDarkCountdown((prev) => {
+				if (prev === null) return prev;
+				if (prev <= 1) {
+					clearInterval(countdownRef.current);
+					countdownRef.current = null;
+
+					// Apply dark mode change
+					if (targetDarkMode === null) {
+						applyDarkMode(nextMode);
+					} else {
+						applyDarkMode(targetDarkMode);
+					}
+
+					setDarkCountdown(null);
+					setDarkOverlayMessage(nextMode ? 'Welcome to Dark Mode' : 'Back to Light Mode');
+
+					setTimeout(() => {
+						setShowDarkOverlay(false);
+						setTargetDarkMode(null);
+					}, 1200);
+
+					return null;
+				}
+				return prev - 1;
+			});
+		}, 1000);
+	};
+
+	// Cleanup interval on unmount
+	useEffect(() => {
+		return () => {
+			if (countdownRef.current) {
+				clearInterval(countdownRef.current);
+			}
+		};
+	}, []);
+
 	const dummyNotifications = [
 		{
 			id: 1,
-			title: 'New buildings available',
-			desc: 'We’ve added fresh buildings to the Buildings page. Take a look!',
+			title: 'New hotels available',
+			desc: 'We’ve added fresh hotels to the Hotels page. Take a look!',
 		},
 		{
 			id: 2,
 			title: 'Saved favorites',
-			desc: 'You can now manage your favorite buildings from the Me page.',
+			desc: 'You can now manage your favorite hotels from the Me page.',
 		},
 	];
 
@@ -230,6 +283,7 @@ const Top = () => {
 
 	if (device == 'mobile') {
 		return (
+			<>
 			<Stack className={'navbar'}>
 				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
 					<Stack className={'container'}>
@@ -252,7 +306,7 @@ const Top = () => {
 									className={router.pathname.startsWith('/property') ? 'active' : ''}
 									onClick={handleNavigationClick}
 								>
-									Buildings
+									Hotels
 								</div>
 							</Link>
 							<Link href={'/agent'}>
@@ -411,9 +465,42 @@ const Top = () => {
 					</Stack>
 				</Stack>
 			</Stack>
+			{showDarkOverlay && (
+				<div
+					style={{
+						position: 'fixed',
+						inset: 0,
+						background: 'rgba(0,0,0,0.75)',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						zIndex: 2000,
+					}}
+				>
+					<div
+						style={{
+							minWidth: '260px',
+							padding: '24px 32px',
+							borderRadius: '16px',
+							background: 'linear-gradient(135deg, #111827, #020617)',
+							boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+							textAlign: 'center',
+							color: '#f9fafb',
+							fontFamily: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+						}}
+					>
+						<div style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>{darkOverlayMessage}</div>
+						{darkCountdown !== null && (
+							<div style={{ fontSize: '42px', fontWeight: 700, marginTop: '4px' }}>{darkCountdown}</div>
+						)}
+					</div>
+				</div>
+			)}
+			</>
 		);
 	} else {
 		return (
+			<>
 			<Stack className={'navbar'}>
 				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
 					<Stack className={'container'}>
@@ -436,7 +523,7 @@ const Top = () => {
 									className={router.pathname.startsWith('/property') ? 'active' : ''}
 									onClick={handleNavigationClick}
 								>
-									Buildings
+									Hotels
 								</div>
 							</Link>
 							<Link href={'/agent'}>
@@ -584,6 +671,38 @@ const Top = () => {
 					</Stack>
 				</Stack>
 			</Stack>
+			{showDarkOverlay && (
+				<div
+					style={{
+						position: 'fixed',
+						inset: 0,
+						background: 'rgba(0,0,0,0.75)',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						zIndex: 2000,
+					}}
+				>
+					<div
+						style={{
+							minWidth: '320px',
+							padding: '32px 40px',
+							borderRadius: '20px',
+							background: 'linear-gradient(135deg, #020617, #111827)',
+							boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
+							textAlign: 'center',
+							color: '#f9fafb',
+							fontFamily: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+						}}
+					>
+						<div style={{ fontSize: '24px', fontWeight: 600, marginBottom: '10px' }}>{darkOverlayMessage}</div>
+						{darkCountdown !== null && (
+							<div style={{ fontSize: '52px', fontWeight: 700, letterSpacing: '0.08em' }}>{darkCountdown}</div>
+						)}
+					</div>
+				</div>
+			)}
+			</>
 		);
 	}
 };

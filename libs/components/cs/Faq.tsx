@@ -52,42 +52,42 @@ const Faq = () => {
 		property: [
 			{
 				id: '00f5a45ed8897f8090116a01',
-				subject: 'Are the buildings listed on LocoHub verified?',
-				content: 'Most listings are uploaded by trusted partners and advisors. We review new buildings and remove anything that looks suspicious or inaccurate.',
+				subject: 'Are the hotels listed on LocoHub verified?',
+				content: 'Most listings are uploaded by trusted partners and advisors. We review new hotels and remove anything that looks suspicious or inaccurate.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a22',
-				subject: 'What types of buildings can I find on LocoHub?',
+				subject: 'What types of hotels can I find on LocoHub?',
 				content:
-					'You can browse apartments, offices, mixed‑use buildings and new developments in major city areas that our advisors actively work with.',
+					'You can browse apartments, offices, mixed‑use hotels and new developments in major city areas that our advisors actively work with.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a21',
-				subject: 'How do I search for a building on the site?',
+				subject: 'How do I search for a hotel on the site?',
 				content:
-					'Use the Buildings search page to filter by city, price range, building type and key features. You can combine filters and sort results by newest or most popular.',
+					'Use the Hotels search page to filter by city, price range, hotel type and key features. You can combine filters and sort results by newest or most popular.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a23',
-				subject: 'Can I save interesting buildings and come back later?',
+				subject: 'Can I save interesting hotels and come back later?',
 				content:
-					'Yes. When you are logged in you can add any building to Favorites, and manage them from the Me ▸ Favorites section.',
+					'Yes. When you are logged in you can add any hotel to Favorites, and manage them from the Me ▸ Favorites section.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a24',
-				subject: 'How can I get more details about a specific building?',
+				subject: 'How can I get more details about a specific hotel?',
 				content:
-					'Open the building detail page to see photos, key numbers and advisor info. From there you can send an inquiry or request a callback.',
+					'Open the hotel detail page to see photos, key numbers and advisor info. From there you can send an inquiry or request a callback.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a25',
 				subject: 'Does LocoHub handle the full transaction?',
 				content:
-					'LocoHub helps you discover buildings and connect with advisors. The actual contract, legal checks and payment flow are handled directly with the advisor and developer.',
+					'LocoHub helps you discover hotels and connect with advisors. The actual contract, legal checks and payment flow are handled directly with the advisor and developer.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a29',
-				subject: 'What should I do if building information looks incorrect?',
+				subject: 'What should I do if hotel information looks incorrect?',
 				content:
 					'Use the inquiry form on the detail page or contact CS and we will re‑check the listing with the advisor and update or remove it if needed.',
 			},
@@ -95,11 +95,11 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a28',
 				subject: 'Can I search only in specific districts or neighborhoods?',
 				content:
-					'Yes. On the Buildings page you can narrow down by city and area, then refine further using filters such as price, size and usage type.',
+					'Yes. On the Hotels page you can narrow down by city and area, then refine further using filters such as price, size and usage type.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a27',
-				subject: 'Can I list my own building on LocoHub?',
+				subject: 'Can I list my own hotel on LocoHub?',
 				content:
 					'If you are an owner or developer, please contact our team through CS. We will review your project and connect you with an advisor for onboarding.',
 			},
@@ -114,7 +114,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a02',
 				subject: 'Do I pay anything to use LocoHub as a buyer?',
-				content: 'Browsing buildings, saving favorites and sending inquiries on LocoHub are free for buyers.',
+				content: 'Browsing hotels, saving favorites and sending inquiries on LocoHub are free for buyers.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a91',
@@ -124,9 +124,9 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a92',
-				subject: 'Can I pay in installments for a building?',
+				subject: 'Can I pay in installments for a hotel?',
 				content:
-					'Installment plans depend on each project. Check the payment section on the building detail page or ask the advisor about available options.',
+					'Installment plans depend on each project. Check the payment section on the hotel detail page or ask the advisor about available options.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a93',
@@ -176,11 +176,11 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a03',
 				subject: 'I am buying for the first time. Where should I start?',
 				content:
-					'Create an account, explore Buildings, add favorites, then contact an advisor on a project you like. They will walk you through each step.',
+					'Create an account, explore Hotels, add favorites, then contact an advisor on a project you like. They will walk you through each step.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a85',
-				subject: 'How can I check if a building fits my budget?',
+				subject: 'How can I check if a hotel fits my budget?',
 				content:
 					'Use filters by price, compare several options in Favorites and ask your advisor for a detailed payment schedule based on your situation.',
 			},
@@ -204,7 +204,7 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a81',
-				subject: 'What are common red flags when reviewing a building?',
+				subject: 'What are common red flags when reviewing a hotel?',
 				content:
 					'Be careful with unclear ownership, missing documents, unrealistic discounts or poor construction quality. Always ask your advisor to explain anything you do not understand.',
 			},
@@ -212,11 +212,11 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a80',
 				subject: 'Can LocoHub help me organize site visits?',
 				content:
-					'Yes. Send an inquiry from the building page and the advisor will coordinate viewing times and on‑site meetings.',
+					'Yes. Send an inquiry from the hotel page and the advisor will coordinate viewing times and on‑site meetings.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a79',
-				subject: 'How long does it usually take to find the right building?',
+				subject: 'How long does it usually take to find the right hotel?',
 				content:
 					'It depends on your requirements and market conditions. Some buyers decide within a few weeks, others need more time to compare options.',
 			},
@@ -228,7 +228,7 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a77',
-				subject: 'What if I change my mind after showing interest in a building?',
+				subject: 'What if I change my mind after showing interest in a hotel?',
 				content:
 					'You can always stop the process before signing any binding contract. Let your advisor know so they can close the case and suggest alternatives if you want.',
 			},
@@ -245,13 +245,13 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a62',
 				subject: 'What kind of advisors are you looking for?',
 				content:
-					'We collaborate with licensed real‑estate professionals and project specialists who actively work with new buildings and can provide on‑site support.',
+					'We collaborate with licensed real‑estate professionals and project specialists who actively work with new hotels and can provide on‑site support.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a63',
 				subject: 'How does LocoHub help advisors find clients?',
 				content:
-					'LocoHub promotes buildings and advisors to buyers who are already searching. Inquiries from those projects are routed directly to the responsible advisor.',
+					'LocoHub promotes hotels and advisors to buyers who are already searching. Inquiries from those projects are routed directly to the responsible advisor.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a64',
@@ -269,7 +269,7 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a66',
 				subject: 'Can advisors choose which projects to work with?',
 				content:
-					'Yes. We usually match you with buildings that fit your area and expertise, and you can discuss specific projects with our team.',
+					'Yes. We usually match you with hotels that fit your area and expertise, and you can discuss specific projects with our team.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a67',
@@ -301,13 +301,13 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a05',
 				subject: 'Do I need a paid membership to use LocoHub?',
 				content:
-					'No. Creating an account, browsing buildings, saving favorites and using Me page features are currently free.',
+					'No. Creating an account, browsing hotels, saving favorites and using Me page features are currently free.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a60',
 				subject: 'What are the benefits of creating a LocoHub account?',
 				content:
-					'With an account you can manage favorites, see recently viewed buildings, edit your profile and keep all activity in one place.',
+					'With an account you can manage favorites, see recently viewed hotels, edit your profile and keep all activity in one place.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a59',
@@ -341,7 +341,7 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a54',
-				subject: 'Will you notify me about new buildings or updates?',
+				subject: 'Will you notify me about new hotels or updates?',
 				content:
 					'We may occasionally share important updates or recommended projects. You can control basic communication preferences in your profile.',
 			},
@@ -363,7 +363,7 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a40',
 				subject: 'How can I contact the LocoHub team?',
 				content:
-					'Use the CS page, send an inquiry from any building, or reach out via the contact information shown in the footer of the site.',
+					'Use the CS page, send an inquiry from any hotel, or reach out via the contact information shown in the footer of the site.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a39',
@@ -399,7 +399,7 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a33',
 				subject: 'Can I follow news or updates about new projects?',
 				content:
-					'Keep an eye on the homepage and Buildings section for highlighted projects. We may also share important news through CS and notifications.',
+					'Keep an eye on the homepage and Hotels section for highlighted projects. We may also share important news through CS and notifications.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a32',

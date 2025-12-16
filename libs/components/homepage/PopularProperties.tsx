@@ -11,8 +11,11 @@ import { Property } from '../../types/property/property';
 import Link from 'next/link';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
-import { useQuery } from '@apollo/client';
+import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../types/common';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { Message } from '../../enums/common.enum';
 
 interface PopularPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -30,7 +33,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 	});
 
 	/** APOLLO REQUESTS **/
-
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
 	const {
 		loading: getPropertiesLoading,
 		data: getPropertiesData,
@@ -58,7 +61,20 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 	}, [device, initialInput]);
 
 	/** HANDLERS **/
-
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+			await likeTargetProperty({
+				variables: { input: id },
+			});
+			await getPropertiesRefetch({ input: searchFilter });
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('Error:likePropertyHandler', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
 	const paginationHandler = (event: ChangeEvent<unknown>, value: number) => {
 		setCurrentPage(value);
 		setSearchFilter({ ...searchFilter, page: value });
@@ -71,7 +87,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 			<Stack className={'popular-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular buildings</span>
+						<span>Popular hotels</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Box className={'popular-property-grid'}>
@@ -79,7 +95,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 								return (
 									<Box key={property._id} className={'popular-property-item'}>
 										<AnimatedListItem index={index}>
-										<PopularPropertyCard property={property} />
+											<PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 										</AnimatedListItem>
 									</Box>
 								);
@@ -106,7 +122,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular buildings</span>
+							<span>Popular hotels</span>
 							<p>Popularity is based on views</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
@@ -136,7 +152,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 								return (
 									<SwiperSlide key={property._id} className={'popular-property-slide'}>
 										<AnimatedListItem index={index}>
-										<PopularPropertyCard property={property} />
+											<PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 										</AnimatedListItem>
 									</SwiperSlide>
 								);

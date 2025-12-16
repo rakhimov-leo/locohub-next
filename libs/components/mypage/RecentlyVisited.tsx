@@ -55,7 +55,7 @@ const RecentlyVisited: NextPage = () => {
 					) : (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Recently Visited Buildings found!</p>
+							<p>No Recently Visited Hotels found!</p>
 						</div>
 					)}
 				</Stack>

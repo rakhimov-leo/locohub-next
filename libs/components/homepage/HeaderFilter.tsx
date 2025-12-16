@@ -54,19 +54,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const { t, i18n } = useTranslation('common');
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
 	const locationRef: any = useRef();
-	const typeRef: any = useRef();
 	const roomsRef: any = useRef();
 	const router = useRouter();
 	const [openAdvancedFilter, setOpenAdvancedFilter] = useState(false);
 	const [openLocation, setOpenLocation] = useState(false);
-	const [openType, setOpenType] = useState(false);
 	const [openRooms, setOpenRooms] = useState(false);
 	const [openCalendar, setOpenCalendar] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 	const calendarAnchorRef = useRef<HTMLDivElement>(null);
-	// Temporarily using Korean cities - will revert to FRANCE, SPAIN, etc. later
 	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
-	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
 	const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
 	const [optionCheck, setOptionCheck] = useState('all');
 
@@ -75,10 +71,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		const clickHandler = (event: MouseEvent) => {
 			if (!locationRef?.current?.contains(event.target)) {
 				setOpenLocation(false);
-			}
-
-			if (!typeRef?.current?.contains(event.target)) {
-				setOpenType(false);
 			}
 
 			if (!roomsRef?.current?.contains(event.target)) {
@@ -98,13 +90,11 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		setOpenCalendar((prev) => !prev);
 		setOpenLocation(false);
 		setOpenRooms(false);
-		setOpenType(false);
 	};
 
 	const advancedFilterHandler = (status: boolean) => {
 		setOpenLocation(false);
 		setOpenRooms(false);
-		setOpenType(false);
 		setOpenAdvancedFilter(status);
 		setOpenCalendar(false);
 	};
@@ -112,24 +102,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const locationStateChangeHandler = () => {
 		setOpenLocation((prev) => !prev);
 		setOpenRooms(false);
-		setOpenType(false);
-	};
-
-	const typeStateChangeHandler = () => {
-		setOpenType((prev) => !prev);
-		setOpenLocation(false);
-		setOpenRooms(false);
 	};
 
 	const roomStateChangeHandler = () => {
 		setOpenRooms((prev) => !prev);
-		setOpenType(false);
 		setOpenLocation(false);
 	};
 
 	const disableAllStateHandler = () => {
 		setOpenRooms(false);
-		setOpenType(false);
 		setOpenLocation(false);
 	};
 
@@ -143,57 +124,31 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					return;
 				}
 
-				setSearchFilter({
+				// When a location is selected on the homepage,
+				// immediately navigate to Hotels page with that location and HOTEL type.
+				const updatedFilter: PropertiesInquiry = {
 					...searchFilter,
 					search: {
 						...searchFilter.search,
 						locationList: [locationValue],
-					},
-				});
-				setOpenLocation(false);
-				// Automatically open property type dropdown after location selection
-				setTimeout(() => {
-					setOpenType(true);
-				}, 200);
-			} catch (err: any) {
-				console.log('ERROR, propertyLocationSelectHandler:', err);
-			}
-		},
-		[searchFilter],
-	);
-
-	const propertyTypeSelectHandler = useCallback(
-		async (value: any) => {
-			try {
-				const updatedFilter = {
-					...searchFilter,
-					search: {
-						...searchFilter.search,
-						typeList: [value],
+						typeList: [PropertyType.HOTEL],
 					},
 				};
 
-				// Clean up empty arrays
-				if (updatedFilter?.search?.locationList?.length == 0) {
-					if (updatedFilter.search) {
-						delete (updatedFilter.search as any).locationList;
-					}
-				}
-
 				setSearchFilter(updatedFilter);
+				setOpenLocation(false);
 				disableAllStateHandler();
 
-				// Navigate to properties page with selected type
 				await router.push(
 					`/property?input=${JSON.stringify(updatedFilter)}`,
 					`/property?input=${JSON.stringify(updatedFilter)}`,
 					{ scroll: false },
 				);
 			} catch (err: any) {
-				console.log('ERROR, propertyTypeSelectHandler:', err);
+				console.log('ERROR, propertyLocationSelectHandler:', err);
 			}
 		},
-		[searchFilter, router],
+		[searchFilter],
 	);
 
 	const propertyRoomSelectHandler = useCallback(
@@ -338,10 +293,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				delete searchFilter.search.locationList;
 			}
 
-			if (searchFilter?.search?.typeList?.length == 0) {
-				delete searchFilter.search.typeList;
-			}
-
 			if (searchFilter?.search?.roomsList?.length == 0) {
 				delete searchFilter.search.roomsList;
 			}
@@ -383,15 +334,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<span className="location-text">{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}</span>
 							<ExpandMoreIcon className="dropdown-icon" />
 						</Box>
-						{searchFilter?.search?.locationList && searchFilter?.search?.locationList.length > 0 && (
-							<>
-								<Divider orientation="vertical" className="separator" />
-								<Box className={`box property-type-box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-									<span>{searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')}</span>
-									<ExpandMoreIcon />
-								</Box>
-							</>
-						)}
 					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
@@ -489,26 +431,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						})}
 					</div>
 
-					{openType && (
-						<div className="filter-type-overlay" onClick={() => setOpenType(false)}></div>
-					)}
-					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
-						{propertyType.map((type: string, index: number) => {
-							return (
-								<div
-									className="property-type-item"
-									style={{
-										backgroundImage: `url(/img/banner/types/${type.toLowerCase()}.webp)`,
-									}}
-									onClick={() => propertyTypeSelectHandler(type)}
-									key={type}
-									data-index={index}
-								>
-									<span>{type}</span>
-								</div>
-							);
-						})}
-					</div>
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}
@@ -691,15 +613,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<span className="location-text">{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}</span>
 							<ExpandMoreIcon className="dropdown-icon" />
 						</Box>
-						{searchFilter?.search?.locationList && searchFilter?.search?.locationList.length > 0 && (
-							<>
-								<Divider orientation="vertical" className="separator" />
-								<Box className={`box property-type-box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-									<span>{searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')}</span>
-									<ExpandMoreIcon />
-								</Box>
-							</>
-						)}
 					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
@@ -797,26 +710,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						})}
 					</div>
 
-					{openType && (
-						<div className="filter-type-overlay" onClick={() => setOpenType(false)}></div>
-					)}
-					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
-						{propertyType.map((type: string, index: number) => {
-							return (
-								<div
-									className="property-type-item"
-									style={{
-										backgroundImage: `url(/img/banner/types/${type.toLowerCase()}.webp)`,
-									}}
-									onClick={() => propertyTypeSelectHandler(type)}
-									key={type}
-									data-index={index}
-								>
-									<span>{type}</span>
-								</div>
-							);
-						})}
-					</div>
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}

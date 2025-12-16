@@ -57,16 +57,16 @@
 				gap: 15px;
 				padding-top: 96px;
 				.filter-config {
-					width: 339px;
+					width: 360px;
 					height: auto;
 					margin-left: -20px;
 					.filter-main {
 						width: 100%;
-						padding: 30px 24px;
-						border-radius: 16px;
-						background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-						box-shadow: 0px 8px 24px 0px rgba(102, 126, 234, 0.25);
-						border: 1px solid rgba(255, 255, 255, 0.1);
+						padding: 32px 26px 40px;
+						border-radius: 32px;
+						background: #ffffff;
+						border: 2px solid #22c55e;
+						box-shadow: 0px 18px 40px rgba(34, 197, 94, 0.25);
 						.find-your-home {
 							position: relative;
 							width: 100%;
@@ -80,47 +80,42 @@
 									height: 253px;
 								}
 							}
-							.title-main {
-								width: 100%;
-								height: 25px;
-								color: #ffffff;
-								font-family: $font;
-								font-size: 15px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-								text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-							}
 							.title {
 								width: auto;
 								height: auto;
-								color: #ffffff;
+								color: #181a20; // darker so it is visible
 								font-family: $font;
-								font-size: 14px;
+								font-size: 16px;
 								font-style: normal;
-								font-weight: 600;
+								font-weight: 700;
 								line-height: normal;
-								text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+								text-shadow: none;
 							}
 							.input-box {
 								position: relative;
 								width: 100%;
 								flex-direction: row;
 								align-items: center;
+								margin-left: -6px; // shift row slightly to the left
+								padding: 10px 18px;
+								border-radius: 28px;
+								background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9) 0%, rgba(240, 253, 244, 0.95) 55%, rgba(240, 253, 244, 0.9) 100%);
+								border: 1.5px solid rgba(34, 197, 94, 0.25);
+								box-shadow: 0px 10px 26px rgba(34, 197, 94, 0.18);
 								svg {
 									cursor: pointer;
 								}
 								.search-input {
 									width: 100%;
 									height: 53px;
-									border-radius: 8px;
-									border: 1px solid rgba(255, 255, 255, 0.3);
-									background: rgba(255, 255, 255, 0.95);
+									border-radius: 18px;
+									border: none;
+									background: transparent;
 									outline: none;
 									padding-left: 43px;
 									color: #181a20;
 									font-family: $font;
-									font-size: 14px;
+									font-size: 26px; // larger text inside input
 									font-style: normal;
 									font-weight: 400;
 									line-height: 26px;
@@ -142,12 +137,23 @@
 								}
 								.property-checkbox {
 									width: 16px;
-									height: 15px;
+									height: 16px;
 									border-radius: 12px;
 									margin-right: 10px;
+									transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+
 									svg {
 										width: 19px;
+										height: 19px;
+										transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 									}
+								}
+
+								// simple, clean hover: slight move + glow
+								.input-box:hover .property-checkbox,
+								.input-box:hover .property-checkbox svg {
+									transform: translateX(2px);
+									box-shadow: 0 4px 10px rgba(34, 197, 94, 0.35);
 								}
 							}
 							.city-select {
@@ -191,35 +197,67 @@
 								right: 13px;
 								top: 52px;
 							}
-							.property-type {
-								color: #ffffff;
-								font-family: $font;
-								font-size: 13px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 17px;
-								text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-								padding: 3px 6px;
-								border-radius: 4px;
-								display: inline-block;
-								cursor: pointer;
-								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-							}
+								.property-type {
+									position: relative;
+									color: #181a20;
+									font-family: $font;
+									font-size: 20px;
+									font-style: normal;
+									font-weight: 600; // a bit bolder
+									line-height: 17px;
+									text-shadow: none;
+									padding: 3px 6px;
+									border-radius: 4px;
+									display: inline-block;
+									cursor: pointer;
+									transition: color 0.25s ease-out;
 
-							.property_type {
-								color: #ffffff;
-								font-family: $font;
-								font-size: 13px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 17px;
-								text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-								padding: 3px 6px;
-								border-radius: 4px;
-								display: inline-block;
-								cursor: pointer;
-								transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-							}
+									&::after {
+										content: '';
+										position: absolute;
+										left: 0;
+										right: 0;
+										bottom: -6px;
+										height: 3px;
+										border-radius: 999px;
+										background: linear-gradient(90deg, #22c55e 0%, #16a34a 60%, #4ade80 100%);
+										transform-origin: left center;
+										transform: scaleX(0);
+										opacity: 0;
+										transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+									}
+								}
+
+								.property_type {
+									position: relative;
+									color: #181a20;
+									font-family: $font;
+									font-size: 20px;
+									font-style: normal;
+									font-weight: 600; // a bit bolder
+									line-height: 17px;
+									text-shadow: none;
+									padding: 3px 6px;
+									border-radius: 4px;
+									display: inline-block;
+									cursor: pointer;
+									transition: color 0.25s ease-out;
+
+									&::after {
+										content: '';
+										position: absolute;
+										left: 0;
+										right: 0;
+										bottom: -6px;
+										height: 3px;
+										border-radius: 999px;
+										background: linear-gradient(90deg, #22c55e 0%, #16a34a 60%, #4ade80 100%);
+										transform-origin: left center;
+										transform: scaleX(0);
+										opacity: 0;
+										transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+									}
+								}
 
 							.input-box {
 								&:hover .property-type,
@@ -231,6 +269,20 @@
 									text-shadow: 0px 0px 10px rgba(52, 211, 153, 0.7);
 								}
 							}
+
+							// hover underline animation like home navbar
+							.input-box:hover .property-type,
+							.input-box:hover .property_type {
+								color: #16a34a;
+							}
+
+							.input-box:hover .property-type::after,
+							.input-box:hover .property_type::after {
+								transform: scaleX(1);
+								opacity: 1;
+							}
+
+							// (shine effect removed – back to previous simple pill style)
 							.globe-container {
 								width: 100%;
 								height: 200px;
@@ -262,23 +314,24 @@
 								gap: 8px;
 								button {
 									width: 100%;
-									color: #ffffff;
+									color: #181a20;
 									text-align: center;
 									font-family: $font;
-									font-size: 13px;
+									font-size: 14px;
 									font-style: normal;
 									font-weight: 600;
 									line-height: normal;
-									background: rgba(255, 255, 255, 0.2);
-									border: 1px solid rgba(255, 255, 255, 0.3);
+									background: rgba(255, 255, 255, 0.95);
+									border: 1px solid rgba(34, 197, 94, 0.3);
 									border-radius: 8px;
 									backdrop-filter: blur(10px);
 									transition: all 0.3s ease;
 
 									&:hover {
-										background: rgba(255, 255, 255, 0.3);
+										background: #ffffff;
+										border-color: #22c55e;
 										transform: translateY(-2px);
-										box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+										box-shadow: 0px 4px 12px rgba(34, 197, 94, 0.2);
 									}
 								}
 							}
@@ -311,6 +364,10 @@
 								}
 								label {
 									line-height: 13px;
+									color: #181a20;
+									font-family: $font;
+									font-size: 14px;
+									font-weight: 500;
 								}
 								input::placeholder {
 									color: #717171;
@@ -528,12 +585,12 @@
 										}
 										.view-cnt {
 											font-size: 13px;
-										}
-									}
-								}
-							}
 						}
 					}
+				}
+			}
+		}
+}
 					.pagination-config {
 						width: 442px;
 						height: 86px;

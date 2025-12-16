@@ -127,8 +127,8 @@ const TopProperties = (props: TopPropertiesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Top buildings</span>
-							<p>Check out our Top Buildings</p>
+							<span>Top hotels</span>
+							<p>Check out our Top Hotels</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'pagination-box'}>

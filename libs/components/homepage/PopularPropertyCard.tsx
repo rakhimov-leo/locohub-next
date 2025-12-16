@@ -14,10 +14,11 @@ import AnimatedNumber, { AnimatedNumberRef } from '../common/AnimatedNumber';
 
 interface PopularPropertyCardProps {
 	property: Property;
+	likePropertyHandler: any;
 }
 
 const PopularPropertyCard = (props: PopularPropertyCardProps) => {
-	const { property } = props;
+	const { property, likePropertyHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
@@ -107,8 +108,12 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'}>
-								<FavoriteBorderIcon />
+							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
+								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon style={{ color: 'red' }} />
+								) : (
+									<FavoriteBorderIcon />
+								)}
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyLikes || 0}</Typography>
 						</div>
@@ -168,8 +173,12 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'}>
-								<FavoriteBorderIcon />
+							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
+								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon style={{ color: 'red' }} />
+								) : (
+									<FavoriteBorderIcon />
+								)}
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyLikes || 0}</Typography>
 						</div>

@@ -71,9 +71,7 @@ const Join: NextPage = () => {
 				<Stack className={'container'}>
 					<Stack className={'main'}>
 						<Stack className={'left'}>
-							{/* @ts-ignore */}
 							<Box className={'logo'}>
-								<img src="/img/logo/logoText.svg" alt="" />
 								<span>LocoHub</span>
 							</Box>
 							<Box className={'info'}>
@@ -97,7 +95,7 @@ const Join: NextPage = () => {
 								<div className={'input-box'}>
 									<span>Password</span>
 									<input
-										type="text"
+										type="password"
 										placeholder={'Enter Password'}
 										onChange={(e) => handleInput('password', e.target.value)}
 										required={true}
@@ -206,7 +204,24 @@ const Join: NextPage = () => {
 								)}
 							</Box>
 						</Stack>
-						<Stack className={'right'}></Stack>
+						<Stack className={'right'}>
+							<Box
+								component="img"
+								src="/img/banner/joinBg.jpg"
+								alt="Login background"
+								sx={{
+									width: '100%',
+									height: '100%',
+									objectFit: 'cover',
+									objectPosition: 'center',
+									display: 'block',
+									borderTopRightRadius: '32px',
+									borderBottomRightRadius: '32px',
+									transform: 'scale(1.15)',
+									transformOrigin: 'center',
+								}}
+							/>
+						</Stack>
 					</Stack>
 				</Stack>
 			</Stack>
