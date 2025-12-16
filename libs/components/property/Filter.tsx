@@ -140,35 +140,29 @@ const Filter = (props: FilterType) => {
 				const isChecked = e.target.checked;
 				const value = e.target.value;
 				if (isChecked) {
-					await router.push(
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: { ...searchFilter.search, locationList: [...(searchFilter?.search?.locationList || []), value] },
-						})}`,
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: { ...searchFilter.search, locationList: [...(searchFilter?.search?.locationList || []), value] },
-						})}`,
-						{ scroll: false },
-					);
+					// Update filter without page reload
+					const newFilter = {
+						...searchFilter,
+						search: { ...searchFilter.search, locationList: [...(searchFilter?.search?.locationList || []), value] },
+					};
+					setSearchFilter(newFilter);
 				} else if (searchFilter?.search?.locationList?.includes(value)) {
-					await router.push(
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-								locationList: searchFilter?.search?.locationList?.filter((item: string) => item !== value),
-							},
-						})}`,
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-								locationList: searchFilter?.search?.locationList?.filter((item: string) => item !== value),
-							},
-						})}`,
-						{ scroll: false },
-					);
+					// Remove location from filter
+					const filteredLocationList = searchFilter?.search?.locationList?.filter((item: string) => item !== value);
+					
+					// If locationList is empty, remove it completely to show all properties
+					const newSearch = { ...searchFilter.search };
+					if (filteredLocationList && filteredLocationList.length > 0) {
+						newSearch.locationList = filteredLocationList;
+					} else {
+						delete newSearch.locationList;
+					}
+					
+					const newFilter = {
+						...searchFilter,
+						search: newSearch,
+					};
+					setSearchFilter(newFilter);
 				}
 
 				console.log('propertyLocationSelectHandler:', e.target.value);
@@ -176,7 +170,7 @@ const Filter = (props: FilterType) => {
 				console.log('ERROR, propertyLocationSelectHandler:', err);
 			}
 		},
-		[searchFilter],
+		[searchFilter, setSearchFilter],
 	);
 
 	const propertyRoomSelectHandler = useCallback(
@@ -184,54 +178,39 @@ const Filter = (props: FilterType) => {
 			try {
 				if (number != 0) {
 					if (searchFilter?.search?.roomsList?.includes(number)) {
-						await router.push(
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: {
-									...searchFilter.search,
-									roomsList: searchFilter?.search?.roomsList?.filter((item: Number) => item !== number),
-								},
-							})}`,
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: {
-									...searchFilter.search,
-									roomsList: searchFilter?.search?.roomsList?.filter((item: Number) => item !== number),
-								},
-							})}`,
-							{ scroll: false },
-						);
+						// Remove room from filter
+						const filteredRoomsList = searchFilter?.search?.roomsList?.filter((item: Number) => item !== number);
+						
+						// If roomsList is empty, remove it completely
+						const newSearch = { ...searchFilter.search };
+						if (filteredRoomsList && filteredRoomsList.length > 0) {
+							newSearch.roomsList = filteredRoomsList;
+						} else {
+							delete newSearch.roomsList;
+						}
+						
+						const newFilter = {
+							...searchFilter,
+							search: newSearch,
+						};
+						setSearchFilter(newFilter);
 					} else {
-						await router.push(
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: { ...searchFilter.search, roomsList: [...(searchFilter?.search?.roomsList || []), number] },
-							})}`,
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: { ...searchFilter.search, roomsList: [...(searchFilter?.search?.roomsList || []), number] },
-							})}`,
-							{ scroll: false },
-						);
+						// Add room to filter
+						const newFilter = {
+							...searchFilter,
+							search: { ...searchFilter.search, roomsList: [...(searchFilter?.search?.roomsList || []), number] },
+						};
+						setSearchFilter(newFilter);
 					}
 				} else {
-					delete searchFilter?.search.roomsList;
-					setSearchFilter({ ...searchFilter });
-					await router.push(
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-							},
-						})}`,
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-							},
-						})}`,
-						{ scroll: false },
-					);
+					// Remove all rooms filter
+					const newSearch = { ...searchFilter.search };
+					delete newSearch.roomsList;
+					const newFilter = {
+						...searchFilter,
+						search: newSearch,
+					};
+					setSearchFilter(newFilter);
 				}
 
 				console.log('propertyRoomSelectHandler:', number);
@@ -239,7 +218,7 @@ const Filter = (props: FilterType) => {
 				console.log('ERROR, propertyRoomSelectHandler:', err);
 			}
 		},
-		[searchFilter],
+		[searchFilter, setSearchFilter],
 	);
 
 	const propertyOptionSelectHandler = useCallback(
@@ -292,54 +271,39 @@ const Filter = (props: FilterType) => {
 			try {
 				if (number != 0) {
 					if (searchFilter?.search?.bedsList?.includes(number)) {
-						await router.push(
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: {
-									...searchFilter.search,
-									bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
-								},
-							})}`,
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: {
-									...searchFilter.search,
-									bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
-								},
-							})}`,
-							{ scroll: false },
-						);
+						// Remove bed from filter
+						const filteredBedsList = searchFilter?.search?.bedsList?.filter((item: Number) => item !== number);
+						
+						// If bedsList is empty, remove it completely
+						const newSearch = { ...searchFilter.search };
+						if (filteredBedsList && filteredBedsList.length > 0) {
+							newSearch.bedsList = filteredBedsList;
+						} else {
+							delete newSearch.bedsList;
+						}
+						
+						const newFilter = {
+							...searchFilter,
+							search: newSearch,
+						};
+						setSearchFilter(newFilter);
 					} else {
-						await router.push(
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
-							})}`,
-							`/property?input=${JSON.stringify({
-								...searchFilter,
-								search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
-							})}`,
-							{ scroll: false },
-						);
+						// Add bed to filter
+						const newFilter = {
+							...searchFilter,
+							search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
+						};
+						setSearchFilter(newFilter);
 					}
 				} else {
-					delete searchFilter?.search.bedsList;
-					setSearchFilter({ ...searchFilter });
-					await router.push(
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-							},
-						})}`,
-						`/property?input=${JSON.stringify({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-							},
-						})}`,
-						{ scroll: false },
-					);
+					// Remove all beds filter
+					const newSearch = { ...searchFilter.search };
+					delete newSearch.bedsList;
+					const newFilter = {
+						...searchFilter,
+						search: newSearch,
+					};
+					setSearchFilter(newFilter);
 				}
 
 				console.log('propertyBedSelectHandler:', number);
@@ -347,7 +311,7 @@ const Filter = (props: FilterType) => {
 				console.log('ERROR, propertyBedSelectHandler:', err);
 			}
 		},
-		[searchFilter],
+		[searchFilter, setSearchFilter],
 	);
 
 	const propertySquareHandler = useCallback(
@@ -355,87 +319,55 @@ const Filter = (props: FilterType) => {
 			const value = e.target.value;
 
 			if (type == 'start') {
-				await router.push(
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, start: value },
-						},
-					})}`,
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, start: value },
-						},
-					})}`,
-					{ scroll: false },
-				);
+				// Update filter without page reload
+				const newFilter = {
+					...searchFilter,
+					search: {
+						...searchFilter.search,
+						squaresRange: { ...searchFilter.search.squaresRange, start: value * 1 },
+					},
+				};
+				setSearchFilter(newFilter);
 			} else {
-				await router.push(
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, end: value },
-						},
-					})}`,
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, end: value },
-						},
-					})}`,
-					{ scroll: false },
-				);
+				// Update filter without page reload
+				const newFilter = {
+					...searchFilter,
+					search: {
+						...searchFilter.search,
+						squaresRange: { ...searchFilter.search.squaresRange, end: value * 1 },
+					},
+				};
+				setSearchFilter(newFilter);
 			}
 		},
-		[searchFilter],
+		[searchFilter, setSearchFilter],
 	);
 
 	const propertyPriceHandler = useCallback(
 		async (value: number, type: string) => {
 			if (type == 'start') {
-				await router.push(
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							pricesRange: { ...searchFilter.search.pricesRange, start: value * 1 },
-						},
-					})}`,
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							pricesRange: { ...searchFilter.search.pricesRange, start: value * 1 },
-						},
-					})}`,
-					{ scroll: false },
-				);
+				// Update filter without page reload
+				const newFilter = {
+					...searchFilter,
+					search: {
+						...searchFilter.search,
+						pricesRange: { ...searchFilter.search.pricesRange, start: value * 1 },
+					},
+				};
+				setSearchFilter(newFilter);
 			} else {
-				await router.push(
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							pricesRange: { ...searchFilter.search.pricesRange, end: value * 1 },
-						},
-					})}`,
-					`/property?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-							pricesRange: { ...searchFilter.search.pricesRange, end: value * 1 },
-						},
-					})}`,
-					{ scroll: false },
-				);
+				// Update filter without page reload
+				const newFilter = {
+					...searchFilter,
+					search: {
+						...searchFilter.search,
+						pricesRange: { ...searchFilter.search.pricesRange, end: value * 1 },
+					},
+				};
+				setSearchFilter(newFilter);
 			}
 		},
-		[searchFilter],
+		[searchFilter, setSearchFilter],
 	);
 
 	const refreshHandler = async () => {
@@ -501,48 +433,37 @@ const Filter = (props: FilterType) => {
 					<GlobeLocation
 						locations={propertyLocation as PropertyLocation[]}
 						selectedLocations={(searchFilter?.search?.locationList || []) as PropertyLocation[]}
-						onLocationClick={async (location) => {
+						onLocationClick={(location) => {
 							const locationList = (searchFilter?.search?.locationList || []) as PropertyLocation[];
 							const isSelected = locationList.includes(location);
 							try {
 								if (isSelected) {
-									// Remove location
-									await router.push(
-										`/property?input=${JSON.stringify({
-											...searchFilter,
-											search: {
-												...searchFilter.search,
-												locationList: locationList.filter((l) => l !== location),
-											},
-										})}`,
-										`/property?input=${JSON.stringify({
-											...searchFilter,
-											search: {
-												...searchFilter.search,
-												locationList: locationList.filter((l) => l !== location),
-											},
-										})}`,
-										{ scroll: false },
-									);
+									// Remove location from filter
+									const filteredLocationList = locationList.filter((l) => l !== location);
+									
+									// If locationList is empty, remove it completely to show all properties
+									const newSearch = { ...searchFilter.search };
+									if (filteredLocationList.length > 0) {
+										newSearch.locationList = filteredLocationList;
+									} else {
+										delete newSearch.locationList;
+									}
+									
+									const newFilter = {
+										...searchFilter,
+										search: newSearch,
+									};
+									setSearchFilter(newFilter);
 								} else {
-									// Add location
-									await router.push(
-										`/property?input=${JSON.stringify({
-											...searchFilter,
-											search: {
-												...searchFilter.search,
-												locationList: [...locationList, location],
-											},
-										})}`,
-										`/property?input=${JSON.stringify({
-											...searchFilter,
-											search: {
-												...searchFilter.search,
-												locationList: [...locationList, location],
-											},
-										})}`,
-										{ scroll: false },
-									);
+									// Add location - update filter without page reload
+									const newFilter = {
+										...searchFilter,
+										search: {
+											...searchFilter.search,
+											locationList: [...locationList, location],
+										},
+									};
+									setSearchFilter(newFilter);
 								}
 							} catch (err) {
 								console.log('ERROR, globe location click:', err);

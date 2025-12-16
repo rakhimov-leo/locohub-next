@@ -311,6 +311,29 @@
 							transition: opacity 0.4s;
 						}
 
+						// Shine effect animation
+						&::after {
+							content: '';
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							right: -60%;
+							width: 60%;
+							background: linear-gradient(
+								120deg,
+								transparent 0%,
+								rgba(255, 255, 255, 0.6) 40%,
+								rgba(255, 255, 255, 0.8) 50%,
+								rgba(255, 255, 255, 0.6) 60%,
+								transparent 100%
+							);
+							opacity: 0;
+							transform: translateX(0) skewX(-20deg);
+							transition: transform 0.7s ease-out, opacity 0.4s ease-out;
+							z-index: 2;
+							pointer-events: none;
+						}
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
@@ -319,6 +342,12 @@
 
 							&::before {
 								opacity: 0.6;
+							}
+
+							&::after {
+								opacity: 1;
+								transform: translateX(-220%) skewX(-20deg);
+								animation: shineSweep 0.7s ease-out forwards;
 							}
 
 							.card-img {
@@ -573,6 +602,29 @@
 							transition: opacity 0.4s;
 						}
 
+						// Shine effect animation (left to right)
+						&::after {
+							content: '';
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							left: -60%;
+							width: 60%;
+							background: linear-gradient(
+								60deg,
+								transparent 0%,
+								rgba(255, 255, 255, 0.6) 40%,
+								rgba(255, 255, 255, 0.8) 50%,
+								rgba(255, 255, 255, 0.6) 60%,
+								transparent 100%
+							);
+							opacity: 0;
+							transform: translateX(0) skewX(20deg);
+							transition: transform 0.7s ease-out, opacity 0.4s ease-out;
+							z-index: 2;
+							pointer-events: none;
+						}
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
@@ -581,6 +633,12 @@
 
 							&::before {
 								opacity: 0.6;
+							}
+
+							&::after {
+								opacity: 1;
+								transform: translateX(220%) skewX(20deg);
+								animation: shineSweepLeftToRight 0.7s ease-out forwards;
 							}
 
 							.card-img {
@@ -942,6 +1000,29 @@
 							transition: opacity 0.4s;
 						}
 
+						// Shine effect animation
+						&::after {
+							content: '';
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							right: -60%;
+							width: 60%;
+							background: linear-gradient(
+								120deg,
+								transparent 0%,
+								rgba(255, 255, 255, 0.6) 40%,
+								rgba(255, 255, 255, 0.8) 50%,
+								rgba(255, 255, 255, 0.6) 60%,
+								transparent 100%
+							);
+							opacity: 0;
+							transform: translateX(0) skewX(-20deg);
+							transition: transform 0.7s ease-out, opacity 0.4s ease-out;
+							z-index: 2;
+							pointer-events: none;
+						}
+
 						&:hover {
 							opacity: 1;
 							transform: translateY(-10px) scale(1.03);
@@ -951,6 +1032,12 @@
 
 							&::before {
 								opacity: 0.6;
+							}
+
+							&::after {
+								opacity: 1;
+								transform: translateX(-220%) skewX(-20deg);
+								animation: shineSweep 0.7s ease-out forwards;
 							}
 
 							.card-img {
@@ -1446,6 +1533,29 @@
 						border: 2px solid rgba(255, 255, 255, 0.1);
 						transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
+						// Shine effect animation (bottom to top)
+						&::before {
+							content: '';
+							position: absolute;
+							bottom: -60%;
+							left: 0;
+							right: 0;
+							height: 60%;
+							background: linear-gradient(
+								to top,
+								transparent 0%,
+								rgba(255, 255, 255, 0.6) 40%,
+								rgba(255, 255, 255, 0.8) 50%,
+								rgba(255, 255, 255, 0.6) 60%,
+								transparent 100%
+							);
+							opacity: 0;
+							transform: translateY(0) skewY(-20deg);
+							transition: transform 0.7s ease-out, opacity 0.4s ease-out;
+							z-index: 3;
+							pointer-events: none;
+						}
+
 						// Overlay gradient for better text readability
 						&::after {
 							content: '';
@@ -1462,6 +1572,7 @@
 							);
 							opacity: 0.7;
 							transition: opacity 0.4s;
+							z-index: 1;
 						}
 
 						&:hover {
@@ -1469,6 +1580,12 @@
 							transform: translateY(-10px) scale(1.03);
 							box-shadow: 0px 20px 50px rgba(102, 126, 234, 0.4);
 							border-color: rgba(102, 126, 234, 0.5);
+
+							&::before {
+								opacity: 1;
+								transform: translateY(-220%) skewY(-20deg);
+								animation: shineSweepBottomToTop 0.7s ease-out forwards;
+							}
 
 							&::after {
 								opacity: 0.5;
@@ -1879,5 +1996,47 @@ html.dark-mode {
 				}
 			}
 		}
+	}
+}
+
+@keyframes shineSweep {
+	0% {
+		transform: translateX(0) skewX(-20deg);
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(-220%) skewX(-20deg);
+		opacity: 0;
+	}
+}
+
+@keyframes shineSweepLeftToRight {
+	0% {
+		transform: translateX(0) skewX(20deg);
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(220%) skewX(20deg);
+		opacity: 0;
+	}
+}
+
+@keyframes shineSweepBottomToTop {
+	0% {
+		transform: translateY(0) skewY(-20deg);
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(-220%) skewY(-20deg);
+		opacity: 0;
 	}
 }
