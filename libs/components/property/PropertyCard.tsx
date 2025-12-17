@@ -47,7 +47,8 @@ const PropertyCard = (props: PropertyCardType) => {
 		if (typeof window !== 'undefined') {
 			const currentPath = window.location.pathname;
 			if (currentPath === '/' || currentPath.startsWith('/?')) {
-				const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				const scrollY =
+					window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 				sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
 				sessionStorage.setItem('fromDetailPage', 'true');
 				console.log('Saved scroll position:', scrollY);
@@ -61,7 +62,7 @@ const PropertyCard = (props: PropertyCardType) => {
 				query: { id: property?._id },
 			},
 			undefined,
-			{ scroll: false }
+			{ scroll: false },
 		);
 	};
 
@@ -87,7 +88,7 @@ const PropertyCard = (props: PropertyCardType) => {
 						</Box>
 					)}
 					<Box component={'div'} className={'price-box'}>
-						<Typography>${formatterStr(property?.propertyPrice)}</Typography>
+						<Typography>${formatterStr(property?.propertyPrice)} / night</Typography>
 					</Box>
 				</Stack>
 				<Stack className="bottom">
@@ -111,10 +112,17 @@ const PropertyCard = (props: PropertyCardType) => {
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography><AnimatedNumber ref={bedNumberRef} value={property.propertyBeds || 0} duration={2500} delay={0} /> bed</Typography>
+							<img src="/img/icons/bed.svg" alt="" />{' '}
+							<Typography>
+								<AnimatedNumber ref={bedNumberRef} value={property.propertyBeds || 0} duration={2500} delay={0} /> bed
+							</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography><AnimatedNumber ref={roomNumberRef} value={property.propertyRooms || 0} duration={2500} delay={0} /> room</Typography>
+							<img src="/img/icons/room.svg" alt="" />{' '}
+							<Typography>
+								<AnimatedNumber ref={roomNumberRef} value={property.propertyRooms || 0} duration={2500} delay={0} />{' '}
+								room
+							</Typography>
 						</Stack>
 						<Stack className="option">
 							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>

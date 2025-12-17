@@ -12,25 +12,23 @@ interface GlobeLocationProps {
 // Adjusted to spread out locations more evenly - keeping good separation
 const locationCoords: Record<PropertyLocation, { lat: number; lng: number }> = {
 	[PropertyLocation.SEOUL]: { lat: 37.5665, lng: 126.978 },
-	[PropertyLocation.FRANCE]: { lat: 33.9, lng: -28.8 }, // Antipodal to Australia (-33.9°S, 151.2°E) -> (33.9°N, -28.8°W)
-	[PropertyLocation.SPAIN]: { lat: -15.0, lng: 130.0 }, // Moved further from Australia - north and west
-	[PropertyLocation.ITALY]: { lat: 20.0, lng: 10.0 }, // Moved closer to center - closer to equator
-	[PropertyLocation.GERMANY]: { lat: 54.5, lng: 8.0 }, // Berlin area - moved even more north and further west
-	[PropertyLocation.USA]: { lat: 40.7, lng: -74.0 }, // New York area
-	[PropertyLocation.UK]: { lat: -54.5, lng: -172.0 }, // Antipodal to Germany (54.5°N, 8.0°E) -> (-54.5°S, -172°W)
-	[PropertyLocation.AUSTRALIA]: { lat: -33.9, lng: 151.2 }, // Sydney area
+	[PropertyLocation.FRANCE]: { lat: 33.9, lng: -28.8 },
+	[PropertyLocation.SPAIN]: { lat: -15.0, lng: 130.0 },
+	[PropertyLocation.ITALY]: { lat: 20.0, lng: 10.0 },
+	[PropertyLocation.GERMANY]: { lat: 54.5, lng: 8.0 },
+	[PropertyLocation.USA]: { lat: 40.7, lng: -74.0 },
+	[PropertyLocation.UK]: { lat: -54.5, lng: -172.0 },
 };
 
 // Different random intervals for each location (in milliseconds)
 const locationIntervals: Record<PropertyLocation, number> = {
-	[PropertyLocation.SEOUL]: 15000, // 15 seconds
-	[PropertyLocation.FRANCE]: 14000, // 14 seconds
-	[PropertyLocation.SPAIN]: 20000, // 20 seconds
-	[PropertyLocation.ITALY]: 15000, // 15 seconds
-	[PropertyLocation.GERMANY]: 14000, // 14 seconds
-	[PropertyLocation.USA]: 20000, // 20 seconds
-	[PropertyLocation.UK]: 15000, // 15 seconds
-	[PropertyLocation.AUSTRALIA]: 14000, // 14 seconds
+	[PropertyLocation.SEOUL]: 15000,
+	[PropertyLocation.FRANCE]: 14000,
+	[PropertyLocation.SPAIN]: 20000,
+	[PropertyLocation.ITALY]: 15000,
+	[PropertyLocation.GERMANY]: 14000,
+	[PropertyLocation.USA]: 20000,
+	[PropertyLocation.UK]: 15000,
 };
 
 const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocations, onLocationClick }) => {
@@ -38,7 +36,7 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 	const [isDragging, setIsDragging] = useState(false);
 	const [lastMouseX, setLastMouseX] = useState(0);
 	const [lastMouseY, setLastMouseY] = useState(0);
-	const [rotationX, setRotationX] = useState(-5); // Initial tilt to show markers at different heights including top
+	const [rotationX, setRotationX] = useState(-5);
 	const [rotationY, setRotationY] = useState(0);
 	const [autoRotate, setAutoRotate] = useState(true);
 	const [markerOffsets, setMarkerOffsets] = useState<Record<string, { lat: number; lng: number }>>({});
@@ -57,8 +55,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 		setMarkerOffsets(offsets);
 	}, [locations]);
 
-	// Random animation removed - markers stay in fixed positions relative to their base coordinates
-
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
@@ -70,11 +66,10 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 		const height = canvas.height;
 		const centerX = width / 2;
 		const centerY = height / 2;
-		const radius = Math.min(width, height) * 0.48; // Increased to 0.48 for even larger globe
+		const radius = Math.min(width, height) * 0.48;
 
 		let lastTime = 0;
 		const drawGlobe = (currentTime: number = 0) => {
-			// Throttle to ~60fps for smoother animation
 			if (currentTime - lastTime < 16) {
 				animationRef.current = requestAnimationFrame(drawGlobe);
 				return;
@@ -83,31 +78,30 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 
 			ctx.clearRect(0, 0, width, height);
 
-			// Draw globe base (sphere) - softer green/blue tones
+			// Draw globe base (sphere) - very light, almost white green gradient
 			const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
-			gradient.addColorStop(0, 'rgba(190, 242, 255, 0.8)'); // light cyan center
-			gradient.addColorStop(0.5, 'rgba(187, 247, 208, 0.55)'); // soft mint
-			gradient.addColorStop(1, 'rgba(220, 252, 231, 0.9)'); // pale green edge
+			gradient.addColorStop(0, 'rgba(250, 253, 252, 1)');
+			gradient.addColorStop(0.45, 'rgba(226, 252, 239, 0.98)');
+			gradient.addColorStop(0.8, 'rgba(209, 250, 229, 0.96)');
+			gradient.addColorStop(1, 'rgba(167, 243, 208, 0.95)');
 
 			ctx.beginPath();
 			ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
 			ctx.fillStyle = gradient;
 			ctx.fill();
 
-			// Draw globe outline
-			ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)'; // darker black-ish outline
+			ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
 			ctx.lineWidth = 2;
 			ctx.stroke();
 
-			// Draw grid lines (latitude/longitude) - simplified for performance
 			ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
 			ctx.lineWidth = 1;
 
-			// Draw only a few latitude lines for better performance
 			for (let lat = -60; lat <= 60; lat += 30) {
 				ctx.beginPath();
 				for (let angle = 0; angle <= 360; angle += 5) {
-					const x = centerX + radius * Math.cos((angle + rotationY) * (Math.PI / 180)) * Math.cos(lat * (Math.PI / 180));
+					const x =
+						centerX + radius * Math.cos((angle + rotationY) * (Math.PI / 180)) * Math.cos(lat * (Math.PI / 180));
 					const y = centerY + radius * Math.sin(lat * (Math.PI / 180)) * Math.cos((rotationX * Math.PI) / 180);
 					if (angle === 0) {
 						ctx.moveTo(x, y);
@@ -118,7 +112,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 				ctx.stroke();
 			}
 
-			// Draw location markers
 			locations.forEach((location) => {
 				const coords = locationCoords[location];
 				if (!coords) return;
@@ -126,21 +119,17 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 				const selected = selectedLocations.includes(location);
 				const offset = markerOffsets[location] || { lat: 0, lng: 0 };
 
-				// Apply random offset to coordinates
 				const adjustedLat = coords.lat + offset.lat;
 				const adjustedLng = coords.lng + offset.lng;
 
-				// Convert lat/lng to 3D coordinates
 				const phi = (90 - adjustedLat) * (Math.PI / 180);
 				const theta = (adjustedLng + 180) * (Math.PI / 180);
 
-				// First apply Y rotation (horizontal)
 				const rotY = (rotationY * Math.PI) / 180;
 				const x1 = Math.sin(phi) * Math.cos(theta + rotY);
 				const y1 = Math.cos(phi);
 				const z1 = Math.sin(phi) * Math.sin(theta + rotY);
 
-				// Then apply X rotation (vertical tilt)
 				const rotX = (rotationX * Math.PI) / 180;
 				const cosX = Math.cos(rotX);
 				const sinX = Math.sin(rotX);
@@ -148,14 +137,11 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 				const z = y1 * sinX + z1 * cosX;
 				const x = x1;
 
-				// Project to 2D (orthographic projection)
 				const scale = radius;
 				const screenX = centerX + x * scale;
 				const screenY = centerY + y * scale;
 
-				// Show markers on front hemisphere (z > -0.5) - wider visibility to prevent disappearing
 				if (z > -0.5) {
-					// Draw marker with better spacing
 					const markerSize = selected ? 8 : 7;
 					ctx.beginPath();
 					ctx.arc(screenX, screenY, markerSize, 0, Math.PI * 2);
@@ -165,7 +151,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 					ctx.lineWidth = 2.5;
 					ctx.stroke();
 
-					// Draw pulse effect for selected
 					if (selected) {
 						ctx.beginPath();
 						ctx.arc(screenX, screenY, markerSize + 5, 0, Math.PI * 2);
@@ -174,21 +159,16 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 						ctx.stroke();
 					}
 
-					// Draw location name next to marker (rotates with globe)
 					ctx.save();
 					ctx.font = 'bold 11px sans-serif';
-					// make labels dark for better readability on light globe
 					ctx.fillStyle = selected ? '#16a34a' : '#181a20';
 					ctx.textAlign = 'left';
 					ctx.textBaseline = 'middle';
-					
-					// Add text shadow for better visibility
 					ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
 					ctx.shadowBlur = 4;
 					ctx.shadowOffsetX = 1;
 					ctx.shadowOffsetY = 1;
-					
-					// Position text to the right of marker with more spacing
+
 					const textX = screenX + markerSize + 8;
 					const textY = screenY;
 					ctx.fillText(location, textX, textY);
@@ -196,13 +176,10 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 				}
 			});
 
-			// Auto rotate when not dragging and auto-rotate is enabled (very slow rotation - about 70 seconds per full rotation)
 			if (!isDragging && autoRotate) {
 				setRotationY((prev) => prev + 0.085);
-				// Add vertical rotation to show top, middle, and bottom parts - very slow oscillation
 				setRotationX((prev) => {
 					const newX = prev + 0.05;
-					// Keep rotation between -30 and 20 degrees to show all areas including top
 					if (newX > 20) return -30;
 					if (newX < -30) return 20;
 					return newX;
@@ -226,7 +203,7 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 
 	const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
 		setIsDragging(true);
-		setAutoRotate(false); // Stop auto-rotate when user starts dragging
+		setAutoRotate(false);
 		setLastMouseX(e.clientX);
 		setLastMouseY(e.clientY);
 	};
@@ -245,7 +222,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 
 	const handleMouseUp = () => {
 		setIsDragging(false);
-		// Resume auto-rotate after a delay
 		setTimeout(() => {
 			setAutoRotate(true);
 		}, 2000);
@@ -263,7 +239,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 		const centerY = canvas.height / 2;
 		const radius = Math.min(canvas.width, canvas.height) * 0.48;
 
-		// Check if click is near any location marker
 		locations.forEach((location) => {
 			const coords = locationCoords[location];
 			if (!coords) return;
@@ -275,7 +250,6 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 			const phi = (90 - adjustedLat) * (Math.PI / 180);
 			const theta = (adjustedLng + 180) * (Math.PI / 180);
 
-			// Apply rotations same as in drawing
 			const rotY = (rotationY * Math.PI) / 180;
 			const x1 = Math.sin(phi) * Math.cos(theta + rotY);
 			const y1 = Math.cos(phi);
@@ -333,4 +307,3 @@ const GlobeLocation: React.FC<GlobeLocationProps> = ({ locations, selectedLocati
 };
 
 export default GlobeLocation;
-

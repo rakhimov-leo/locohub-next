@@ -39,6 +39,14 @@ const TopAgents = (props: TopAgentsProps) => {
 		},
 	});
 	/** HANDLERS **/
+	const handleSeeAllAdvisors = () => {
+		router.push('/agent');
+	};
+
+	const openAgentDetail = (memberId: string) => {
+		if (!memberId) return;
+		router.push(`/agent/detail?agentId=${memberId}`);
+	};
 
 	if (device === 'mobile') {
 		return (
@@ -59,7 +67,7 @@ const TopAgents = (props: TopAgentsProps) => {
 								return (
 									<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
 										<AnimatedListItem index={index}>
-										<TopAgentCard agent={agent} key={agent?.memberNick} />
+											<TopAgentCard agent={agent} key={agent?.memberNick} />
 										</AnimatedListItem>
 									</SwiperSlide>
 								);
@@ -79,7 +87,7 @@ const TopAgents = (props: TopAgentsProps) => {
 							<p>Our Top Advisors always ready to serve you</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
+							<div className={'more-box'} onClick={handleSeeAllAdvisors} role="button">
 								<span>See All Advisors</span>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>
@@ -91,7 +99,12 @@ const TopAgents = (props: TopAgentsProps) => {
 							<Box className={'central-profiles'}>
 								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
 									return (
-										<Box key={agent?._id} className={'profile-item'}>
+										<Box
+											key={agent?._id}
+											className={'profile-item'}
+											onClick={() => openAgentDetail(agent?._id as string)}
+											sx={{ cursor: 'pointer' }}
+										>
 											<img
 												src={
 													agent?.memberImage
@@ -108,7 +121,12 @@ const TopAgents = (props: TopAgentsProps) => {
 							<Box className={'agent-names-row'}>
 								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
 									return (
-										<Box key={agent?._id} className={'agent-name-item'}>
+										<Box
+											key={agent?._id}
+											className={'agent-name-item'}
+											onClick={() => openAgentDetail(agent?._id as string)}
+											sx={{ cursor: 'pointer' }}
+										>
 											<Typography className={'agent-name'}>{agent?.memberNick}</Typography>
 											<Typography className={'agent-role'}>AGENT</Typography>
 										</Box>

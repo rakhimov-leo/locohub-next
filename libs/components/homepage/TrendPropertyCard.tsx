@@ -31,18 +31,15 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 		if (typeof window !== 'undefined') {
 			const currentPath = window.location.pathname;
 			if (currentPath === '/' || currentPath.startsWith('/?')) {
-				const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				const scrollY =
+					window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 				sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
 				sessionStorage.setItem('fromDetailPage', 'true');
 				console.log('Saved scroll position:', scrollY);
 			}
 		}
 		console.log('propertyId:', propertyId);
-		await router.push(
-			{ pathname: '/property/detail', query: { id: propertyId } },
-			undefined,
-			{ scroll: false }
-		);
+		await router.push({ pathname: '/property/detail', query: { id: propertyId } }, undefined, { scroll: false });
 	};
 
 	const handleCardMouseEnter = () => {
@@ -57,7 +54,12 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 
 	if (device === 'mobile') {
 		return (
-			<Stack className="trend-card-box" key={property._id} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
+			<Stack
+				className="trend-card-box"
+				key={property._id}
+				onMouseEnter={handleCardMouseEnter}
+				onMouseLeave={handleCardMouseLeave}
+			>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -66,7 +68,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					<div>${property.propertyPrice}</div>
+					<div>${property.propertyPrice} / night</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong
@@ -82,11 +84,15 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span><AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed</span>
+							<span>
+								<AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed
+							</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span><AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms</span>
+							<span>
+								<AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms
+							</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
@@ -119,7 +125,12 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 		);
 	} else {
 		return (
-			<Stack className="trend-card-box" key={property._id} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
+			<Stack
+				className="trend-card-box"
+				key={property._id}
+				onMouseEnter={handleCardMouseEnter}
+				onMouseLeave={handleCardMouseLeave}
+			>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -128,7 +139,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					<div>${property.propertyPrice}</div>
+					<div>${property.propertyPrice} / night</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
@@ -138,11 +149,15 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span><AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed</span>
+							<span>
+								<AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed
+							</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span><AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms</span>
+							<span>
+								<AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms
+							</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

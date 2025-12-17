@@ -18,5 +18,4 @@ export enum PropertyLocation {
 	GERMANY = 'GERMANY',
 	USA = 'USA',
 	UK = 'UK',
-	AUSTRALIA = 'AUSTRALIA',
 }

@@ -16,11 +16,15 @@ const TopAgentCard = (props: TopAgentProps) => {
 		: '/img/profile/defaultUser.svg';
 
 	/** HANDLERS **/
+	const handleOpenAgentDetail = () => {
+		if (!agent?._id) return;
+		router.push(`/agent/detail?agentId=${agent._id}`);
+	};
 
 	if (device === 'mobile') {
 		return (
-			<Stack className="top-agent-card">
-				<img src={agentImage} alt="" />
+			<Stack className="top-agent-card" onClick={handleOpenAgentDetail} sx={{ cursor: 'pointer' }}>
+				<img src={agentImage} alt={agent?.memberNick} />
 
 				<strong>{agent?.memberNick}</strong>
 				<span>{agent?.memberType}</span>
@@ -28,8 +32,8 @@ const TopAgentCard = (props: TopAgentProps) => {
 		);
 	} else {
 		return (
-			<Stack className="top-agent-card">
-				<img src={agentImage} alt="" />
+			<Stack className="top-agent-card" onClick={handleOpenAgentDetail} sx={{ cursor: 'pointer' }}>
+				<img src={agentImage} alt={agent?.memberNick} />
 
 				<strong>{agent?.memberNick}</strong>
 				<span>{agent?.memberType}</span>

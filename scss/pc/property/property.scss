@@ -65,7 +65,7 @@
 						padding: 32px 26px 40px;
 						border-radius: 32px;
 						background: #ffffff;
-						border: 2px solid #87CEEB;
+						border: 2px solid #87ceeb;
 						box-shadow: 0px 18px 40px rgba(135, 206, 235, 0.25);
 						.find-your-home {
 							position: relative;
@@ -99,7 +99,12 @@
 								margin-left: -6px; // shift row slightly to the left
 								padding: 10px 18px;
 								border-radius: 28px;
-								background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9) 0%, rgba(230, 248, 255, 0.95) 55%, rgba(240, 250, 255, 0.9) 100%);
+								background: radial-gradient(
+									circle at 0% 0%,
+									rgba(255, 255, 255, 0.9) 0%,
+									rgba(230, 248, 255, 0.95) 55%,
+									rgba(240, 250, 255, 0.9) 100%
+								);
 								border: 1.5px solid rgba(135, 206, 235, 0.25);
 								box-shadow: 0px 10px 26px rgba(135, 206, 235, 0.18);
 								svg {
@@ -126,6 +131,24 @@
 										background: #ffffff;
 										border-color: rgba(255, 255, 255, 0.5);
 										box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+									}
+								}
+
+								// clear (X) icon style inside search input
+								.MuiSvgIcon-root {
+									width: 18px;
+									height: 18px;
+									padding: 2px;
+									border-radius: 999px;
+									background: rgba(0, 0, 0, 0.06);
+									color: #4b5563;
+									transition: background 0.2s ease, transform 0.15s ease, color 0.2s ease;
+									margin-right: 4px;
+
+									&:hover {
+										background: rgba(0, 0, 0, 0.12);
+										color: #111827;
+										transform: scale(1.05);
 									}
 								}
 								img {
@@ -197,67 +220,127 @@
 								right: 13px;
 								top: 52px;
 							}
-								.property-type {
-									position: relative;
-									color: #181a20;
-									font-family: $font;
-									font-size: 20px;
-									font-style: normal;
-									font-weight: 600; // a bit bolder
-									line-height: 17px;
-									text-shadow: none;
-									padding: 3px 6px;
-									border-radius: 4px;
-									display: inline-block;
-									cursor: pointer;
-									transition: color 0.25s ease-out;
+							.property-type {
+								position: relative;
+								color: #181a20;
+								font-family: $font;
+								font-size: 20px;
+								font-style: normal;
+								font-weight: 600; // a bit bolder
+								line-height: 17px;
+								text-shadow: none;
+								padding: 3px 6px;
+								border-radius: 4px;
+								display: inline-block;
+								cursor: pointer;
+								transition: color 0.25s ease-out;
+								white-space: nowrap; // show full country name
 
-									&::after {
-										content: '';
-										position: absolute;
-										left: 0;
-										right: 0;
-										bottom: -6px;
-										height: 3px;
-										border-radius: 999px;
-										background: linear-gradient(90deg, #22c55e 0%, #16a34a 60%, #4ade80 100%);
-										transform-origin: left center;
-										transform: scaleX(0);
-										opacity: 0;
-										transition: transform 0.25s ease-out, opacity 0.25s ease-out;
-									}
+								// underline bar (old behaviour)
+								&::after {
+									content: '';
+									position: absolute;
+									left: 0;
+									right: 0;
+									bottom: -6px;
+									height: 3px;
+									border-radius: 999px;
+									background: linear-gradient(90deg, #22c55e 0%, #16a34a 60%, #4ade80 100%);
+									transform-origin: left center;
+									transform: scaleX(0);
+									opacity: 0;
+									transition: transform 0.25s ease-out, opacity 0.25s ease-out;
 								}
 
-								.property_type {
-									position: relative;
-									color: #181a20;
-									font-family: $font;
-									font-size: 20px;
-									font-style: normal;
-									font-weight: 600; // a bit bolder
-									line-height: 17px;
-									text-shadow: none;
-									padding: 3px 6px;
-									border-radius: 4px;
-									display: inline-block;
-									cursor: pointer;
-									transition: color 0.25s ease-out;
-
-									&::after {
-										content: '';
-										position: absolute;
-										left: 0;
-										right: 0;
-										bottom: -6px;
-										height: 3px;
-										border-radius: 999px;
-										background: linear-gradient(90deg, #22c55e 0%, #16a34a 60%, #4ade80 100%);
-										transform-origin: left center;
-										transform: scaleX(0);
-										opacity: 0;
-										transition: transform 0.25s ease-out, opacity 0.25s ease-out;
-									}
+								// shine sweep like cards
+								&::before {
+									content: '';
+									position: absolute;
+									top: 0;
+									bottom: 0;
+									right: -60%;
+									width: 60%;
+									background: linear-gradient(
+										120deg,
+										transparent 0%,
+										rgba(255, 255, 255, 0.6) 40%,
+										rgba(255, 255, 255, 0.8) 50%,
+										rgba(255, 255, 255, 0.6) 60%,
+										transparent 100%
+									);
+									opacity: 0;
+									transform: translateX(0) skewX(-20deg);
+									transition: transform 0.7s ease-out, opacity 0.4s ease-out;
+									pointer-events: none;
 								}
+
+								&:hover::before {
+									opacity: 1;
+									transform: translateX(-220%) skewX(-20deg);
+									animation: shineSweep 0.7s ease-out forwards;
+								}
+							}
+
+							.property_type {
+								position: relative;
+								color: #181a20;
+								font-family: $font;
+								font-size: 20px;
+								font-style: normal;
+								font-weight: 600; // a bit bolder
+								line-height: 17px;
+								text-shadow: none;
+								padding: 3px 6px;
+								border-radius: 4px;
+								display: inline-block;
+								cursor: pointer;
+								transition: color 0.25s ease-out;
+								overflow: hidden;
+
+								// underline bar (old behaviour)
+								&::after {
+									content: '';
+									position: absolute;
+									left: 0;
+									right: 0;
+									bottom: -6px;
+									height: 3px;
+									border-radius: 999px;
+									background: linear-gradient(90deg, #22c55e 0%, #16a34a 60%, #4ade80 100%);
+									transform-origin: left center;
+									transform: scaleX(0);
+									opacity: 0;
+									transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+								}
+
+								// shine sweep like cards
+								&::before {
+									content: '';
+									position: absolute;
+									top: 0;
+									bottom: 0;
+									right: -60%;
+									width: 60%;
+									background: linear-gradient(
+										120deg,
+										transparent 0%,
+										rgba(255, 255, 255, 0.6) 40%,
+										rgba(255, 255, 255, 0.8) 50%,
+										rgba(255, 255, 255, 0.6) 60%,
+										transparent 100%
+									);
+									opacity: 0;
+									transform: translateX(0) skewX(-20deg);
+									transition: transform 0.7s ease-out, opacity 0.4s ease-out;
+									pointer-events: none;
+								}
+
+								&:hover::before {
+									opacity: 1;
+									transform: translateX(-220%) skewX(-20deg);
+									animation: shineSweep 0.7s ease-out forwards;
+								}
+							}
 
 							.input-box {
 								&:hover .property-type,
@@ -615,12 +698,12 @@
 										}
 										.view-cnt {
 											font-size: 13px;
+										}
+									}
+								}
+							}
 						}
 					}
-				}
-			}
-		}
-}
 					.pagination-config {
 						width: 442px;
 						height: 86px;
@@ -760,6 +843,12 @@ html.dark-mode {
 								background: #1a1a1a;
 								box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
 								border: 1px solid rgba(255, 255, 255, 0.1);
+
+								// one-time shine sweep when dark mode is activated
+								&::before {
+									opacity: 1;
+									animation: shineSweep 0.9s ease-out 0.25s forwards;
+								}
 
 								&:hover {
 									box-shadow: 0px 8px 24px 0px rgba(52, 211, 153, 0.2);

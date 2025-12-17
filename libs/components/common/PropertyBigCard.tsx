@@ -31,17 +31,14 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 		if (typeof window !== 'undefined') {
 			const currentPath = window.location.pathname;
 			if (currentPath === '/' || currentPath.startsWith('/?')) {
-				const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+				const scrollY =
+					window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 				sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
 				sessionStorage.setItem('fromDetailPage', 'true');
 				console.log('Saved scroll position:', scrollY);
 			}
 		}
-		router.push(
-			`/property/detail?id=${propertyId}`,
-			undefined,
-			{ scroll: false }
-		);
+		router.push(`/property/detail?id=${propertyId}`, undefined, { scroll: false });
 	};
 
 	const handleCardMouseEnter = () => {
@@ -58,7 +55,12 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 		return <div>APARTMEND BIG CARD</div>;
 	} else {
 		return (
-			<Stack className="property-big-card-box" onClick={() => goPropertyDetatilPage(property?._id)} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
+			<Stack
+				className="property-big-card-box"
+				onClick={() => goPropertyDetatilPage(property?._id)}
+				onMouseEnter={handleCardMouseEnter}
+				onMouseLeave={handleCardMouseLeave}
+			>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -71,7 +73,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 						</div>
 					)}
 
-					<div className={'price'}>${formatterStr(property?.propertyPrice)}</div>
+					<div className={'price'}>${formatterStr(property?.propertyPrice)} / night</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property?.propertyTitle}</strong>
@@ -79,11 +81,16 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span><AnimatedNumber ref={bedNumberRef} value={property?.propertyBeds || 0} duration={2500} delay={0} /> bed</span>
+							<span>
+								<AnimatedNumber ref={bedNumberRef} value={property?.propertyBeds || 0} duration={2500} delay={0} /> bed
+							</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span><AnimatedNumber ref={roomNumberRef} value={property?.propertyRooms || 0} duration={2500} delay={0} /> rooms</span>
+							<span>
+								<AnimatedNumber ref={roomNumberRef} value={property?.propertyRooms || 0} duration={2500} delay={0} />{' '}
+								rooms
+							</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

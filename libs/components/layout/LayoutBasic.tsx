@@ -40,7 +40,7 @@ const withLayoutBasic = (Component: any) => {
 					videoHeight = '100%';
 					// Slightly lower focus so both top and bottom are more visible
 					videoPosition = 'center 30%';
-					headerHeight = '520px';
+					headerHeight = '550px';
 					break;
 				case '/agent':
 					title = 'Advisors';
@@ -49,12 +49,17 @@ const withLayoutBasic = (Component: any) => {
 					videoHeight = '100%';
 					// Slightly lower focus so both top and bottom are more visible
 					videoPosition = 'center 10%';
-					headerHeight = '520px';
+					headerHeight = '550px';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
 					desc = 'Settings';
-					bgImage = '/img/banner/header2.svg';
+					// Use same background video as Advisors page instead of static image
+					bgImage = '/img/banner/agents.webp';
+					bgVideo = '/video/advisors-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center 10%';
+					headerHeight = '550px';
 					break;
 				case '/mypage':
 					title = 'Me';
@@ -64,7 +69,7 @@ const withLayoutBasic = (Component: any) => {
 					videoHeight = '100%';
 					// Slightly lower focus so both top and bottom are more visible
 					videoPosition = 'center 65%';
-					headerHeight = '520px';
+					headerHeight = '550px';
 					break;
 				case '/cs':
 					title = 'CS';
@@ -73,7 +78,7 @@ const withLayoutBasic = (Component: any) => {
 					bgVideo = '/video/cs-background.mp4';
 					videoHeight = '100%';
 					videoPosition = 'center 30%';
-					headerHeight = '520px';
+					headerHeight = '550px';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';

@@ -149,7 +149,7 @@ const Filter = (props: FilterType) => {
 				} else if (searchFilter?.search?.locationList?.includes(value)) {
 					// Remove location from filter
 					const filteredLocationList = searchFilter?.search?.locationList?.filter((item: string) => item !== value);
-					
+
 					// If locationList is empty, remove it completely to show all properties
 					const newSearch = { ...searchFilter.search };
 					if (filteredLocationList && filteredLocationList.length > 0) {
@@ -157,7 +157,7 @@ const Filter = (props: FilterType) => {
 					} else {
 						delete newSearch.locationList;
 					}
-					
+
 					const newFilter = {
 						...searchFilter,
 						search: newSearch,
@@ -180,7 +180,7 @@ const Filter = (props: FilterType) => {
 					if (searchFilter?.search?.roomsList?.includes(number)) {
 						// Remove room from filter
 						const filteredRoomsList = searchFilter?.search?.roomsList?.filter((item: Number) => item !== number);
-						
+
 						// If roomsList is empty, remove it completely
 						const newSearch = { ...searchFilter.search };
 						if (filteredRoomsList && filteredRoomsList.length > 0) {
@@ -188,7 +188,7 @@ const Filter = (props: FilterType) => {
 						} else {
 							delete newSearch.roomsList;
 						}
-						
+
 						const newFilter = {
 							...searchFilter,
 							search: newSearch,
@@ -273,7 +273,7 @@ const Filter = (props: FilterType) => {
 					if (searchFilter?.search?.bedsList?.includes(number)) {
 						// Remove bed from filter
 						const filteredBedsList = searchFilter?.search?.bedsList?.filter((item: Number) => item !== number);
-						
+
 						// If bedsList is empty, remove it completely
 						const newSearch = { ...searchFilter.search };
 						if (filteredBedsList && filteredBedsList.length > 0) {
@@ -281,7 +281,7 @@ const Filter = (props: FilterType) => {
 						} else {
 							delete newSearch.bedsList;
 						}
-						
+
 						const newFilter = {
 							...searchFilter,
 							search: newSearch,
@@ -398,9 +398,24 @@ const Filter = (props: FilterType) => {
 							onChange={(e: any) => setSearchText(e.target.value)}
 							onKeyDown={(event: any) => {
 								if (event.key == 'Enter') {
+									const trimmed = searchText.trim();
+									const upper = trimmed.toUpperCase();
+
+									// If user types a location name (e.g. seoul, france), map it to locationList filter
+									const locationMatch = Object.values(PropertyLocation).find((loc) => loc.toUpperCase() === upper);
+
+									const newSearch = { ...searchFilter.search };
+
+									if (locationMatch) {
+										newSearch.locationList = [locationMatch as PropertyLocation];
+										delete newSearch.text;
+									} else {
+										newSearch.text = trimmed;
+									}
+
 									setSearchFilter({
 										...searchFilter,
-										search: { ...searchFilter.search, text: searchText },
+										search: newSearch,
 									});
 								}
 							}}
@@ -418,7 +433,6 @@ const Filter = (props: FilterType) => {
 								</>
 							}
 						/>
-						<img src={'/img/icons/search_icon.png'} alt={''} />
 						<Tooltip title="Reset">
 							<IconButton onClick={refreshHandler}>
 								<RefreshIcon />
@@ -440,7 +454,7 @@ const Filter = (props: FilterType) => {
 								if (isSelected) {
 									// Remove location from filter
 									const filteredLocationList = locationList.filter((l) => l !== location);
-									
+
 									// If locationList is empty, remove it completely to show all properties
 									const newSearch = { ...searchFilter.search };
 									if (filteredLocationList.length > 0) {
@@ -448,7 +462,7 @@ const Filter = (props: FilterType) => {
 									} else {
 										delete newSearch.locationList;
 									}
-									
+
 									const newFilter = {
 										...searchFilter,
 										search: newSearch,
@@ -471,8 +485,8 @@ const Filter = (props: FilterType) => {
 						}}
 					/>
 					<Stack
-						className={`property-location`}
-						style={{ height: showMore ? '253px' : '115px' }}
+						className={'property-location'}
+						style={{ height: showMore ? '400px' : '115px' }}
 						onMouseEnter={() => setShowMore(true)}
 						onMouseLeave={() => {
 							if (!searchFilter?.search?.locationList) {
