@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Avatar, Box, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Badge from '@mui/material/Badge';
-import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
-import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
+import CloseIcon from '@mui/icons-material/Close';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { useRouter } from 'next/router';
 import ScrollableFeed from 'react-scrollable-feed';
 import { RippleBadge } from '../../scss/MaterialTheme/styled';
@@ -77,8 +77,10 @@ const Chat = () => {
 					break;
 				case 'message':
 					const NewMessage: MessagePayload = data;
-					messagesList.push(NewMessage);
-					setMessagesList([...messagesList]);
+					// Only add message if it's from another user (not from current user)
+					if (NewMessage.memberData?._id !== user?._id) {
+						setMessagesList((prev) => [...prev, NewMessage]);
+					}
 					break;
 			}
 		};
@@ -118,31 +120,97 @@ const Chat = () => {
 		}
 	};
 
-	const onClickHandler = () => {
+	const onClickHandler = async () => {
 		if (!messageInput) sweetErrorAlert(Messages.error4);
 		else {
-			socket.send(JSON.stringify({ event: 'message', data: messageInput }));
+			const userMessage = messageInput;
 			setMessageInput('');
+
+			// Add user message to chat
+			const userMessagePayload: MessagePayload = {
+				event: 'message',
+				text: userMessage,
+				memberData: user as Member,
+			};
+			setMessagesList((prev) => [...prev, userMessagePayload]);
+
+			// Send to WebSocket (for real-time chat with other users)
+			socket.send(JSON.stringify({ event: 'message', data: userMessage }));
+
+			// Get AI response
+			try {
+				const aiResponse = await getAIResponse(userMessage);
+				const aiMessagePayload: MessagePayload = {
+					event: 'message',
+					text: aiResponse,
+					memberData: {
+						_id: 'ai-assistant',
+						memberNick: 'AI Assistant',
+						memberFullName: 'AI Assistant',
+						memberImage: '/img/profile/ai-assistant.svg',
+					} as Member,
+				};
+				setMessagesList((prev) => [...prev, aiMessagePayload]);
+			} catch (error) {
+				console.error('AI response error:', error);
+			}
 		}
+	};
+
+	const getAIResponse = async (message: string): Promise<string> => {
+		// Simple AI response logic - can be replaced with actual AI API
+		// For now, return a helpful response based on keywords
+		const lowerMessage = message.toLowerCase();
+
+		if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('salom')) {
+			return "Hello! I'm your AI assistant. How can I help you find the perfect stay today?";
+		}
+		if (lowerMessage.includes('hotel') || lowerMessage.includes('stay') || lowerMessage.includes('property')) {
+			return 'I can help you find hotels and properties! You can browse our listings, filter by location, price, and amenities. What type of stay are you looking for?';
+		}
+		if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('narx')) {
+			return "Our prices are transparent with no hidden fees. You can filter properties by price range and compare options easily. What's your budget?";
+		}
+		if (lowerMessage.includes('location') || lowerMessage.includes('where') || lowerMessage.includes('qayer')) {
+			return 'We have properties in many locations worldwide! Use the location filter to search by city or region. Where would you like to stay?';
+		}
+		if (lowerMessage.includes('help') || lowerMessage.includes('yordam')) {
+			return "I'm here to help! I can assist you with finding properties, comparing prices, understanding our features, and more. What would you like to know?";
+		}
+
+		// Default response
+		return "Thank you for your message! I'm here to help you find the perfect stay. You can ask me about hotels, prices, locations, or any other questions about LocoHub.";
 	};
 
 	return (
 		<Stack className="chatting">
 			{openButton ? (
 				<button className="chat-button" onClick={handleOpenChat}>
-					{open ? <CloseFullscreenIcon /> : <MarkChatUnreadIcon />}
+					{open ? (
+						<CloseIcon style={{ fontSize: '20px', color: '#fff' }} />
+					) : (
+						<>
+							<AutoAwesomeIcon style={{ fontSize: '22px', color: '#a78bfa', marginRight: '8px' }} />
+							<span style={{ color: '#fff', fontFamily: 'Nunito', fontWeight: 600, fontSize: '15px' }}>AI Chat</span>
+						</>
+					)}
 				</button>
 			) : null}
 			<Stack className={`chat-frame ${open ? 'open' : ''}`}>
 				<Box className={'chat-top'} component={'div'}>
-					<div style={{ fontFamily: 'Nunito' }}>Online Chat</div>
+					<Stack direction="row" alignItems="center" spacing={1}>
+						<AutoAwesomeIcon style={{ fontSize: '28px', color: '#6366f1' }} />
+						<div style={{ fontFamily: 'Nunito', fontWeight: 600 }}>AI Chat</div>
+					</Stack>
 					<RippleBadge style={{ margin: '-18px 0 0 21px' }} badgeContent={onlineUsers} />
 				</Box>
 				<Box className={'chat-content'} id="chat-content" ref={chatContentRef} component={'div'}>
 					<ScrollableFeed>
 						<Stack className={'chat-main'}>
 							<Box flexDirection={'row'} style={{ display: 'flex' }} sx={{ m: '10px 0px' }} component={'div'}>
-								<div className={'welcome'}>Welcome to Live chat!</div>
+								<div className={'welcome'}>
+									Welcome to AI Chat! I'm here to help you find the perfect stay. Ask me anything!
+								</div>
 							</Box>
 							{messagesList.map((ele: MessagePayload) => {
 								const { text, memberData } = ele;
@@ -150,7 +218,10 @@ const Chat = () => {
 									? `${REACT_APP_API_URL}/${memberData.memberImage}`
 									: '/img/profile/defaultUser.svg';
 
-								return memberData?._id == user?._id ? (
+								const isAI = memberData?._id === 'ai-assistant';
+								const isUser = memberData?._id == user?._id;
+
+								return isUser ? (
 									<Box
 										component={'div'}
 										flexDirection={'row'}
@@ -163,7 +234,13 @@ const Chat = () => {
 									</Box>
 								) : (
 									<Box flexDirection={'row'} style={{ display: 'flex' }} sx={{ m: '10px 0px' }} component={'div'}>
-										<Avatar alt={'jonik'} src={memberImage} />
+										<Avatar
+											alt={isAI ? 'AI Assistant' : 'User'}
+											src={isAI ? '/img/profile/ai-assistant.svg' : memberImage}
+											sx={isAI ? { bgcolor: '#6366f1' } : {}}
+										>
+											{isAI && <AutoAwesomeIcon style={{ color: '#fff', fontSize: '20px' }} />}
+										</Avatar>
 										<div className={'msg-left'}>{text}</div>
 									</Box>
 								);

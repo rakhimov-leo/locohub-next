@@ -17,12 +17,12 @@
 					strong {
 						display: inline-flex;
 						align-items: center;
-						padding: 6px 22px;
+						padding: 10px 28px;
 						border-radius: 999px;
 						background: #ecfdf3;
 						color: #16a34a;
 						font-family: $font;
-						font-size: 11px;
+						font-size: 15px;
 						font-style: normal;
 						font-weight: 700;
 						line-height: 1;
@@ -103,13 +103,13 @@
 					}
 					.hero-caption {
 						margin-top: 14px;
-						max-width: 420px;
+						width: 100%;
 						color: #6b7280;
 						font-family: $font;
-						font-size: 13px;
+						font-size: 16px;
 						font-style: normal;
 						font-weight: 400;
-						line-height: 22px;
+						line-height: 26px;
 					}
 				}
 			}

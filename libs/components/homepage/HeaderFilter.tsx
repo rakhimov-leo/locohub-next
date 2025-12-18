@@ -293,7 +293,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				<Stack className={'hero-content'}>
 					<Stack className={'hero-headline'}>
 						<Box component={'span'} className={'hero-subtitle'}>
-							Let's Explore Your
+							Find Your Perfect Stay with
 						</Box>
 						<Box component={'h1'} className={'hero-title'}>
 							LocoHub.
@@ -533,7 +533,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				<Stack className={'hero-content'}>
 					<Stack className={'hero-headline'}>
 						<Box component={'span'} className={'hero-subtitle'}>
-							Let's Explore Your
+							Find Your Perfect Stay with
 						</Box>
 						<Box component={'h1'} className={'hero-title'}>
 							LocoHub.
