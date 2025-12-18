@@ -27,7 +27,6 @@ interface PISearch {
 	adultsList?: Number[];
 	pricesRange?: Range;
 	periodsRange?: PeriodsRange;
-	squaresRange?: Range;
 	text?: string;
 }
 

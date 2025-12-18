@@ -33,10 +33,6 @@ const Footer = () => {
 			direction: Direction.DESC,
 			search: {
 				locationList: [location],
-				squaresRange: {
-					start: 0,
-					end: 500,
-				},
 				pricesRange: {
 					start: 0,
 					end: 2000000,
@@ -146,7 +142,7 @@ const Footer = () => {
 									<a href="https://t.me" target="_blank" rel="noreferrer">
 										<TelegramIcon />
 									</a>
-                                    <a href="https://instagram.com" target="_blank" rel="noreferrer">
+									<a href="https://instagram.com" target="_blank" rel="noreferrer">
 										<InstagramIcon />
 									</a>
 									<a href="https://twitter.com" target="_blank" rel="noreferrer">

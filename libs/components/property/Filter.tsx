@@ -314,35 +314,6 @@ const Filter = (props: FilterType) => {
 		[searchFilter, setSearchFilter],
 	);
 
-	const propertySquareHandler = useCallback(
-		async (e: any, type: string) => {
-			const value = e.target.value;
-
-			if (type == 'start') {
-				// Update filter without page reload
-				const newFilter = {
-					...searchFilter,
-					search: {
-						...searchFilter.search,
-						squaresRange: { ...searchFilter.search.squaresRange, start: value * 1 },
-					},
-				};
-				setSearchFilter(newFilter);
-			} else {
-				// Update filter without page reload
-				const newFilter = {
-					...searchFilter,
-					search: {
-						...searchFilter.search,
-						squaresRange: { ...searchFilter.search.squaresRange, end: value * 1 },
-					},
-				};
-				setSearchFilter(newFilter);
-			}
-		},
-		[searchFilter, setSearchFilter],
-	);
-
 	const propertyPriceHandler = useCallback(
 		async (value: number, type: string) => {
 			if (type == 'start') {
