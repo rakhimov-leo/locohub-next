@@ -195,13 +195,82 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 								</div>
 							</AnimatedSection>
 						) : (
-							agents.map((agent: Member, index: number) => {
-								return (
-									<AnimatedListItem key={agent._id} index={index} delayMultiplier={0.08}>
-										<AgentCard agent={agent} likeMemberHandler={likeMemberHandler} />
-									</AnimatedListItem>
-								);
-							})
+							// Sort agents: badge'd agents first
+							[...agents]
+								.sort((a: Member, b: Member) => {
+									const getAgentName = (agent: Member) => {
+										const fullName = (agent?.memberFullName || '').trim();
+										const nick = (agent?.memberNick || '').trim();
+										return (fullName || nick).toLowerCase();
+									};
+
+									const aName = getAgentName(a);
+									const bName = getAgentName(b);
+
+									const aHasBadge =
+										aName &&
+										(aName.includes('bekzod') ||
+											aName.includes('sanaqulov') ||
+											aName.includes('martin') ||
+											aName.includes('justin'));
+									const bHasBadge =
+										bName &&
+										(bName.includes('bekzod') ||
+											bName.includes('sanaqulov') ||
+											bName.includes('martin') ||
+											bName.includes('justin'));
+
+									// Badge'd agents come first
+									if (aHasBadge && !bHasBadge) return -1;
+									if (!aHasBadge && bHasBadge) return 1;
+
+									// Among badge'd agents, "Top advisor" comes before "Verified"
+									if (aHasBadge && bHasBadge) {
+										const aIsTopAdvisor =
+											aName.includes('bekzod') || aName.includes('sanaqulov') || aName.includes('martin');
+										const bIsTopAdvisor =
+											bName.includes('bekzod') || bName.includes('sanaqulov') || bName.includes('martin');
+										if (aIsTopAdvisor && !bIsTopAdvisor) return -1;
+										if (!aIsTopAdvisor && bIsTopAdvisor) return 1;
+									}
+
+									return 0;
+								})
+								.map((agent: Member, index: number) => {
+									// Assign badges and specialties based on agent name
+									let badgeLabel: string | undefined;
+									let specialty: string | undefined;
+
+									// Get agent name from either memberFullName or memberNick
+									const fullName = (agent?.memberFullName || '').trim();
+									const nick = (agent?.memberNick || '').trim();
+									const agentName = (fullName || nick).toLowerCase();
+
+									// Bekzod Sanaqulov (Martin) gets "Top advisor" badge
+									if (
+										agentName &&
+										(agentName.includes('bekzod') || agentName.includes('sanaqulov') || agentName.includes('martin'))
+									) {
+										badgeLabel = '⭐ Top advisor';
+										specialty = 'Specialist in Europe hotels';
+									}
+									// Justin gets "Verified" badge
+									else if (agentName && (agentName.includes('justin') || agentName.startsWith('justin'))) {
+										badgeLabel = '🟢 Verified';
+										specialty = 'Luxury villas expert';
+									}
+
+									return (
+										<AnimatedListItem key={agent._id} index={index} delayMultiplier={0.08}>
+											<AgentCard
+												agent={agent}
+												likeMemberHandler={likeMemberHandler}
+												badgeLabel={badgeLabel}
+												specialty={specialty}
+											/>
+										</AnimatedListItem>
+									);
+								})
 						)}
 					</Stack>
 					<AnimatedSection animationType="fade-up" animationDelay={0.3}>

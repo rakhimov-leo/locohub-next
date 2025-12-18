@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import AnimatedNumber, { AnimatedNumberRef } from '../common/AnimatedNumber';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 interface TrendPropertyCardProps {
 	property: Property;
@@ -67,9 +68,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					onClick={() => {
 						pushDetailHandler(property._id);
 					}}
-				>
-					<div>${property.propertyPrice} / night</div>
-				</Box>
+				/>
 				<Box component={'div'} className={'info'}>
 					<strong
 						className={'title'}
@@ -81,24 +80,61 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 						{''}
 					</strong>
 					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>
-								<AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed
-							</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>
-								<AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms
-							</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property.propertySquare} m2</span>
-						</div>
-					</div>
+					{/* Price block placed directly under description */}
+					{property?.propertyPrice && (
+						<Box sx={{ mt: 0.5 }}>
+							{(() => {
+								const base = property.propertyPrice;
+								const discountPercent = 24;
+								const original = Math.round(base / (1 - discountPercent / 100));
+								return (
+									<>
+										<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#ef4444', mb: 0.3 }}>
+											{discountPercent}% off
+										</Typography>
+										<Typography sx={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>
+											${base}{' '}
+											<Typography
+												component="span"
+												className="old-price"
+												sx={{
+													ml: 0.5,
+													fontSize: 13,
+													color: '#9ca3af',
+													textDecoration: 'line-through',
+												}}
+											>
+												${original}
+											</Typography>
+										</Typography>
+										<Typography sx={{ fontSize: 12, color: '#16a34a' }}>includes taxes &amp; fees</Typography>
+									</>
+								);
+							})()}
+						</Box>
+					)}
+					<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 0.5 }}>
+						<Stack direction="row" spacing={0.3}>
+							{[...Array(4)].map((_, idx) => (
+								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
+							))}
+						</Stack>
+						<Box
+							sx={{
+								ml: 0.5,
+								px: 0.8,
+								py: 0.1,
+								borderRadius: '6px',
+								backgroundColor: '#2563eb',
+							}}
+						>
+							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
+						</Box>
+						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
+							{(property?.propertyViews ?? 0).toLocaleString()} reviews
+						</Typography>
+					</Stack>
+					{/* Bottom duplicate price removed */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>
@@ -138,32 +174,67 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					onClick={() => {
 						pushDetailHandler(property._id);
 					}}
-				>
-					<div>${property.propertyPrice} / night</div>
-				</Box>
+				/>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
 						{property.propertyTitle}
 					</strong>
 					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>
-								<AnimatedNumber ref={bedNumberRef} value={property.propertyBeds} duration={2500} delay={0} /> bed
-							</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>
-								<AnimatedNumber ref={roomNumberRef} value={property.propertyRooms} duration={2500} delay={0} /> rooms
-							</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property.propertySquare} m2</span>
-						</div>
-					</div>
+					{/* Price block placed directly under description */}
+					{property?.propertyPrice && (
+						<Box sx={{ mt: 0.5 }}>
+							{(() => {
+								const base = property.propertyPrice;
+								const discountPercent = 24;
+								const original = Math.round(base / (1 - discountPercent / 100));
+								return (
+									<>
+										<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#ef4444', mb: 0.3 }}>
+											{discountPercent}% off
+										</Typography>
+										<Typography sx={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>
+											${base}{' '}
+											<Typography
+												component="span"
+												className="old-price"
+												sx={{
+													ml: 0.5,
+													fontSize: 13,
+													color: '#9ca3af',
+													textDecoration: 'line-through',
+												}}
+											>
+												${original}
+											</Typography>
+										</Typography>
+										<Typography sx={{ fontSize: 12, color: '#16a34a' }}>includes taxes &amp; fees</Typography>
+									</>
+								);
+							})()}
+						</Box>
+					)}
+					<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 0.5 }}>
+						<Stack direction="row" spacing={0.3}>
+							{[...Array(4)].map((_, idx) => (
+								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
+							))}
+						</Stack>
+						<Box
+							sx={{
+								ml: 0.5,
+								px: 0.8,
+								py: 0.1,
+								borderRadius: '6px',
+								backgroundColor: '#2563eb',
+							}}
+						>
+							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
+						</Box>
+						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
+							{(property?.propertyViews ?? 0).toLocaleString()} reviews
+						</Typography>
+					</Stack>
+					{/* Bottom duplicate price removed */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>

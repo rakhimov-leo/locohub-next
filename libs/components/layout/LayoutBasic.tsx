@@ -71,6 +71,16 @@ const withLayoutBasic = (Component: any) => {
 					videoPosition = 'center 65%';
 					headerHeight = '550px';
 					break;
+				case '/about':
+					title = 'About us';
+					desc = '';
+					bgImage = '/img/banner/header1.svg';
+					// Use same background video as Me page
+					bgVideo = '/video/mypage-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center 65%';
+					headerHeight = '550px';
+					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';

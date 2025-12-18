@@ -12,6 +12,7 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import AnimatedNumber, { AnimatedNumberRef } from '../common/AnimatedNumber';
 
 interface PropertyCardType {
@@ -87,9 +88,6 @@ const PropertyCard = (props: PropertyCardType) => {
 							<Typography>TOP</Typography>
 						</Box>
 					)}
-					<Box component={'div'} className={'price-box'}>
-						<Typography>${formatterStr(property?.propertyPrice)} / night</Typography>
-					</Box>
 				</Stack>
 				<Stack className="bottom">
 					<Stack className="name-address">
@@ -110,24 +108,77 @@ const PropertyCard = (props: PropertyCardType) => {
 							</Typography>
 						</Stack>
 					</Stack>
-					<Stack className="options">
-						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" />{' '}
-							<Typography>
-								<AnimatedNumber ref={bedNumberRef} value={property.propertyBeds || 0} duration={2500} delay={0} /> bed
-							</Typography>
+					{/* Price block placed under address like homepage cards */}
+					{property?.propertyPrice ? (
+						<Box sx={{ mt: 0.5 }}>
+							{(() => {
+								const base = property.propertyPrice;
+								const discountPercent = 24;
+								const original = Math.round(base / (1 - discountPercent / 100));
+								return (
+									<>
+										<Box
+											sx={{
+												display: 'inline-flex',
+												alignItems: 'center',
+												mb: 0.4,
+												backgroundColor: '#ef4444',
+												color: '#fff',
+												borderRadius: '999px',
+												px: 1,
+												py: 0.3,
+												fontSize: 11,
+												fontWeight: 600,
+											}}
+										>
+											{discountPercent}% off
+										</Box>
+										<Typography sx={{ fontSize: 15, fontWeight: 700, color: '#111827' }}>
+											From ${formatterStr(base)}{' '}
+											<Typography
+												component="span"
+												sx={{
+													ml: 0.5,
+													fontSize: 13,
+													color: '#9ca3af',
+													textDecoration: 'line-through',
+												}}
+											>
+												${formatterStr(original)}
+											</Typography>
+										</Typography>
+										<Typography sx={{ fontSize: 12, color: '#16a34a' }}>✓ includes taxes &amp; fees</Typography>
+									</>
+								);
+							})()}
+						</Box>
+					) : (
+						<Box sx={{ mt: 0.5 }}>
+							<Typography sx={{ fontSize: 14, fontWeight: 600 }}>Price on request</Typography>
+						</Box>
+					)}
+					<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
+						<Stack direction="row" spacing={0.3}>
+							{[...Array(4)].map((_, idx) => (
+								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
+							))}
 						</Stack>
-						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" />{' '}
-							<Typography>
-								<AnimatedNumber ref={roomNumberRef} value={property.propertyRooms || 0} duration={2500} delay={0} />{' '}
-								room
-							</Typography>
-						</Stack>
-						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>
-						</Stack>
+						<Box
+							sx={{
+								ml: 0.5,
+								px: 0.8,
+								py: 0.1,
+								borderRadius: '6px',
+								backgroundColor: '#2563eb',
+							}}
+						>
+							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
+						</Box>
+						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
+							{(property?.propertyViews ?? 0).toLocaleString()} reviews
+						</Typography>
 					</Stack>
+					{/* Bottom duplicate price removed */}
 					<Stack className="divider"></Stack>
 					<Stack className="type-buttons">
 						<Stack className="type">

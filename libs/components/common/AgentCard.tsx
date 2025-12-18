@@ -13,10 +13,12 @@ import { userVar } from '../../../apollo/store';
 interface AgentCardProps {
 	agent: any;
 	likeMemberHandler: any;
+	badgeLabel?: string;
+	specialty?: string;
 }
 
 const AgentCard = (props: AgentCardProps) => {
-	const { agent, likeMemberHandler } = props;
+	const { agent, likeMemberHandler, badgeLabel, specialty } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const imagePath: string = agent?.memberImage
@@ -44,7 +46,7 @@ const AgentCard = (props: AgentCardProps) => {
 							backgroundRepeat: 'no-repeat',
 						}}
 					>
-						<div>{agent?.memberProperties} hotels</div>
+						{badgeLabel && <div className="agent-badge">{badgeLabel}</div>}
 					</Box>
 				</Link>
 
@@ -59,6 +61,7 @@ const AgentCard = (props: AgentCardProps) => {
 							<strong>{agent?.memberFullName ?? agent?.memberNick}</strong>
 						</Link>
 						<span>Agent</span>
+						{specialty && <span className="agent-specialty">{specialty}</span>}
 					</Box>
 					<Box component={'div'} className={'buttons'}>
 						<IconButton color={'default'}>

@@ -105,6 +105,21 @@ const Top = () => {
 		}
 	}, []);
 
+	// Prefetch navigation pages for faster loading
+	useEffect(() => {
+		if (router.isReady) {
+			// Prefetch all main navigation pages
+			router.prefetch('/');
+			router.prefetch('/property');
+			router.prefetch('/agent');
+			router.prefetch('/about');
+			router.prefetch('/cs');
+			if (user?._id) {
+				router.prefetch('/mypage');
+			}
+		}
+	}, [router.isReady, user?._id]);
+
 	/** HANDLERS **/
 	const langClick = (e: any) => {
 		setAnchorEl2(e.currentTarget);
@@ -132,23 +147,28 @@ const Top = () => {
 		}
 	};
 
-	const handleNavigationClick = () => {
-		// Scroll to top immediately when clicking navigation links
-		if (typeof window !== 'undefined') {
-			// Clear any saved scroll positions
-			sessionStorage.removeItem('homepageScrollPosition');
-			sessionStorage.removeItem('fromDetailPage');
+	const handleNavigationClick = (path: string) => {
+		return (e: React.MouseEvent) => {
+			e.preventDefault();
 
-			// Scroll to top immediately
-			window.scrollTo({
-				top: 0,
-				left: 0,
-				behavior: 'auto',
-			});
-			// Also set scroll position directly to ensure it works
-			document.documentElement.scrollTop = 0;
-			document.body.scrollTop = 0;
-		}
+			// Clear any saved scroll positions
+			if (typeof window !== 'undefined') {
+				sessionStorage.removeItem('homepageScrollPosition');
+				sessionStorage.removeItem('fromDetailPage');
+
+				// Scroll to top immediately for faster perceived performance
+				window.scrollTo({
+					top: 0,
+					left: 0,
+					behavior: 'auto',
+				});
+				document.documentElement.scrollTop = 0;
+				document.body.scrollTop = 0;
+			}
+
+			// Use router.push for faster navigation
+			router.push(path, path, { shallow: false }).catch(() => {});
+		};
 	};
 
 	const handleClose = () => {
@@ -284,424 +304,450 @@ const Top = () => {
 	if (device == 'mobile') {
 		return (
 			<>
-			<Stack className={'navbar'}>
-				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
-					<Stack className={'container'}>
-						<Box component={'div'} className={'logo-box'}>
-							<Link href={'/'}>
-								<span className={'logo-icon'}>
-									<CaretDownIcon size={18} weight="fill" style={{ transform: 'rotate(180deg)', color: '#34d399' }} />
-								</span>
-								<span className={'logo-text'}>LocoHub</span>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'router-box'}>
-							<Link href={'/'}>
-								<div className={router.pathname === '/' ? 'active' : ''} onClick={handleNavigationClick}>
+				<Stack className={'navbar'}>
+					<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
+						<Stack className={'container'}>
+							<Box component={'div'} className={'logo-box'}>
+								<Link href={'/'}>
+									<span className={'logo-icon'}>
+										<CaretDownIcon size={18} weight="fill" style={{ transform: 'rotate(180deg)', color: '#34d399' }} />
+									</span>
+									<span className={'logo-text'}>LocoHub</span>
+								</Link>
+							</Box>
+							<Box component={'div'} className={'router-box'}>
+								<div
+									className={router.pathname === '/' ? 'active' : ''}
+									onClick={handleNavigationClick('/')}
+									style={{ cursor: 'pointer' }}
+								>
 									{t('Home')}
 								</div>
-							</Link>
-							<Link href={'/property'}>
 								<div
 									className={router.pathname.startsWith('/property') ? 'active' : ''}
-									onClick={handleNavigationClick}
+									onClick={handleNavigationClick('/property')}
+									style={{ cursor: 'pointer' }}
 								>
 									Hotels
 								</div>
-							</Link>
-							<Link href={'/agent'}>
-								<div className={router.pathname.startsWith('/agent') ? 'active' : ''} onClick={handleNavigationClick}>
+								<div
+									className={router.pathname.startsWith('/agent') ? 'active' : ''}
+									onClick={handleNavigationClick('/agent')}
+									style={{ cursor: 'pointer' }}
+								>
 									{' '}
 									Advisors{' '}
 								</div>
-							</Link>
-							{user?._id && (
-								<Link href={'/mypage'}>
+								{user?._id && (
 									<div
 										className={router.pathname.startsWith('/mypage') ? 'active' : ''}
-										onClick={handleNavigationClick}
+										onClick={handleNavigationClick('/mypage')}
+										style={{ cursor: 'pointer' }}
 									>
 										{' '}
 										Me{' '}
 									</div>
-								</Link>
-							)}
-							<Link href={'/cs'}>
-								<div className={router.pathname.startsWith('/cs') ? 'active' : ''} onClick={handleNavigationClick}>
+								)}
+								<div
+									className={router.pathname.startsWith('/about') ? 'active' : ''}
+									onClick={handleNavigationClick('/about')}
+									style={{ cursor: 'pointer' }}
+								>
+									About us
+								</div>
+								<div
+									className={router.pathname.startsWith('/cs') ? 'active' : ''}
+									onClick={handleNavigationClick('/cs')}
+									style={{ cursor: 'pointer' }}
+								>
 									{' '}
 									{t('CS')}{' '}
 								</div>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'user-box'}>
-							{user?._id ? (
-								<>
-									<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
-										<img
-											src={
-												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
-											}
-											alt=""
-										/>
-									</div>
-									<div className={'icon-button'}>
-										<GridFour size={20} color="#ffffff" weight="regular" />
-									</div>
+							</Box>
+							<Box component={'div'} className={'user-box'}>
+								{user?._id ? (
+									<>
+										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
+											<img
+												src={
+													user?.memberImage
+														? `${REACT_APP_API_URL}/${user?.memberImage}`
+														: '/img/profile/defaultUser.svg'
+												}
+												alt=""
+											/>
+										</div>
+										<div className={'icon-button'}>
+											<GridFour size={20} color="#ffffff" weight="regular" />
+										</div>
 
-									<Menu
-										id="basic-menu"
-										anchorEl={logoutAnchor}
-										open={logoutOpen}
-										onClose={() => {
-											setLogoutAnchor(null);
-										}}
-										sx={{ mt: '5px' }}
+										<Menu
+											id="basic-menu"
+											anchorEl={logoutAnchor}
+											open={logoutOpen}
+											onClose={() => {
+												setLogoutAnchor(null);
+											}}
+											sx={{ mt: '5px' }}
+										>
+											<MenuItem onClick={() => logOut()}>
+												<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
+												Logout
+											</MenuItem>
+										</Menu>
+									</>
+								) : (
+									<Link href={'/account/join'}>
+										<div className={'join-box'}>
+											<AccountCircleOutlinedIcon />
+											<span>
+												{t('Login')} / {t('Register')}
+											</span>
+										</div>
+									</Link>
+								)}
+
+								<div className={'lan-box'}>
+									{user?._id && (
+										<div
+											className={'icon-button notification-button'}
+											onClick={() => setShowNotifications((prev) => !prev)}
+											ref={notificationRef}
+										>
+											<NotificationsOutlinedIcon className={'notification-icon'} />
+											{showNotifications && (
+												<div className="notification-dropdown">
+													{dummyNotifications.map((n) => (
+														<div key={n.id} className="notification-item">
+															<strong>{n.title}</strong>
+															<p>{n.desc}</p>
+														</div>
+													))}
+												</div>
+											)}
+										</div>
+									)}
+									<Button
+										disableRipple
+										className="btn-lang"
+										onClick={langClick}
+										endIcon={<CaretDown size={12} color="#616161" weight="fill" />}
 									>
-										<MenuItem onClick={() => logOut()}>
-											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
-											Logout
+										<Box component={'div'} className={'flag'}>
+											{(() => {
+												if (lang === 'kr') return <img src={'/img/flag/langkr.png'} alt={'koreanFlag'} />;
+												if (lang === 'ru') return <img src={'/img/flag/langru.png'} alt={'russiaFlag'} />;
+												if (lang === 'uz') return <img src={'/img/flag/langru.png'} alt={'uzbekFlag'} />;
+												return <img src={'/img/flag/langen.png'} alt={'usaFlag'} />;
+											})()}
+										</Box>
+									</Button>
+
+									<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
+										<MenuItem disableRipple onClick={langChoice} id="en">
+											<img
+												className="img-flag"
+												src={'/img/flag/langen.png'}
+												onClick={langChoice}
+												id="en"
+												alt={'usaFlag'}
+											/>
+											{t('English')}
 										</MenuItem>
-									</Menu>
-								</>
-							) : (
-								<Link href={'/account/join'}>
-									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon />
-										<span>
-											{t('Login')} / {t('Register')}
-										</span>
-									</div>
-								</Link>
-							)}
+										<MenuItem disableRipple onClick={langChoice} id="kr">
+											<img
+												className="img-flag"
+												src={'/img/flag/langkr.png'}
+												onClick={langChoice}
+												id="kr"
+												alt={'koreanFlag'}
+											/>
+											{t('Korean')}
+										</MenuItem>
+										<MenuItem disableRipple onClick={langChoice} id="ru">
+											<img
+												className="img-flag"
+												src={'/img/flag/langru.png'}
+												onClick={langChoice}
+												id="ru"
+												alt={'russiaFlag'}
+											/>
+											{t('Russian')}
+										</MenuItem>
+										<MenuItem disableRipple onClick={langChoice} id="uz">
+											<img
+												className="img-flag"
+												src={'/img/flag/langru.png'}
+												onClick={langChoice}
+												id="uz"
+												alt={'uzbekFlag'}
+											/>
+											Uzbek
+										</MenuItem>
+									</StyledMenu>
 
-							<div className={'lan-box'}>
-								{user?._id && (
-									<div
-										className={'icon-button notification-button'}
-										onClick={() => setShowNotifications((prev) => !prev)}
-										ref={notificationRef}
-									>
-										<NotificationsOutlinedIcon className={'notification-icon'} />
-										{showNotifications && (
-											<div className="notification-dropdown">
-												{dummyNotifications.map((n) => (
-													<div key={n.id} className="notification-item">
-														<strong>{n.title}</strong>
-														<p>{n.desc}</p>
-													</div>
-												))}
-											</div>
+									<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
+										{darkMode ? (
+											<LightModeOutlinedIcon className={'dark-mode-icon'} />
+										) : (
+											<DarkModeOutlinedIcon className={'dark-mode-icon'} />
 										)}
 									</div>
-								)}
-								<Button
-									disableRipple
-									className="btn-lang"
-									onClick={langClick}
-									endIcon={<CaretDown size={12} color="#616161" weight="fill" />}
-								>
-									<Box component={'div'} className={'flag'}>
-										{(() => {
-											if (lang === 'kr') return <img src={'/img/flag/langkr.png'} alt={'koreanFlag'} />;
-											if (lang === 'ru') return <img src={'/img/flag/langru.png'} alt={'russiaFlag'} />;
-											if (lang === 'uz') return <img src={'/img/flag/langru.png'} alt={'uzbekFlag'} />;
-											return <img src={'/img/flag/langen.png'} alt={'usaFlag'} />;
-										})()}
-									</Box>
-								</Button>
-
-								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
-									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img
-											className="img-flag"
-											src={'/img/flag/langen.png'}
-											onClick={langChoice}
-											id="en"
-											alt={'usaFlag'}
-										/>
-										{t('English')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="kr">
-										<img
-											className="img-flag"
-											src={'/img/flag/langkr.png'}
-											onClick={langChoice}
-											id="kr"
-											alt={'koreanFlag'}
-										/>
-										{t('Korean')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="ru">
-										<img
-											className="img-flag"
-											src={'/img/flag/langru.png'}
-											onClick={langChoice}
-											id="ru"
-											alt={'russiaFlag'}
-										/>
-										{t('Russian')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="uz">
-										<img
-											className="img-flag"
-											src={'/img/flag/langru.png'}
-											onClick={langChoice}
-											id="uz"
-											alt={'uzbekFlag'}
-										/>
-										Uzbek
-									</MenuItem>
-								</StyledMenu>
-
-								<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
-									{darkMode ? (
-										<LightModeOutlinedIcon className={'dark-mode-icon'} />
-									) : (
-										<DarkModeOutlinedIcon className={'dark-mode-icon'} />
-									)}
 								</div>
-							</div>
-						</Box>
+							</Box>
+						</Stack>
 					</Stack>
 				</Stack>
-			</Stack>
-			{showDarkOverlay && (
-				<div
-					style={{
-						position: 'fixed',
-						inset: 0,
-						background: 'rgba(0,0,0,0.75)',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						zIndex: 2000,
-					}}
-				>
+				{showDarkOverlay && (
 					<div
 						style={{
-							minWidth: '260px',
-							padding: '24px 32px',
-							borderRadius: '16px',
-							background: 'linear-gradient(135deg, #111827, #020617)',
-							boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
-							textAlign: 'center',
-							color: '#f9fafb',
-							fontFamily: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+							position: 'fixed',
+							inset: 0,
+							background: 'rgba(0,0,0,0.75)',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							zIndex: 2000,
 						}}
 					>
-						<div style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>{darkOverlayMessage}</div>
-						{darkCountdown !== null && (
-							<div style={{ fontSize: '42px', fontWeight: 700, marginTop: '4px' }}>{darkCountdown}</div>
-						)}
+						<div
+							style={{
+								minWidth: '260px',
+								padding: '24px 32px',
+								borderRadius: '16px',
+								background: 'linear-gradient(135deg, #111827, #020617)',
+								boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+								textAlign: 'center',
+								color: '#f9fafb',
+								fontFamily: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+							}}
+						>
+							<div style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>{darkOverlayMessage}</div>
+							{darkCountdown !== null && (
+								<div style={{ fontSize: '42px', fontWeight: 700, marginTop: '4px' }}>{darkCountdown}</div>
+							)}
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 			</>
 		);
 	} else {
 		return (
 			<>
-			<Stack className={'navbar'}>
-				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
-					<Stack className={'container'}>
-						<Box component={'div'} className={'logo-box'}>
-							<Link href={'/'}>
-								<span className={'logo-icon'}>
-									<CaretDownIcon size={20} weight="fill" style={{ transform: 'rotate(180deg)', color: '#34d399' }} />
-								</span>
-								<span className={'logo-text'}>LocoHub</span>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'router-box'}>
-							<Link href={'/'}>
-								<div className={router.pathname === '/' ? 'active' : ''} onClick={handleNavigationClick}>
+				<Stack className={'navbar'}>
+					<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
+						<Stack className={'container'}>
+							<Box component={'div'} className={'logo-box'}>
+								<Link href={'/'}>
+									<span className={'logo-icon'}>
+										<CaretDownIcon size={20} weight="fill" style={{ transform: 'rotate(180deg)', color: '#34d399' }} />
+									</span>
+									<span className={'logo-text'}>LocoHub</span>
+								</Link>
+							</Box>
+							<Box component={'div'} className={'router-box'}>
+								<div
+									className={router.pathname === '/' ? 'active' : ''}
+									onClick={handleNavigationClick('/')}
+									style={{ cursor: 'pointer' }}
+								>
 									{t('Home')}
 								</div>
-							</Link>
-							<Link href={'/property'}>
 								<div
 									className={router.pathname.startsWith('/property') ? 'active' : ''}
-									onClick={handleNavigationClick}
+									onClick={handleNavigationClick('/property')}
+									style={{ cursor: 'pointer' }}
 								>
 									Hotels
 								</div>
-							</Link>
-							<Link href={'/agent'}>
-								<div className={router.pathname.startsWith('/agent') ? 'active' : ''} onClick={handleNavigationClick}>
+								<div
+									className={router.pathname.startsWith('/agent') ? 'active' : ''}
+									onClick={handleNavigationClick('/agent')}
+									style={{ cursor: 'pointer' }}
+								>
 									{' '}
 									Advisors{' '}
 								</div>
-							</Link>
-							{user?._id && (
-								<Link href={'/mypage'}>
+								{user?._id && (
 									<div
 										className={router.pathname.startsWith('/mypage') ? 'active' : ''}
-										onClick={handleNavigationClick}
+										onClick={handleNavigationClick('/mypage')}
+										style={{ cursor: 'pointer' }}
 									>
 										{' '}
 										Me{' '}
 									</div>
-								</Link>
-							)}
-							<Link href={'/cs'}>
-								<div className={router.pathname.startsWith('/cs') ? 'active' : ''} onClick={handleNavigationClick}>
+								)}
+								<div
+									className={router.pathname.startsWith('/about') ? 'active' : ''}
+									onClick={handleNavigationClick('/about')}
+									style={{ cursor: 'pointer' }}
+								>
+									About us
+								</div>
+								<div
+									className={router.pathname.startsWith('/cs') ? 'active' : ''}
+									onClick={handleNavigationClick('/cs')}
+									style={{ cursor: 'pointer' }}
+								>
 									{' '}
 									{t('CS')}{' '}
 								</div>
-							</Link>
-						</Box>
-						<Box component={'div'} className={'user-box'}>
-							{user?._id ? (
-								<>
-									<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
-										<img
-											src={
-												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
-											}
-											alt=""
-										/>
-									</div>
-									<div className={'icon-button'}>
-										<GridFour size={24} color="#ffffff" weight="regular" />
-									</div>
+							</Box>
+							<Box component={'div'} className={'user-box'}>
+								{user?._id ? (
+									<>
+										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
+											<img
+												src={
+													user?.memberImage
+														? `${REACT_APP_API_URL}/${user?.memberImage}`
+														: '/img/profile/defaultUser.svg'
+												}
+												alt=""
+											/>
+										</div>
+										<div className={'icon-button'}>
+											<GridFour size={24} color="#ffffff" weight="regular" />
+										</div>
 
-									<Menu
-										id="basic-menu"
-										anchorEl={logoutAnchor}
-										open={logoutOpen}
-										onClose={() => {
-											setLogoutAnchor(null);
-										}}
-										sx={{ mt: '5px' }}
-									>
-										<MenuItem onClick={() => logOut()}>
-											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
-											Logout
-										</MenuItem>
-									</Menu>
-								</>
-							) : (
-								<Link href={'/account/join'}>
-									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon />
-										<span>
-											{t('Login')} / {t('Register')}
-										</span>
-									</div>
-								</Link>
-							)}
-
-							<div className={'lan-box'}>
-								{user?._id && (
-									<div
-										className={'icon-button notification-button'}
-										onClick={() => setShowNotifications((prev) => !prev)}
-										ref={notificationRef}
-									>
-										<NotificationsOutlinedIcon className={'notification-icon'} />
-										{showNotifications && (
-											<div className="notification-dropdown">
-												{dummyNotifications.map((n) => (
-													<div key={n.id} className="notification-item">
-														<strong>{n.title}</strong>
-														<p>{n.desc}</p>
-													</div>
-												))}
-											</div>
-										)}
-									</div>
+										<Menu
+											id="basic-menu"
+											anchorEl={logoutAnchor}
+											open={logoutOpen}
+											onClose={() => {
+												setLogoutAnchor(null);
+											}}
+											sx={{ mt: '5px' }}
+										>
+											<MenuItem onClick={() => logOut()}>
+												<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
+												Logout
+											</MenuItem>
+										</Menu>
+									</>
+								) : (
+									<Link href={'/account/join'}>
+										<div className={'join-box'}>
+											<AccountCircleOutlinedIcon />
+											<span>
+												{t('Login')} / {t('Register')}
+											</span>
+										</div>
+									</Link>
 								)}
-								<Button
-									disableRipple
-									className="btn-lang"
-									onClick={langClick}
-									endIcon={<CaretDown size={14} color="#616161" weight="fill" />}
-								>
-									<Box component={'div'} className={'flag'}>
-										{lang !== null ? (
-											<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
-										) : (
-											<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
-										)}
-									</Box>
-								</Button>
 
-								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
-									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img
-											className="img-flag"
-											src={'/img/flag/langen.png'}
-											onClick={langChoice}
-											id="en"
-											alt={'usaFlag'}
-										/>
-										{t('English')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="kr">
-										<img
-											className="img-flag"
-											src={'/img/flag/langkr.png'}
-											onClick={langChoice}
-											id="uz"
-											alt={'koreanFlag'}
-										/>
-										{t('Korean')}
-									</MenuItem>
-									<MenuItem disableRipple onClick={langChoice} id="ru">
-										<img
-											className="img-flag"
-											src={'/img/flag/langru.png'}
-											onClick={langChoice}
-											id="ru"
-											alt={'russiaFlag'}
-										/>
-										{t('Russian')}
-									</MenuItem>
-								</StyledMenu>
-
-								<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
-									{darkMode ? (
-										<LightModeOutlinedIcon className={'dark-mode-icon'} />
-									) : (
-										<DarkModeOutlinedIcon className={'dark-mode-icon'} />
+								<div className={'lan-box'}>
+									{user?._id && (
+										<div
+											className={'icon-button notification-button'}
+											onClick={() => setShowNotifications((prev) => !prev)}
+											ref={notificationRef}
+										>
+											<NotificationsOutlinedIcon className={'notification-icon'} />
+											{showNotifications && (
+												<div className="notification-dropdown">
+													{dummyNotifications.map((n) => (
+														<div key={n.id} className="notification-item">
+															<strong>{n.title}</strong>
+															<p>{n.desc}</p>
+														</div>
+													))}
+												</div>
+											)}
+										</div>
 									)}
+									<Button
+										disableRipple
+										className="btn-lang"
+										onClick={langClick}
+										endIcon={<CaretDown size={14} color="#616161" weight="fill" />}
+									>
+										<Box component={'div'} className={'flag'}>
+											{lang !== null ? (
+												<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
+											) : (
+												<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
+											)}
+										</Box>
+									</Button>
+
+									<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
+										<MenuItem disableRipple onClick={langChoice} id="en">
+											<img
+												className="img-flag"
+												src={'/img/flag/langen.png'}
+												onClick={langChoice}
+												id="en"
+												alt={'usaFlag'}
+											/>
+											{t('English')}
+										</MenuItem>
+										<MenuItem disableRipple onClick={langChoice} id="kr">
+											<img
+												className="img-flag"
+												src={'/img/flag/langkr.png'}
+												onClick={langChoice}
+												id="uz"
+												alt={'koreanFlag'}
+											/>
+											{t('Korean')}
+										</MenuItem>
+										<MenuItem disableRipple onClick={langChoice} id="ru">
+											<img
+												className="img-flag"
+												src={'/img/flag/langru.png'}
+												onClick={langChoice}
+												id="ru"
+												alt={'russiaFlag'}
+											/>
+											{t('Russian')}
+										</MenuItem>
+									</StyledMenu>
+
+									<div className={'icon-button dark-mode-button'} onClick={toggleDarkMode}>
+										{darkMode ? (
+											<LightModeOutlinedIcon className={'dark-mode-icon'} />
+										) : (
+											<DarkModeOutlinedIcon className={'dark-mode-icon'} />
+										)}
+									</div>
 								</div>
-							</div>
-						</Box>
+							</Box>
+						</Stack>
 					</Stack>
 				</Stack>
-			</Stack>
-			{showDarkOverlay && (
-				<div
-					style={{
-						position: 'fixed',
-						inset: 0,
-						background: 'rgba(0,0,0,0.75)',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						zIndex: 2000,
-					}}
-				>
+				{showDarkOverlay && (
 					<div
 						style={{
-							minWidth: '320px',
-							padding: '32px 40px',
-							borderRadius: '20px',
-							background: 'linear-gradient(135deg, #020617, #111827)',
-							boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
-							textAlign: 'center',
-							color: '#f9fafb',
-							fontFamily: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+							position: 'fixed',
+							inset: 0,
+							background: 'rgba(0,0,0,0.75)',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							zIndex: 2000,
 						}}
 					>
-						<div style={{ fontSize: '24px', fontWeight: 600, marginBottom: '10px' }}>{darkOverlayMessage}</div>
-						{darkCountdown !== null && (
-							<div style={{ fontSize: '52px', fontWeight: 700, letterSpacing: '0.08em' }}>{darkCountdown}</div>
-						)}
+						<div
+							style={{
+								minWidth: '320px',
+								padding: '32px 40px',
+								borderRadius: '20px',
+								background: 'linear-gradient(135deg, #020617, #111827)',
+								boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
+								textAlign: 'center',
+								color: '#f9fafb',
+								fontFamily: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+							}}
+						>
+							<div style={{ fontSize: '24px', fontWeight: 600, marginBottom: '10px' }}>{darkOverlayMessage}</div>
+							{darkCountdown !== null && (
+								<div style={{ fontSize: '52px', fontWeight: 700, letterSpacing: '0.08em' }}>{darkCountdown}</div>
+							)}
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 			</>
 		);
 	}

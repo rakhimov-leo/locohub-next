@@ -11,6 +11,7 @@ import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AnimatedNumber, { AnimatedNumberRef } from './AnimatedNumber';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 interface PropertyBigCardProps {
 	property: Property;
@@ -65,38 +66,34 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages?.[0]})` }}
-				>
-					{property && property?.propertyRank >= topPropertyRank && (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
-						</div>
-					)}
-
-					<div className={'price'}>${formatterStr(property?.propertyPrice)} / night</div>
-				</Box>
+				/>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property?.propertyTitle}</strong>
 					<p className={'desc'}>{property?.propertyAddress}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>
-								<AnimatedNumber ref={bedNumberRef} value={property?.propertyBeds || 0} duration={2500} delay={0} /> bed
-							</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>
-								<AnimatedNumber ref={roomNumberRef} value={property?.propertyRooms || 0} duration={2500} delay={0} />{' '}
-								rooms
-							</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
-						</div>
-					</div>
+					<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 0.5 }}>
+						<Stack direction="row" spacing={0.3}>
+							{[...Array(4)].map((_, idx) => (
+								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
+							))}
+						</Stack>
+						<Box
+							sx={{
+								ml: 0.5,
+								px: 0.8,
+								py: 0.1,
+								borderRadius: '6px',
+								backgroundColor: '#2563eb',
+							}}
+						>
+							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
+						</Box>
+						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
+							{(property?.propertyViews ?? 0).toLocaleString()} reviews
+						</Typography>
+					</Stack>
+					<Typography sx={{ mt: 0.5, fontSize: 14, fontWeight: 600 }}>
+						From ${formatterStr(property?.propertyPrice)}
+					</Typography>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<div>

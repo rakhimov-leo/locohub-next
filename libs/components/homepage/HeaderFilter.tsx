@@ -169,32 +169,32 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		[searchFilter],
 	);
 
-	const propertyBedSelectHandler = useCallback(
+	const propertyAdultsSelectHandler = useCallback(
 		async (number: Number) => {
 			try {
 				if (number != 0) {
-					if (searchFilter?.search?.bedsList?.includes(number)) {
+					if (searchFilter?.search?.adultsList?.includes(number)) {
 						setSearchFilter({
 							...searchFilter,
 							search: {
 								...searchFilter.search,
-								bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
+								adultsList: searchFilter?.search?.adultsList?.filter((item: Number) => item !== number),
 							},
 						});
 					} else {
 						setSearchFilter({
 							...searchFilter,
-							search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
+							search: { ...searchFilter.search, adultsList: [...(searchFilter?.search?.adultsList || []), number] },
 						});
 					}
 				} else {
-					delete searchFilter?.search.bedsList;
+					delete searchFilter?.search.adultsList;
 					setSearchFilter({ ...searchFilter });
 				}
 
-				console.log('propertyBedSelectHandler:', number);
+				console.log('propertyAdultsSelectHandler:', number);
 			} catch (err: any) {
-				console.log('ERROR, propertyBedSelectHandler:', err);
+				console.log('ERROR, propertyAdultsSelectHandler:', err);
 			}
 		},
 		[searchFilter],
@@ -301,8 +301,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				delete searchFilter.search.options;
 			}
 
-			if (searchFilter?.search?.bedsList?.length == 0) {
-				delete searchFilter.search.bedsList;
+			if (searchFilter?.search?.adultsList?.length == 0) {
+				delete searchFilter.search.adultsList;
 			}
 
 			await router.push(
@@ -329,9 +329,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				</Stack>
 				<Stack className={'search-box'}>
 					<Stack className={'select-box'}>
-						<Box component={'div'} className={`box location-box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
+						<Box
+							component={'div'}
+							className={`box location-box ${openLocation ? 'on' : ''}`}
+							onClick={locationStateChangeHandler}
+						>
 							<LocationOnIcon className="location-icon" />
-							<span className="location-text">{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}</span>
+							<span className="location-text">
+								{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}
+							</span>
 							<ExpandMoreIcon className="dropdown-icon" />
 						</Box>
 					</Stack>
@@ -358,40 +364,42 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							}}
 						>
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
-								<Box sx={{ 
-									p: 2, 
-									'& .MuiPickersLayout-root': { width: 'auto' }, 
-									'& .MuiDateCalendar-root': { width: '280px' }, 
-									'& .MuiPickersCalendarHeader-root': { 
-										paddingLeft: '12px', 
-										paddingRight: '12px',
-										marginBottom: '12px'
-									}, 
-									'& .MuiPickersCalendarHeader-label': {
-										fontSize: '14px',
-										fontWeight: 600
-									},
-									'& .MuiDayCalendar-weekContainer': { 
-										margin: 0 
-									}, 
-									'& .MuiPickersDay-root': { 
-										width: '36px', 
-										height: '36px', 
-										fontSize: '13px',
-										margin: '3px',
-										fontWeight: 500
-									},
-									'& .MuiPickersCalendarHeader-switchViewButton': {
-										width: '36px',
-										height: '36px'
-									},
-									'& .MuiDayCalendar-weekDayLabel': {
-										fontSize: '12px',
-										fontWeight: 600,
-										width: '36px',
-										margin: '3px'
-									}
-								}}>
+								<Box
+									sx={{
+										p: 2,
+										'& .MuiPickersLayout-root': { width: 'auto' },
+										'& .MuiDateCalendar-root': { width: '280px' },
+										'& .MuiPickersCalendarHeader-root': {
+											paddingLeft: '12px',
+											paddingRight: '12px',
+											marginBottom: '12px',
+										},
+										'& .MuiPickersCalendarHeader-label': {
+											fontSize: '14px',
+											fontWeight: 600,
+										},
+										'& .MuiDayCalendar-weekContainer': {
+											margin: 0,
+										},
+										'& .MuiPickersDay-root': {
+											width: '36px',
+											height: '36px',
+											fontSize: '13px',
+											margin: '3px',
+											fontWeight: 500,
+										},
+										'& .MuiPickersCalendarHeader-switchViewButton': {
+											width: '36px',
+											height: '36px',
+										},
+										'& .MuiDayCalendar-weekDayLabel': {
+											fontSize: '12px',
+											fontWeight: 600,
+											width: '36px',
+											margin: '3px',
+										},
+									}}
+								>
 									<StaticDatePicker
 										value={selectedDate}
 										onChange={(newValue) => {
@@ -412,9 +420,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</Stack>
 
 					{/*MENU */}
-					{openLocation && (
-						<div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>
-					)}
+					{openLocation && <div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>}
 					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
 						{propertyLocation.map((location: string, index: number) => {
 							return (
@@ -430,7 +436,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							);
 						})}
 					</div>
-
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}
@@ -467,21 +472,21 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<div className={'middle'}>
 								<div className={'row-box'}>
 									<div className={'box'}>
-										<span>bedrooms</span>
+										<span>adults</span>
 										<div className={'inside'}>
 											<div
-												className={`room ${!searchFilter?.search?.bedsList ? 'active' : ''}`}
-												onClick={() => propertyBedSelectHandler(0)}
+												className={`room ${!searchFilter?.search?.adultsList ? 'active' : ''}`}
+												onClick={() => propertyAdultsSelectHandler(0)}
 											>
 												Any
 											</div>
-											{[1, 2, 3, 4, 5].map((bed: number) => (
+											{[1, 2, 3, 4, 5].map((adult: number) => (
 												<div
-													className={`room ${searchFilter?.search?.bedsList?.includes(bed) ? 'active' : ''}`}
-													onClick={() => propertyBedSelectHandler(bed)}
-													key={bed}
+													className={`room ${searchFilter?.search?.adultsList?.includes(adult) ? 'active' : ''}`}
+													onClick={() => propertyAdultsSelectHandler(adult)}
+													key={adult}
 												>
-													{bed == 0 ? 'Any' : bed}
+													{adult == 0 ? 'Any' : adult}
 												</div>
 											))}
 										</div>
@@ -608,9 +613,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				</Stack>
 				<Stack className={'search-box'}>
 					<Stack className={'select-box'}>
-						<Box component={'div'} className={`box location-box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
+						<Box
+							component={'div'}
+							className={`box location-box ${openLocation ? 'on' : ''}`}
+							onClick={locationStateChangeHandler}
+						>
 							<LocationOnIcon className="location-icon" />
-							<span className="location-text">{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}</span>
+							<span className="location-text">
+								{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}
+							</span>
 							<ExpandMoreIcon className="dropdown-icon" />
 						</Box>
 					</Stack>
@@ -637,40 +648,42 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							}}
 						>
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
-								<Box sx={{ 
-									p: 2, 
-									'& .MuiPickersLayout-root': { width: 'auto' }, 
-									'& .MuiDateCalendar-root': { width: '320px' }, 
-									'& .MuiPickersCalendarHeader-root': { 
-										paddingLeft: '16px', 
-										paddingRight: '16px',
-										marginBottom: '16px'
-									}, 
-									'& .MuiPickersCalendarHeader-label': {
-										fontSize: '16px',
-										fontWeight: 600
-									},
-									'& .MuiDayCalendar-weekContainer': { 
-										margin: 0 
-									}, 
-									'& .MuiPickersDay-root': { 
-										width: '40px', 
-										height: '40px', 
-										fontSize: '14px',
-										margin: '4px',
-										fontWeight: 500
-									},
-									'& .MuiPickersCalendarHeader-switchViewButton': {
-										width: '40px',
-										height: '40px'
-									},
-									'& .MuiDayCalendar-weekDayLabel': {
-										fontSize: '13px',
-										fontWeight: 600,
-										width: '40px',
-										margin: '4px'
-									}
-								}}>
+								<Box
+									sx={{
+										p: 2,
+										'& .MuiPickersLayout-root': { width: 'auto' },
+										'& .MuiDateCalendar-root': { width: '320px' },
+										'& .MuiPickersCalendarHeader-root': {
+											paddingLeft: '16px',
+											paddingRight: '16px',
+											marginBottom: '16px',
+										},
+										'& .MuiPickersCalendarHeader-label': {
+											fontSize: '16px',
+											fontWeight: 600,
+										},
+										'& .MuiDayCalendar-weekContainer': {
+											margin: 0,
+										},
+										'& .MuiPickersDay-root': {
+											width: '40px',
+											height: '40px',
+											fontSize: '14px',
+											margin: '4px',
+											fontWeight: 500,
+										},
+										'& .MuiPickersCalendarHeader-switchViewButton': {
+											width: '40px',
+											height: '40px',
+										},
+										'& .MuiDayCalendar-weekDayLabel': {
+											fontSize: '13px',
+											fontWeight: 600,
+											width: '40px',
+											margin: '4px',
+										},
+									}}
+								>
 									<StaticDatePicker
 										value={selectedDate}
 										onChange={(newValue) => {
@@ -691,9 +704,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</Stack>
 
 					{/*MENU */}
-					{openLocation && (
-						<div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>
-					)}
+					{openLocation && <div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>}
 					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
 						{propertyLocation.map((location: string, index: number) => {
 							return (
@@ -709,7 +720,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							);
 						})}
 					</div>
-
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}
@@ -746,21 +756,21 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<div className={'middle'}>
 								<div className={'row-box'}>
 									<div className={'box'}>
-										<span>bedrooms</span>
+										<span>adults</span>
 										<div className={'inside'}>
 											<div
-												className={`room ${!searchFilter?.search?.bedsList ? 'active' : ''}`}
-												onClick={() => propertyBedSelectHandler(0)}
+												className={`room ${!searchFilter?.search?.adultsList ? 'active' : ''}`}
+												onClick={() => propertyAdultsSelectHandler(0)}
 											>
 												Any
 											</div>
-											{[1, 2, 3, 4, 5].map((bed: number) => (
+											{[1, 2, 3, 4, 5].map((adult: number) => (
 												<div
-													className={`room ${searchFilter?.search?.bedsList?.includes(bed) ? 'active' : ''}`}
-													onClick={() => propertyBedSelectHandler(bed)}
-													key={bed}
+													className={`room ${searchFilter?.search?.adultsList?.includes(adult) ? 'active' : ''}`}
+													onClick={() => propertyAdultsSelectHandler(adult)}
+													key={adult}
 												>
-													{bed == 0 ? 'Any' : bed}
+													{adult == 0 ? 'Any' : adult}
 												</div>
 											))}
 										</div>
