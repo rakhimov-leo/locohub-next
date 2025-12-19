@@ -80,23 +80,31 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 	const tabChangeHandler = async (event: any, newValue: string) => {
 		setValue(newValue);
 
-		setPropertiesInquiry({ ...propertiesInquiry, page: 1, sort: 'createdAt' });
-
+		const newSearch: any = { ...propertiesInquiry.search };
+		
 		switch (newValue) {
 			case 'ACTIVE':
-				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.ACTIVE } });
+				newSearch.propertyStatus = PropertyStatus.ACTIVE;
 				break;
 			case 'SOLD':
-				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.SOLD } });
+				newSearch.propertyStatus = PropertyStatus.SOLD;
 				break;
 			case 'DELETE':
-				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.DELETE } });
+				newSearch.propertyStatus = PropertyStatus.DELETE;
 				break;
 			default:
-				delete propertiesInquiry?.search?.propertyStatus;
-				setPropertiesInquiry({ ...propertiesInquiry });
+				delete newSearch.propertyStatus;
 				break;
 		}
+
+		const updatedInquiry = {
+			...propertiesInquiry,
+			page: 1,
+			sort: 'createdAt',
+			search: newSearch,
+		};
+		
+		setPropertiesInquiry(updatedInquiry);
 	};
 
 	const removePropertyHandler = async (id: string) => {
