@@ -15,6 +15,7 @@ export interface PropertyUpdate {
 	propertyDesc?: string;
 	propertyBarter?: boolean;
 	propertyRent?: boolean;
+	memberId?: string;
 	soldAt?: Date;
 	deletedAt?: Date;
 	constructedAt?: Date;

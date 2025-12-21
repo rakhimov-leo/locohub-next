@@ -31,6 +31,12 @@ import Typography from '@mui/material/Typography';
 import { sweetErrorAlert, sweetMixinSuccessAlert, sweetErrorHandling } from '../../../sweetAlert';
 import { PropertyStatus, PropertyType, PropertyLocation } from '../../../enums/property.enum';
 import { PropertyUpdate } from '../../../types/property/property.update';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_MEMBERS_BY_ADMIN } from '../../../../apollo/admin/query';
+import { Member } from '../../../types/member/member';
+import { MembersInquiry } from '../../../types/member/member.input';
+import { T } from '../../../types/common';
+import { Direction } from '../../../enums/common.enum';
 
 interface Data {
 	id: string;
@@ -167,7 +173,28 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 		propertyBeds: 0,
 		propertySquare: 0,
 		propertyDesc: '',
+		memberId: '',
 	});
+
+	// Fetch all members/agents for the agent select
+	const [membersInquiry] = useState<MembersInquiry>({
+		page: 1,
+		limit: 1000,
+		sort: 'createdAt',
+		direction: Direction.DESC,
+		search: {},
+	});
+
+	const {
+		data: getAllMembersData,
+		loading: getAllMembersLoading,
+	} = useQuery(GET_ALL_MEMBERS_BY_ADMIN, {
+		fetchPolicy: 'network-only',
+		variables: { input: membersInquiry },
+		skip: !editDialogOpen, // Only fetch when dialog is open
+	});
+
+	const agents: Member[] = getAllMembersData?.getAllMembersByAdmin?.list || [];
 
 	const handleEditClick = (property: Property) => {
 		setEditingProperty(property);
@@ -184,6 +211,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 			propertyBeds: property.propertyBeds,
 			propertySquare: property.propertySquare,
 			propertyDesc: property.propertyDesc || '',
+			memberId: property.memberId || '',
 		});
 		setEditDialogOpen(true);
 	};
@@ -206,6 +234,8 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 			const graphqlUpdateData: any = {
 				_id: editData._id,
 			};
+			
+			console.log('Initial graphqlUpdateData:', graphqlUpdateData);
 			
 			// Add fields only if they are defined and have valid values
 			if (editData.propertyTitle !== undefined && editData.propertyTitle !== null && editData.propertyTitle !== '') {
@@ -239,14 +269,26 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 			if (editData.propertyRent !== undefined && editData.propertyRent !== null) {
 				graphqlUpdateData.propertyRent = editData.propertyRent;
 			}
+			// Handle memberId: only include if it's a valid non-empty string
+			// Backend might require memberId to be a valid ObjectId or null
+			if (editData.memberId !== undefined && editData.memberId !== null && editData.memberId !== '') {
+				// Validate that memberId looks like a valid MongoDB ObjectId (24 hex characters)
+				const objectIdPattern = /^[0-9a-fA-F]{24}$/;
+				if (objectIdPattern.test(editData.memberId)) {
+					graphqlUpdateData.memberId = editData.memberId;
+				} else {
+					console.warn('Invalid memberId format:', editData.memberId);
+					// Don't include invalid memberId
+				}
+			}
 			// Only add propertyDesc if it's not empty
 			if (editData.propertyDesc !== undefined && editData.propertyDesc !== null && editData.propertyDesc !== '') {
 				graphqlUpdateData.propertyDesc = editData.propertyDesc;
 			}
 			
-			// Remove any remaining empty strings or null values
+			// Remove any remaining empty strings (but keep null and undefined as they might be intentional)
 			Object.keys(graphqlUpdateData).forEach(key => {
-				if (graphqlUpdateData[key] === '' || graphqlUpdateData[key] === null || graphqlUpdateData[key] === undefined) {
+				if (graphqlUpdateData[key] === '') {
 					delete graphqlUpdateData[key];
 				}
 			});
@@ -487,30 +529,24 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 								onChange={(e) => setEditData({ ...editData, propertySquare: parseInt(e.target.value) || 0 })}
 							/>
 						</Box>
-						<Box sx={{ display: 'flex', gap: 2 }}>
-							<FormControl fullWidth>
-								<InputLabel>Barter</InputLabel>
-								<Select
-									value={editData.propertyBarter ? 'yes' : 'no'}
-									label="Barter"
-									onChange={(e) => setEditData({ ...editData, propertyBarter: e.target.value === 'yes' })}
-								>
-									<MenuItem value="yes">Yes</MenuItem>
-									<MenuItem value="no">No</MenuItem>
-								</Select>
-							</FormControl>
-							<FormControl fullWidth>
-								<InputLabel>Rent</InputLabel>
-								<Select
-									value={editData.propertyRent ? 'yes' : 'no'}
-									label="Rent"
-									onChange={(e) => setEditData({ ...editData, propertyRent: e.target.value === 'yes' })}
-								>
-									<MenuItem value="yes">Yes</MenuItem>
-									<MenuItem value="no">No</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
+						<FormControl fullWidth>
+							<InputLabel>Agent</InputLabel>
+							<Select
+								value={editData.memberId || ''}
+								label="Agent"
+								onChange={(e) => setEditData({ ...editData, memberId: e.target.value })}
+								disabled={getAllMembersLoading}
+							>
+								<MenuItem value="">
+									<em>None</em>
+								</MenuItem>
+								{agents.map((agent) => (
+									<MenuItem key={agent._id} value={agent._id}>
+										{agent.memberFullName || agent.memberNick || agent.memberPhone || agent._id}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
 						<TextField
 							label="Description"
 							fullWidth

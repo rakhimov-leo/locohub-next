@@ -42,6 +42,15 @@ const withLayoutBasic = (Component: any) => {
 					videoPosition = 'center 30%';
 					headerHeight = '550px';
 					break;
+				case '/property/detail':
+					title = 'Property Details';
+					desc = 'Discover your perfect stay';
+					bgImage = '/img/banner/Buildings-page2.jpg';
+					bgVideo = '/video/buildings-background.mp4';
+					videoHeight = '100%';
+					videoPosition = 'center 30%';
+					headerHeight = '550px';
+					break;
 				case '/agent':
 					title = 'Advisors';
 					bgImage = '/img/banner/agents.webp';
