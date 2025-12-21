@@ -157,46 +157,32 @@ const PropertyCard = (props: PropertyCardType) => {
 							<Typography sx={{ fontSize: 14, fontWeight: 600 }}>Price on request</Typography>
 						</Box>
 					)}
-					<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
+					<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 0.5 }}>
 						<Stack direction="row" spacing={0.3}>
 							{[...Array(4)].map((_, idx) => (
-								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
+								<StarRoundedIcon key={idx} sx={{ fontSize: 14, color: '#fbbf24' }} />
 							))}
 						</Stack>
 						<Box
 							sx={{
 								ml: 0.5,
-								px: 0.8,
-								py: 0.1,
+								px: 0.7,
+								py: 0.05,
 								borderRadius: '6px',
 								backgroundColor: '#2563eb',
 							}}
 						>
-							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
+							<Typography sx={{ fontSize: 10, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
 						</Box>
-						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
+						<Typography sx={{ fontSize: 11, color: '#6b7280' }}>
 							{(property?.propertyViews ?? 0).toLocaleString()} reviews
 						</Typography>
 					</Stack>
 					{/* Bottom duplicate price removed */}
 					<Stack className="divider"></Stack>
 					<Stack className="type-buttons">
-						<Stack className="type">
-							<Typography
-								sx={{ fontWeight: 500, fontSize: '13px' }}
-								className={property.propertyRent ? '' : 'disabled-type'}
-							>
-								Rent
-							</Typography>
-							<Typography
-								sx={{ fontWeight: 500, fontSize: '13px' }}
-								className={property.propertyBarter ? '' : 'disabled-type'}
-							>
-								Barter
-							</Typography>
-						</Stack>
 						{!recentlyVisited && (
-							<Stack className="buttons">
+							<Stack className="buttons" sx={{ ml: 'auto' }}>
 								<IconButton color={'default'}>
 									<RemoveRedEyeIcon />
 								</IconButton>

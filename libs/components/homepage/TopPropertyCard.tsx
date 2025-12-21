@@ -28,6 +28,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (propertyId: string) => {
+		// Validate propertyId before navigating
+		if (!propertyId || propertyId.trim() === '') {
+			console.error('[TopPropertyCard] Invalid propertyId:', propertyId);
+			return;
+		}
 		// Save scroll position before navigating (always save if we're on homepage)
 		if (typeof window !== 'undefined') {
 			const currentPath = window.location.pathname;
@@ -39,7 +44,7 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 				console.log('Saved scroll position:', scrollY);
 			}
 		}
-		console.log('propertyId:', propertyId);
+		console.log('[TopPropertyCard] Navigating to property detail, propertyId:', propertyId);
 		await router.push({ pathname: '/property/detail', query: { id: propertyId } }, undefined, { scroll: false });
 	};
 
@@ -61,7 +66,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					onClick={() => {
-						pushDetailHandler(property._id);
+						if (property?._id) {
+							pushDetailHandler(property._id);
+						} else {
+							console.error('[TopPropertyCard] Property _id is missing:', property);
+						}
 					}}
 				/>
 				<Box component={'div'} className={'info'}>
@@ -129,7 +138,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					onClick={() => {
-						pushDetailHandler(property._id);
+						if (property?._id) {
+							pushDetailHandler(property._id);
+						} else {
+							console.error('[TopPropertyCard] Property _id is missing:', property);
+						}
 					}}
 				/>
 				<Box component={'div'} className={'info'}>

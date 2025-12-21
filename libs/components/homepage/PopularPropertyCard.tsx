@@ -30,6 +30,11 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	/** HANDLERS **/
 
 	const pushDetailHandler = async (propertyId: string) => {
+		// Validate propertyId before navigating
+		if (!propertyId || propertyId.trim() === '') {
+			console.error('[PopularPropertyCard] Invalid propertyId:', propertyId);
+			return;
+		}
 		// Save scroll position before navigating (always save if we're on homepage)
 		if (typeof window !== 'undefined') {
 			const currentPath = window.location.pathname;
@@ -41,7 +46,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 				console.log('Saved scroll position:', scrollY);
 			}
 		}
-		console.log('propertyId:', propertyId);
+		console.log('[PopularPropertyCard] Navigating to property detail, propertyId:', propertyId);
 		await router.push({ pathname: '/property/detail', query: { id: propertyId } }, undefined, { scroll: false });
 	};
 
@@ -63,14 +68,22 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					onClick={() => {
-						pushDetailHandler(property._id);
+						if (property?._id) {
+							pushDetailHandler(property._id);
+						} else {
+							console.error('[PopularPropertyCard] Property _id is missing:', property);
+						}
 					}}
 				/>
 				<Box component={'div'} className={'info'}>
 					<strong
 						className={'title'}
 						onClick={() => {
+							if (property?._id) {
 							pushDetailHandler(property._id);
+						} else {
+							console.error('[PopularPropertyCard] Property _id is missing:', property);
+						}
 						}}
 					>
 						{property.propertyTitle}
@@ -158,14 +171,22 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					onClick={() => {
-						pushDetailHandler(property._id);
+						if (property?._id) {
+							pushDetailHandler(property._id);
+						} else {
+							console.error('[PopularPropertyCard] Property _id is missing:', property);
+						}
 					}}
 				/>
 				<Box component={'div'} className={'info'}>
 					<strong
 						className={'title'}
 						onClick={() => {
+							if (property?._id) {
 							pushDetailHandler(property._id);
+						} else {
+							console.error('[PopularPropertyCard] Property _id is missing:', property);
+						}
 						}}
 					>
 						{property.propertyTitle}

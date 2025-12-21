@@ -66,6 +66,14 @@ function createIsomorphicLink() {
 					...getHeaders(),
 				},
 			}));
+			// Enhanced logging for debugging
+			if (operation.operationName === 'GetProperty') {
+				console.log('[GraphQL Request] GetProperty:', {
+					operationName: operation.operationName,
+					variables: operation.variables,
+					query: operation.query.loc?.source.body || 'N/A',
+				});
+			}
 			console.warn('requesting.. ', operation);
 			return forward(operation);
 		});
@@ -89,14 +97,40 @@ function createIsomorphicLink() {
 			webSocketImpl: LoggingWebSocket,
 		});
 
-		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
+		const errorLink = onError(({ graphQLErrors, networkError, response, operation }) => {
 			if (graphQLErrors) {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
-					if (!message.includes('input')) sweetErrorAlert(message);
+					console.log(`[GraphQL error]: Operation: ${operation?.operationName}, Variables:`, operation?.variables);
+					
+					// Enhanced logging for GetProperty errors
+					if (operation?.operationName === 'GetProperty') {
+						console.error('[Backend Debug] GetProperty failed:', {
+							message: message,
+							propertyId: operation?.variables?.input,
+							propertyIdType: typeof operation?.variables?.input,
+							propertyIdLength: operation?.variables?.input?.length,
+							extensions: extensions,
+							response: response,
+						});
+					}
+					
+					// Don't show alert for "No data found" errors - they're handled in components
+					// Only show alerts for validation or input errors
+					if (!message.includes('input') && !message.includes('No data found') && !message.includes('not found')) {
+						sweetErrorAlert(message);
+					}
 				});
 			}
-			if (networkError) console.log(`[Network error]: ${networkError}`);
+			if (networkError) {
+				console.log(`[Network error]: ${networkError}`);
+				if (operation?.operationName === 'GetProperty') {
+					console.error('[Backend Debug] GetProperty network error:', {
+						error: networkError,
+						propertyId: operation?.variables?.input,
+					});
+				}
+			}
 			// @ts-ignore
 			if (networkError?.statusCode === 401) {
 			}
