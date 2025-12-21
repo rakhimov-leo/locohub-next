@@ -58,10 +58,36 @@ const TopAgents = (props: TopAgentsProps) => {
 					<Stack className={'wrapper'}>
 						<Swiper
 							className={'top-agents-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={29}
-							modules={[Autoplay]}
+							slidesPerView={2.8}
+							centeredSlides={false}
+							spaceBetween={12}
+							modules={[Autoplay, Pagination]}
+							pagination={{
+								clickable: true,
+								dynamicBullets: true,
+							}}
+							breakpoints={{
+								320: {
+									slidesPerView: 2.5,
+									spaceBetween: 10,
+								},
+								375: {
+									slidesPerView: 2.8,
+									spaceBetween: 12,
+								},
+								425: {
+									slidesPerView: 3,
+									spaceBetween: 14,
+								},
+								480: {
+									slidesPerView: 3.2,
+									spaceBetween: 16,
+								},
+								640: {
+									slidesPerView: 3.5,
+									spaceBetween: 18,
+								},
+							}}
 						>
 							{topAgents.map((agent: Member, index: number) => {
 								return (
@@ -82,28 +108,28 @@ const TopAgents = (props: TopAgentsProps) => {
 			<Stack className={'top-agents'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<Box component={'div'} className={'left'}>
+						<div className={'left'}>
 							<span>Top Advisors</span>
 							<p>Our Top Advisors always ready to serve you</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
+						</div>
+						<div className={'right'}>
 							<div className={'more-box'} onClick={handleSeeAllAdvisors} role="button">
 								<span>See All Advisors</span>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>
-						</Box>
+						</div>
 					</Stack>
 					<Stack className={'wrapper'}>
-						<Box component={'div'} className={'card-wrapper'}>
+						<div className={'card-wrapper'}>
 							{/* 4 profile images in center */}
-							<Box className={'central-profiles'}>
+							<div className={'central-profiles'}>
 								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
 									return (
-										<Box
+										<div
 											key={agent?._id}
 											className={'profile-item'}
 											onClick={() => openAgentDetail(agent?._id as string)}
-											sx={{ cursor: 'pointer' }}
+											style={{ cursor: 'pointer' }}
 										>
 											<img
 												src={
@@ -113,27 +139,27 @@ const TopAgents = (props: TopAgentsProps) => {
 												}
 												alt={agent?.memberNick}
 											/>
-										</Box>
+										</div>
 									);
 								})}
-							</Box>
+							</div>
 							{/* Names below */}
-							<Box className={'agent-names-row'}>
+							<div className={'agent-names-row'}>
 								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
 									return (
-										<Box
+										<div
 											key={agent?._id}
 											className={'agent-name-item'}
 											onClick={() => openAgentDetail(agent?._id as string)}
-											sx={{ cursor: 'pointer' }}
+											style={{ cursor: 'pointer' }}
 										>
 											<Typography className={'agent-name'}>{agent?.memberNick}</Typography>
 											<Typography className={'agent-role'}>AGENT</Typography>
-										</Box>
+										</div>
 									);
 								})}
-							</Box>
-						</Box>
+							</div>
+						</div>
 					</Stack>
 				</Stack>
 			</Stack>

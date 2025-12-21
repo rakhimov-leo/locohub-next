@@ -62,6 +62,8 @@ function createIsomorphicLink() {
 		const authLink = new ApolloLink((operation, forward) => {
 			operation.setContext(({ headers = {} }) => ({
 				headers: {
+					'content-type': 'application/json',
+					'x-apollo-operation-name': operation.operationName || '',
 					...headers,
 					...getHeaders(),
 				},

@@ -89,17 +89,19 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
 							))}
 						</Stack>
-						<Box
-							sx={{
-								ml: 0.5,
-								px: 0.8,
-								py: 0.1,
+						<div
+							style={{
+								marginLeft: '4px',
+								paddingLeft: '6.4px',
+								paddingRight: '6.4px',
+								paddingTop: '0.8px',
+								paddingBottom: '0.8px',
 								borderRadius: '6px',
 								backgroundColor: '#2563eb',
 							}}
 						>
 							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
-						</Box>
+						</div>
 						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
 							{(property?.propertyViews ?? 0).toLocaleString()} reviews
 						</Typography>
@@ -161,17 +163,19 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 								<StarRoundedIcon key={idx} sx={{ fontSize: 16, color: '#fbbf24' }} />
 							))}
 						</Stack>
-						<Box
-							sx={{
-								ml: 0.5,
-								px: 0.8,
-								py: 0.1,
+						<div
+							style={{
+								marginLeft: '4px',
+								paddingLeft: '6.4px',
+								paddingRight: '6.4px',
+								paddingTop: '0.8px',
+								paddingBottom: '0.8px',
 								borderRadius: '6px',
 								backgroundColor: '#2563eb',
 							}}
 						>
 							<Typography sx={{ fontSize: 11, fontWeight: 600, color: '#fff' }}>9.2/10</Typography>
-						</Box>
+						</div>
 						<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
 							{(property?.propertyViews ?? 0).toLocaleString()} reviews
 						</Typography>

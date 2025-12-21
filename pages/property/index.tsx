@@ -142,7 +142,50 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>HOTELS MOBILE</h1>;
+		return (
+			<Stack sx={{ p: 2, minHeight: '100vh' }}>
+				{/* Filter */}
+				<Stack sx={{ mb: 2 }}>
+					{/* @ts-ignore */}
+					<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
+				</Stack>
+
+				{/* Properties List */}
+				<Stack spacing={2} sx={{ mb: 4 }}>
+					{properties?.length === 0 ? (
+						<Stack alignItems="center" justifyContent="center" sx={{ py: 8 }}>
+							<img src="/img/icons/icoAlert.svg" alt="" style={{ width: 64, height: 64, marginBottom: 16 }} />
+							<Typography sx={{ fontSize: 16, fontWeight: 600, color: '#6b7280' }}>No Hotels found!</Typography>
+						</Stack>
+					) : (
+						properties.map((property: Property, index: number) => {
+							return (
+								<AnimatedListItem key={property?._id} index={index} delayMultiplier={0.08}>
+									<PropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+								</AnimatedListItem>
+							);
+						})
+					)}
+				</Stack>
+
+				{/* Pagination */}
+				{properties.length !== 0 && (
+					<Stack spacing={2} sx={{ mb: 4, alignItems: 'center' }}>
+						<Pagination
+							page={currentPage}
+							count={Math.ceil(total / searchFilter.limit)}
+							onChange={handlePaginationChange}
+							shape="circular"
+							color="primary"
+							size="small"
+						/>
+						<Typography sx={{ fontSize: 12, color: '#6b7280', textAlign: 'center' }}>
+							Total {total} hotel{total > 1 ? 's' : ''} available
+						</Typography>
+					</Stack>
+				)}
+			</Stack>
+		);
 	} else {
 		return (
 			<div id="property-list-page" style={{ position: 'relative' }}>

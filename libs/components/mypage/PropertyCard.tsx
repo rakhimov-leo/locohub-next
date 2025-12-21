@@ -10,6 +10,7 @@ import { PropertyStatus } from '../../enums/property.enum';
 import { formatterStr } from '../../utils';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useRouter } from 'next/router';
+import { REACT_APP_API_URL } from '../../config';
 
 interface PropertyCardProps {
 	property: Property;
@@ -52,12 +53,75 @@ export const PropertyCard = (props: PropertyCardProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>MOBILE PROPERTY CARD</div>;
-	} else
+		return (
+			<Stack
+				style={{
+					marginBottom: '16px',
+					borderRadius: '12px',
+					overflow: 'hidden',
+					boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+					backgroundColor: '#fff',
+				}}
+			>
+				<div
+					onClick={() => pushPropertyDetail(property?._id)}
+					style={{
+						width: '100%',
+						height: '200px',
+						backgroundImage: `url(${REACT_APP_API_URL}/${property.propertyImages[0]})`,
+						backgroundSize: 'cover',
+						backgroundPosition: 'center',
+						position: 'relative',
+						cursor: 'pointer',
+					}}
+				/>
+				<Stack style={{ padding: '16px' }}>
+					<Stack style={{ marginBottom: '8px' }} onClick={() => pushPropertyDetail(property?._id)}>
+						<Typography sx={{ fontSize: 16, fontWeight: 600, mb: 0.5 }}>{property.propertyTitle}</Typography>
+						<Typography sx={{ fontSize: 12, color: '#6b7280', mb: 0.5 }}>{property.propertyAddress}</Typography>
+						<Typography sx={{ fontSize: 14, fontWeight: 600, color: '#111827' }}>
+							${formatterStr(property?.propertyPrice)} / night
+						</Typography>
+					</Stack>
+					<Stack direction="row" justifyContent="space-between" alignItems="center" style={{ marginTop: '8px' }}>
+						<Typography sx={{ fontSize: 11, color: '#6b7280' }}>
+							<Moment format="DD MMM, YYYY">{property.createdAt}</Moment>
+						</Typography>
+						<div
+							style={{
+								paddingLeft: '8px',
+								paddingRight: '8px',
+								paddingTop: '4px',
+								paddingBottom: '4px',
+								borderRadius: '6px',
+								backgroundColor: '#E5F0FD',
+							}}
+						>
+							<Typography sx={{ fontSize: 11, color: '#3554d1', fontWeight: 500 }}>
+								{property.propertyStatus}
+							</Typography>
+						</div>
+					</Stack>
+					{!memberPage && property.propertyStatus === PropertyStatus.ACTIVE && (
+						<Stack direction="row" spacing={1} style={{ marginTop: '12px' }}>
+							<IconButton size="small" onClick={() => pushEditProperty(property._id)} style={{ flex: 1 }}>
+								<ModeIcon fontSize="small" />
+								<Typography sx={{ ml: 0.5, fontSize: 12 }}>Edit</Typography>
+							</IconButton>
+							<IconButton size="small" onClick={() => deletePropertyHandler?.(property._id)} style={{ flex: 1 }}>
+								<DeleteIcon fontSize="small" />
+								<Typography sx={{ ml: 0.5, fontSize: 12 }}>Delete</Typography>
+							</IconButton>
+						</Stack>
+					)}
+				</Stack>
+			</Stack>
+		);
+	} else {
 		return (
 			<Stack className="property-card-box">
 				<Stack className="image-box" onClick={() => pushPropertyDetail(property?._id)}>
-					<img src={`${process.env.REACT_APP_API_URL}/${property.propertyImages[0]}`} alt="" />
+					<img src={`${REACT_APP_API_URL}/${property.propertyImages[0]}`} alt="" />
 				</Stack>
 				<Stack className="information-box" onClick={() => pushPropertyDetail(property?._id)}>
 					<Typography className="name">{property.propertyTitle}</Typography>
@@ -128,20 +192,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 						</IconButton>
 					</Stack>
 				)}
-
-				<Stack className="views-box">
-					<Typography className="views">{property.propertyViews.toLocaleString()}</Typography>
-				</Stack>
-				{!memberPage && property.propertyStatus === PropertyStatus.ACTIVE && (
-					<Stack className="action-box">
-						<IconButton className="icon-button" onClick={() => pushEditProperty(property._id)}>
-							<ModeIcon className="buttons" />
-						</IconButton>
-						<IconButton className="icon-button" onClick={() => deletePropertyHandler(property._id)}>
-							<DeleteIcon className="buttons" />
-						</IconButton>
-					</Stack>
-				)}
 			</Stack>
 		);
+	}
 };

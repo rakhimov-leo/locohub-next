@@ -377,9 +377,6 @@ const Top = () => {
 												alt=""
 											/>
 										</div>
-										<div className={'icon-button'}>
-											<GridFour size={20} color="#ffffff" weight="regular" />
-										</div>
 
 										<Menu
 											id="basic-menu"

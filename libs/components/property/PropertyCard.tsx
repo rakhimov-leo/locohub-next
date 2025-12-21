@@ -68,7 +68,98 @@ const PropertyCard = (props: PropertyCardType) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>PROPERTY CARD</div>;
+		return (
+			<Stack
+				className="card-config"
+				sx={{
+					mb: 2,
+					borderRadius: '12px',
+					overflow: 'hidden',
+					boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+				}}
+			>
+				<Stack className="top">
+					<Link
+						href={{
+							pathname: '/property/detail',
+							query: { id: property?._id },
+						}}
+						onClick={handleLinkClick}
+					>
+						<img
+							src={imagePath}
+							alt={property.propertyTitle}
+							style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+						/>
+					</Link>
+					{property && property?.propertyRank > topPropertyRank && (
+						<Box component={'div'} className={'top-badge'}>
+							<img src="/img/icons/electricity.svg" alt="" />
+							<Typography>TOP</Typography>
+						</Box>
+					)}
+				</Stack>
+				<Stack className="bottom" sx={{ p: 2 }}>
+					<Stack className="name-address" sx={{ mb: 1 }}>
+						<Stack className="name">
+							<Link
+								href={{
+									pathname: '/property/detail',
+									query: { id: property?._id },
+								}}
+								onClick={handleLinkClick}
+							>
+								<Typography sx={{ fontSize: 16, fontWeight: 600, mb: 0.5 }}>{property.propertyTitle}</Typography>
+							</Link>
+						</Stack>
+						<Stack className="address">
+							<Typography sx={{ fontSize: 12, color: '#6b7280' }}>
+								{property.propertyAddress}, {property.propertyLocation}
+							</Typography>
+						</Stack>
+					</Stack>
+					{property?.propertyPrice ? (
+						<Box sx={{ mb: 1 }}>
+							<Typography sx={{ fontSize: 18, fontWeight: 700, color: '#111827' }}>
+								${formatterStr(property.propertyPrice)} / night
+							</Typography>
+						</Box>
+					) : (
+						<Box sx={{ mb: 1 }}>
+							<Typography sx={{ fontSize: 14, fontWeight: 600 }}>Price on request</Typography>
+						</Box>
+					)}
+					<Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+						<Stack direction="row" spacing={0.3}>
+							{[...Array(4)].map((_, idx) => (
+								<StarRoundedIcon key={idx} sx={{ fontSize: 14, color: '#fbbf24' }} />
+							))}
+						</Stack>
+						<Typography sx={{ fontSize: 11, color: '#6b7280' }}>
+							{(property?.propertyViews ?? 0).toLocaleString()} reviews
+						</Typography>
+					</Stack>
+					{!recentlyVisited && (
+						<Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
+							<IconButton size="small" color={'default'}>
+								<RemoveRedEyeIcon fontSize="small" />
+							</IconButton>
+							<Typography sx={{ fontSize: 12 }}>{property?.propertyViews}</Typography>
+							<IconButton size="small" color={'default'} onClick={() => likePropertyHandler?.(user, property?._id)}>
+								{myFavorites ? (
+									<FavoriteIcon color="primary" fontSize="small" />
+								) : property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon color="primary" fontSize="small" />
+								) : (
+									<FavoriteBorderIcon fontSize="small" />
+								)}
+							</IconButton>
+							<Typography sx={{ fontSize: 12 }}>{property?.propertyLikes}</Typography>
+						</Stack>
+					)}
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className="card-config" onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}>
