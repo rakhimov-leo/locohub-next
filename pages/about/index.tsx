@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { Stack, Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 
@@ -21,13 +21,13 @@ const About: NextPage = () => {
 					</Stack>
 
 					<Stack className="right">
-						<Box className="hero-image">
+						<div className="hero-image">
 							<img
 								src="/img/banner/about-rabbit.png"
 								alt="Relaxed dog in hotel-style robe"
 								loading={isMobile ? 'lazy' : 'eager'}
 							/>
-						</Box>
+						</div>
 						<p className="hero-caption">
 							Travel should feel simple, comfortable, and enjoyable. Because finding a stay shouldn’t be complicated.
 						</p>
@@ -42,29 +42,29 @@ const About: NextPage = () => {
 					<p className="subtitle">Built on principles that guide everything we do</p>
 
 					<Stack className="cards">
-						<Box className="card">
+						<div className="card">
 							<div className="icon">
 								<img src="/img/icons/security.svg" alt="Verified icon" />
 							</div>
 							<strong>Verified Hotels & Villas</strong>
 							<p>Every listing is checked so you can book with confidence.</p>
-						</Box>
+						</div>
 
-						<Box className="card">
+						<div className="card">
 							<div className="icon">
 								<img src="/img/icons/discovery.svg" alt="Pricing icon" />
 							</div>
 							<strong>Compare Prices Easily</strong>
 							<p>See prices side-by-side with no hidden fees.</p>
-						</Box>
+						</div>
 
-						<Box className="card">
+						<div className="card">
 							<div className="icon">
 								<img src="/img/icons/investment.svg" alt="Global icon" />
 							</div>
 							<strong>Global Destinations</strong>
 							<p>Discover stays across popular cities and emerging spots.</p>
-						</Box>
+						</div>
 					</Stack>
 				</Stack>
 			</Stack>
@@ -72,19 +72,19 @@ const About: NextPage = () => {
 			{/* CTA */}
 			<Stack className="help">
 				<Stack className="container">
-					<Box className="left">
+					<div className="left">
 						<strong>Ready to find your next stay?</strong>
 						<p>Browse hotels and villas on LocoHub and compare prices in seconds.</p>
-					</Box>
+					</div>
 
-					<Box className="right">
+					<div className="right">
 						<a href="/property">
 							<div className="white">Browse Hotels</div>
 						</a>
 						<a href="/property">
 							<div className="black">Search by Price</div>
 						</a>
-					</Box>
+					</div>
 				</Stack>
 			</Stack>
 		</Stack>
