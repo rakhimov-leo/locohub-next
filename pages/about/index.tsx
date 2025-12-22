@@ -14,7 +14,7 @@ const About: NextPage = () => {
 			<Stack className="intro">
 				<Stack className="container">
 					<Stack className="left">
-						<strong>Our Story</strong>
+						<strong>Our Story!</strong>
 						<p className="headline">Helping travelers find the right stay — at the right price</p>
 						<p>LocoHub was built to make hotel and villa discovery simple and transparent for everyday travelers.</p>
 						<p>We help people search, compare, and choose stays with clear pricing and verified listings worldwide.</p>
