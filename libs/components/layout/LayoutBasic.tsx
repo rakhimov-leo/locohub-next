@@ -35,77 +35,48 @@ const withLayoutBasic = (Component: any) => {
 				case '/property':
 					title = 'Hotels Search';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/Buildings-page2.jpg';
-					bgVideo = '/video/buildings-background.mp4';
-					videoHeight = '100%';
-					// Slightly lower focus so both top and bottom are more visible
-					videoPosition = 'center 30%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/property/detail':
 					title = 'Property Details';
 					desc = 'Discover your perfect stay';
-					bgImage = '/img/banner/Buildings-page2.jpg';
-					bgVideo = '/video/buildings-background.mp4';
-					videoHeight = '100%';
-					videoPosition = 'center 30%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/agent':
 					title = 'Advisors';
-					bgImage = '/img/banner/agents.webp';
-					bgVideo = '/video/advisors-background.mp4';
-					videoHeight = '100%';
-					// Slightly lower focus so both top and bottom are more visible
-					videoPosition = 'center 10%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
 					desc = 'Settings';
-					// Use same background video as Advisors page instead of static image
-					bgImage = '/img/banner/agents.webp';
-					bgVideo = '/video/advisors-background.mp4';
-					videoHeight = '100%';
-					videoPosition = 'center 10%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/mypage':
 					title = 'Me';
 					desc = '';
-					bgImage = '/img/banner/header1.svg';
-					bgVideo = '/video/mypage-background.mp4';
-					videoHeight = '100%';
-					// Slightly lower focus so both top and bottom are more visible
-					videoPosition = 'center 65%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/about':
 					title = 'About us';
 					desc = '';
-					bgImage = '/img/banner/header1.svg';
-					// Use same background video as Me page
-					bgVideo = '/video/mypage-background.mp4';
-					videoHeight = '100%';
-					videoPosition = 'center 65%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/header2.svg';
-					bgVideo = '/video/cs-background.mp4';
-					videoHeight = '100%';
-					videoPosition = 'center 30%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '550px';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/agents.webp';
-					bgVideo = '/video/advisors-background.mp4';
-					videoHeight = '100%';
-					videoPosition = 'center 10%';
+					bgImage = '/img/banner/city-background.jpg';
 					headerHeight = '520px';
 					setAuthHeader(true);
 					break;
