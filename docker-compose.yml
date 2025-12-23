@@ -21,7 +21,7 @@ services:
       - monorepo-network
 
     # FOR PRODUCTION
-    command: bash -c "yarn && yarn run build && yarn run start"
+    command: bash -c "rm -rf dist && yarn && yarn run build && yarn run start"
 
 networks:
   monorepo-network:
