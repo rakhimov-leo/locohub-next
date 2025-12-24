@@ -9,11 +9,8 @@ services:
       - .env.local
     environment:
       - PORT=3000
-      # Override API URLs if needed - Browser will use server IP:4001 (mapped from backend container port 3007)
-      # These are used by Next.js during build and runtime
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://72.61.126.236:4001}
-      - REACT_APP_API_GRAPHQL_URL=${REACT_APP_API_GRAPHQL_URL:-http://72.61.126.236:4001/graphql}
-      - REACT_APP_API_WS=${REACT_APP_API_WS:-ws://72.61.126.236:4001}
+      # API URLs are automatically loaded from .env.local file
+      # No need to specify them here - env_file handles it
     volumes:
       - ./:/usr/src/locohub-next
     working_dir: /usr/src/locohub-next
