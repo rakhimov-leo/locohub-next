@@ -332,11 +332,11 @@
 			transform: translateY(-25%);
 		}
 
-		// Fallback background image if video doesn't load
-		background-image: url('/img/banner/header1.svg');
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
+		// Fallback background image - will be hidden when video loads (handled in LayoutHome.tsx)
+		// background-image: url('/img/banner/header1.svg');
+		// background-size: cover;
+		// background-position: center;
+		// background-repeat: no-repeat;
 
 		// Overlay to make background brighter and lighter
 		&::before {
