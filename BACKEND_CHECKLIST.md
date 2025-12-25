@@ -136,3 +136,4 @@ const property = await Property.findOne({
 3. GraphQL resolver'ni tekshiring
 4. Property filterlarini tekshiring
 
+

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 
 const HomeAboutStory = () => {
@@ -17,11 +17,11 @@ const HomeAboutStory = () => {
 						<p>We help people search, compare, and choose stays with clear pricing and verified listings worldwide.</p>
 					</Stack>
 					<Stack className={'right'}>
-						<Box className="hero-image">
-							<Box component="img" src="/img/banner/about-rabbit.png" alt="Relaxed guest enjoying a comfortable stay" />
-						</Box>
+						<div className="hero-image">
+							<img src="/img/banner/about-rabbit.png" alt="Relaxed guest enjoying a comfortable stay" />
+						</div>
 						<p className="hero-caption">
-							Travel should feel simple, comfortable, and enjoyable. Because finding a stay shouldn’t be complicated.
+							Travel should feel simple, comfortable, and enjoyable. Because finding a stay shouldn't be complicated.
 						</p>
 					</Stack>
 				</Stack>
@@ -34,4 +34,6 @@ const HomeAboutStory = () => {
 };
 
 export default HomeAboutStory;
+
+
 
