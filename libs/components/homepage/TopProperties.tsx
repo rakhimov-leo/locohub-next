@@ -100,10 +100,10 @@ const TopProperties = (props: TopPropertiesProps) => {
 						<span>Top buildings</span>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Box className={'top-property-grid'}>
+						<Box component={'div'} className={'top-property-grid'}>
 							{topProperties.map((property: Property, index: number) => {
 								return (
-									<Box className={'top-property-item'} key={property?._id}>
+									<Box component={'div'} className={'top-property-item'} key={property?._id}>
 										<AnimatedTopPropertyCard
 											property={property}
 											index={index}
@@ -162,8 +162,9 @@ const TopProperties = (props: TopPropertiesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						{heroProperty && (
-							<Box className={'top-property-hero'}>
+							<Box component={'div'} className={'top-property-hero'}>
 								<Box
+									component={'div'}
 									className={'top-property-hero-image'}
 									style={{ backgroundImage: `url(${REACT_APP_API_URL}/${heroProperty?.propertyImages[0]})` }}
 									onClick={() => {
@@ -172,7 +173,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 										}
 									}}
 								>
-									<Box className={'top-property-hero-info'}>
+									<Box component={'div'} className={'top-property-hero-info'}>
 										<Typography
 											className={'top-property-hero-title'}
 											onClick={() => {
@@ -239,10 +240,10 @@ const TopProperties = (props: TopPropertiesProps) => {
 							</Box>
 						)}
 						{smallProperties.length > 0 && (
-							<Box className={'top-property-small-grid'}>
+							<Box component={'div'} className={'top-property-small-grid'}>
 								{smallProperties.map((property: Property, index: number) => {
 									return (
-										<Box className={'top-property-small-item'} key={property?._id}>
+										<Box component={'div'} className={'top-property-small-item'} key={property?._id}>
 											<AnimatedTopPropertyCard
 												property={property}
 												index={index + 1}
