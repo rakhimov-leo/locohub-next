@@ -137,3 +137,4 @@ const property = await Property.findOne({
 4. Property filterlarini tekshiring
 
 
+

@@ -4,21 +4,16 @@ import {
 	Typography,
 	Checkbox,
 	Button,
-	OutlinedInput,
 	FormControl,
 	InputLabel,
 	Select,
 	MenuItem,
-	Tooltip,
-	IconButton,
 } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PropertyLocation } from '../../enums/property.enum';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { useRouter } from 'next/router';
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { propertySquare } from '../../config';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import GlobeLocation from './GlobeLocation';
 
 const MenuProps = {
@@ -40,7 +35,6 @@ const Filter = (props: FilterType) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
-	const [searchText, setSearchText] = useState<string>('');
 	const [showMore, setShowMore] = useState<boolean>(false);
 
 	/** LIFECYCLES **/
@@ -341,76 +335,12 @@ const Filter = (props: FilterType) => {
 		[searchFilter, setSearchFilter],
 	);
 
-	const refreshHandler = async () => {
-		try {
-			setSearchText('');
-			await router.push(
-				`/property?input=${JSON.stringify(initialInput)}`,
-				`/property?input=${JSON.stringify(initialInput)}`,
-				{ scroll: false },
-			);
-		} catch (err: any) {
-			console.log('ERROR, refreshHandler:', err);
-		}
-	};
 
 	if (device === 'mobile') {
 		return <div>PROPERTIES FILTER</div>;
 	} else {
 		return (
 			<Stack className={'filter-main'}>
-				<Stack className={'find-your-home'} mb={'40px'}>
-					<Stack className={'input-box'}>
-						<OutlinedInput
-							value={searchText}
-							type={'text'}
-							className={'search-input'}
-							placeholder={'What are you looking for?'}
-							onChange={(e: any) => setSearchText(e.target.value)}
-							onKeyDown={(event: any) => {
-								if (event.key == 'Enter') {
-									const trimmed = searchText.trim();
-									const upper = trimmed.toUpperCase();
-
-									// If user types a location name (e.g. seoul, france), map it to locationList filter
-									const locationMatch = Object.values(PropertyLocation).find((loc) => loc.toUpperCase() === upper);
-
-									const newSearch = { ...searchFilter.search };
-
-									if (locationMatch) {
-										newSearch.locationList = [locationMatch as PropertyLocation];
-										delete newSearch.text;
-									} else {
-										newSearch.text = trimmed;
-									}
-
-									setSearchFilter({
-										...searchFilter,
-										search: newSearch,
-									});
-								}
-							}}
-							endAdornment={
-								<>
-									<CancelRoundedIcon
-										onClick={() => {
-											setSearchText('');
-											setSearchFilter({
-												...searchFilter,
-												search: { ...searchFilter.search, text: '' },
-											});
-										}}
-									/>
-								</>
-							}
-						/>
-						<Tooltip title="Reset">
-							<IconButton onClick={refreshHandler}>
-								<RefreshIcon />
-							</IconButton>
-						</Tooltip>
-					</Stack>
-				</Stack>
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
 						Location

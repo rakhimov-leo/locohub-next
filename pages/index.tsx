@@ -4,8 +4,6 @@ import { useRouter } from 'next/router';
 import useDeviceDetect from '../libs/hooks/useDeviceDetect';
 import withLayoutMain from '../libs/components/layout/LayoutHome';
 import PopularProperties from '../libs/components/homepage/PopularProperties';
-import TopAgents from '../libs/components/homepage/TopAgents';
-import Events from '../libs/components/homepage/Events';
 import TrendProperties from '../libs/components/homepage/TrendProperties';
 import TopProperties from '../libs/components/homepage/TopProperties';
 import { Stack } from '@mui/material';
@@ -216,13 +214,7 @@ const Home: NextPage = () => {
 					<TopProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.3}>
-					<TopAgents />
-				</AnimatedSection>
-				<AnimatedSection animationType="fade-up" animationDelay={0.35}>
 					<HomeAboutStory />
-				</AnimatedSection>
-				<AnimatedSection animationType="fade-up" animationDelay={0.45}>
-					<Events />
 				</AnimatedSection>
 			</Stack>
 		);
@@ -240,13 +232,7 @@ const Home: NextPage = () => {
 					<TopProperties />
 				</AnimatedSection>
 				<AnimatedSection animationType="fade-up" animationDelay={0.3}>
-					<TopAgents />
-				</AnimatedSection>
-				<AnimatedSection animationType="fade-up" animationDelay={0.35}>
 					<HomeAboutStory />
-				</AnimatedSection>
-				<AnimatedSection animationType="fade-up" animationDelay={0.45}>
-					<Events />
 				</AnimatedSection>
 			</Stack>
 		);

@@ -23,14 +23,13 @@ export const logIn = async (nick: string, password: string): Promise<void> => {
 			updateStorage({ jwtToken });
 			updateUserInfo(jwtToken);
 		}
-	} catch (err) {
+	} catch (err: any) {
 		console.warn('login err', err);
-		logOut();
-		// throw new Error('Login Err');
+		throw err;
 	}
 };
 
-const requestJwtToken = async ({
+	const requestJwtToken = async ({
 	nick,
 	password,
 }: {
@@ -51,16 +50,24 @@ const requestJwtToken = async ({
 
 		return { jwtToken: accessToken };
 	} catch (err: any) {
-		console.log('request token err', err.graphQLErrors);
-		switch (err.graphQLErrors[0].message) {
-			case 'Definer: login and password do not match':
-				await sweetMixinErrorAlert('Please check your password again');
-				break;
-			case 'Definer: user has been blocked!':
-				await sweetMixinErrorAlert('User has been blocked!');
-				break;
+		console.log('request token err', err);
+		if (err.graphQLErrors && err.graphQLErrors.length > 0) {
+			const errorMessage = err.graphQLErrors[0].message;
+			switch (errorMessage) {
+				case 'Definer: login and password do not match':
+					await sweetMixinErrorAlert('Please check your password again');
+					break;
+				case 'Definer: user has been blocked!':
+					await sweetMixinErrorAlert('User has been blocked!');
+					break;
+				default:
+					await sweetMixinErrorAlert(errorMessage || 'Login failed. Please try again.');
+					break;
+			}
+		} else {
+			await sweetMixinErrorAlert(err.message || 'Login failed. Please try again.');
 		}
-		throw new Error('token error');
+		throw err;
 	}
 };
 
@@ -72,14 +79,13 @@ export const signUp = async (nick: string, password: string, phone: string, type
 			updateStorage({ jwtToken });
 			updateUserInfo(jwtToken);
 		}
-	} catch (err) {
-		console.warn('login err', err);
-		logOut();
-		// throw new Error('Login Err');
+	} catch (err: any) {
+		console.warn('signup err', err);
+		throw err;
 	}
 };
 
-const requestSignUpJwtToken = async ({
+	const requestSignUpJwtToken = async ({
 	nick,
 	password,
 	phone,
@@ -101,21 +107,29 @@ const requestSignUpJwtToken = async ({
 			fetchPolicy: 'network-only',
 		});
 
-		console.log('---------- login ----------');
+		console.log('---------- signup ----------');
 		const { accessToken } = result?.data?.signup;
 
 		return { jwtToken: accessToken };
 	} catch (err: any) {
-		console.log('request token err', err.graphQLErrors);
-		switch (err.graphQLErrors[0].message) {
-			case 'Definer: login and password do not match':
-				await sweetMixinErrorAlert('Please check your password again');
-				break;
-			case 'Definer: user has been blocked!':
-				await sweetMixinErrorAlert('User has been blocked!');
-				break;
+		console.log('request token err', err);
+		if (err.graphQLErrors && err.graphQLErrors.length > 0) {
+			const errorMessage = err.graphQLErrors[0].message;
+			switch (errorMessage) {
+				case 'Definer: login and password do not match':
+					await sweetMixinErrorAlert('Please check your password again');
+					break;
+				case 'Definer: user has been blocked!':
+					await sweetMixinErrorAlert('User has been blocked!');
+					break;
+				default:
+					await sweetMixinErrorAlert(errorMessage || 'Signup failed. Please try again.');
+					break;
+			}
+		} else {
+			await sweetMixinErrorAlert(err.message || 'Signup failed. Please try again.');
 		}
-		throw new Error('token error');
+		throw err;
 	}
 };
 
