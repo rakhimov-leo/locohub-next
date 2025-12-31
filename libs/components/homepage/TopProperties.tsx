@@ -30,6 +30,8 @@ interface TopPropertiesProps {
 const TopProperties = (props: TopPropertiesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
+	const router = useRouter();
+	const user = useReactiveVar(userVar);
 	const [topProperties, setTopProperties] = useState<Property[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [currentPage, setCurrentPage] = useState<number>(1);
@@ -92,6 +94,27 @@ const TopProperties = (props: TopPropertiesProps) => {
 		setSearchFilter({ ...searchFilter, page: value });
 	};
 
+	const pushDetailHandler = async (propertyId: string) => {
+		if (!propertyId || propertyId.trim() === '') {
+			console.error('[TopProperties] Invalid propertyId:', propertyId);
+			return;
+		}
+		if (typeof window !== 'undefined') {
+			try {
+				const currentPath = window.location.pathname;
+				if (currentPath === '/' || currentPath.startsWith('/?')) {
+					const scrollY =
+						window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+					sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
+					sessionStorage.setItem('fromDetailPage', 'true');
+				}
+			} catch (err) {
+				console.warn('[TopProperties] sessionStorage error:', err);
+			}
+		}
+		await router.push({ pathname: '/property/detail', query: { id: propertyId } }, undefined, { scroll: false });
+	};
+
 	if (device === 'mobile') {
 		return (
 			<Stack className={'top-properties'}>
@@ -129,27 +152,8 @@ const TopProperties = (props: TopPropertiesProps) => {
 			</Stack>
 		);
 	} else {
-		const router = useRouter();
-		const user = useReactiveVar(userVar);
-		const heroProperty = topProperties[0];
-		const smallProperties = topProperties.slice(1, 4);
-
-		const pushDetailHandler = async (propertyId: string) => {
-			if (!propertyId || propertyId.trim() === '') {
-				console.error('[TopProperties] Invalid propertyId:', propertyId);
-				return;
-			}
-			if (typeof window !== 'undefined') {
-				const currentPath = window.location.pathname;
-				if (currentPath === '/' || currentPath.startsWith('/?')) {
-					const scrollY =
-						window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-					sessionStorage.setItem('homepageScrollPosition', scrollY.toString());
-					sessionStorage.setItem('fromDetailPage', 'true');
-				}
-			}
-			await router.push({ pathname: '/property/detail', query: { id: propertyId } }, undefined, { scroll: false });
-		};
+		const heroProperty = topProperties && topProperties.length > 0 ? topProperties[0] : null;
+		const smallProperties = topProperties && topProperties.length > 1 ? topProperties.slice(1, 4) : [];
 
 		return (
 			<Stack className={'top-properties'}>
@@ -161,12 +165,12 @@ const TopProperties = (props: TopPropertiesProps) => {
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
-						{heroProperty && (
+						{heroProperty && heroProperty.propertyImages && heroProperty.propertyImages.length > 0 && (
 							<Box component={'div'} className={'top-property-hero'}>
 								<Box
 									component={'div'}
 									className={'top-property-hero-image'}
-									style={{ backgroundImage: `url(${REACT_APP_API_URL}/${heroProperty?.propertyImages[0]})` }}
+									style={{ backgroundImage: `url(${REACT_APP_API_URL}/${heroProperty.propertyImages[0]})` }}
 									onClick={() => {
 										if (heroProperty?._id) {
 											pushDetailHandler(heroProperty._id);
@@ -222,9 +226,13 @@ const TopProperties = (props: TopPropertiesProps) => {
 												<IconButton
 													color={'default'}
 													sx={{ color: '#ffffff' }}
-													onClick={() => likePropertyHandler(user, heroProperty?._id)}
+													onClick={() => {
+														if (user && heroProperty?._id) {
+															likePropertyHandler(user, heroProperty._id);
+														}
+													}}
 												>
-													{heroProperty?.meLiked && heroProperty?.meLiked[0]?.myFavorite ? (
+													{heroProperty?.meLiked && heroProperty.meLiked.length > 0 && heroProperty.meLiked[0]?.myFavorite ? (
 														<FavoriteIcon style={{ color: 'red' }} />
 													) : (
 														<FavoriteIcon />
