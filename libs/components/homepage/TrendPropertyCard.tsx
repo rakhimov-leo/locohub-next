@@ -107,7 +107,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
 					{/* Price block placed directly under description */}
 					{property?.propertyPrice && (
-						<Box sx={{ mt: 0.5 }}>
+						<Box component={'div'} sx={{ mt: 0.5 }}>
 							{(() => {
 								const base = property.propertyPrice;
 								const discountPercent = 24;
@@ -222,7 +222,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
 					{/* Price block placed directly under description */}
 					{property?.propertyPrice && (
-						<Box sx={{ mt: 0.5 }}>
+						<Box component={'div'} sx={{ mt: 0.5 }}>
 							{(() => {
 								const base = property.propertyPrice;
 								const discountPercent = 24;
