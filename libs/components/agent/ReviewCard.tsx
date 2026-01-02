@@ -1,6 +1,7 @@
 import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Stack, Box, Typography } from '@mui/material';
+import Image from 'next/image';
 import { Comment } from '../../types/comment/comment';
 import Moment from 'react-moment';
 import { REACT_APP_API_URL } from '../../config';
@@ -23,7 +24,16 @@ const ReviewCard = (props: ReviewCardProps) => {
 			<Box component={'div'} className={'review-card'}>
 				<div className={'info'}>
 					<div className={'left'}>
-						<img src={imagePath} alt="" />
+						<div style={{ position: 'relative', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
+							<Image
+								src={imagePath}
+								alt={comment?.memberData?.memberNick || 'Reviewer'}
+								fill
+								style={{ objectFit: 'cover' }}
+								loading="lazy"
+								unoptimized
+							/>
+						</div>
 						<div>
 							<strong>{comment.memberData?.memberNick}</strong>
 							<span>

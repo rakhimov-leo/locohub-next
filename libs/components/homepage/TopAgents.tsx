@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Stack, Box, Typography } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -125,21 +126,25 @@ const TopAgents = (props: TopAgentsProps) => {
 							<div className={'central-profiles'}>
 								{topAgents.slice(0, 4).map((agent: Member, index: number) => {
 									return (
-										<div
-											key={agent?._id}
-											className={'profile-item'}
-											onClick={() => openAgentDetail(agent?._id as string)}
-											style={{ cursor: 'pointer' }}
-										>
-											<img
-												src={
-													agent?.memberImage
-														? `${REACT_APP_API_URL}/${agent?.memberImage}`
-														: '/img/profile/defaultUser.svg'
-												}
-												alt={agent?.memberNick}
-											/>
-										</div>
+									<div
+										key={agent?._id}
+										className={'profile-item'}
+										onClick={() => openAgentDetail(agent?._id as string)}
+										style={{ cursor: 'pointer', position: 'relative', width: '100%', height: '100%' }}
+									>
+										<Image
+											src={
+												agent?.memberImage
+													? `${REACT_APP_API_URL}/${agent?.memberImage}`
+													: '/img/profile/defaultUser.svg'
+											}
+											alt={agent?.memberNick || 'Agent'}
+											fill
+											style={{ objectFit: 'cover' }}
+											loading="lazy"
+											unoptimized
+										/>
+									</div>
 									);
 								})}
 							</div>

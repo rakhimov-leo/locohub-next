@@ -1,6 +1,7 @@
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useQuery, useReactiveVar } from '@apollo/client';
+import Image from 'next/image';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -93,8 +94,15 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 						return (
 							<Stack className="follows-card-box" key={follower._id}>
 								<Stack className={'info'} onClick={() => redirectToMemberPageHandler(follower?.followingData?._id)}>
-									<Stack className="image-box">
-										<img src={imagePath} alt="" />
+									<Stack className="image-box" style={{ position: 'relative', width: '100%', height: '100%' }}>
+										<Image
+											src={imagePath}
+											alt={follower?.followingData?.memberNick || 'Following'}
+											fill
+											style={{ objectFit: 'cover' }}
+											loading="lazy"
+											unoptimized
+										/>
 									</Stack>
 									<Stack className="information-box">
 										<Typography className="name">{follower?.followingData?.memberNick}</Typography>

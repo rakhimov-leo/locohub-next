@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Stack, Typography, Box, List, ListItem } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
@@ -35,10 +36,14 @@ const MyMenu = () => {
 		return (
 			<Stack width={'100%'} padding={'30px 24px'}>
 				<Stack className={'profile'}>
-					<Box component={'div'} className={'profile-img'}>
-						<img
+					<Box component={'div'} className={'profile-img'} style={{ position: 'relative', width: '100%', height: '100%' }}>
+						<Image
 							src={user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'}
 							alt={'member-photo'}
+							fill
+							style={{ objectFit: 'cover' }}
+							loading="lazy"
+							unoptimized
 						/>
 					</Box>
 					<Stack className={'user-info'}>

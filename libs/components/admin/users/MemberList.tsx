@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
 	TableCell,
 	TableHead,
@@ -12,7 +13,6 @@ import {
 	Fade,
 	MenuItem,
 } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import { Member } from '../../../types/member/member';
@@ -167,8 +167,15 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 										<TableCell align="left" className={'name'}>
 											<Stack direction={'row'}>
 												<Link href={`/member?memberId=${member._id}`}>
-													<div>
-														<Avatar alt="Remy Sharp" src={member_image} sx={{ ml: '2px', mr: '10px' }} />
+													<div style={{ position: 'relative', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', marginLeft: '2px', marginRight: '10px' }}>
+														<Image
+															src={member_image}
+															alt={member.memberNick || 'Member'}
+															fill
+															style={{ objectFit: 'cover' }}
+															loading="lazy"
+															unoptimized
+														/>
 													</div>
 												</Link>
 												<Link href={`/member?memberId=${member._id}`}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Comment } from '../../types/comment/comment';
 import { REACT_APP_API_URL } from '../../config';
@@ -34,7 +35,16 @@ const Review = (props: ReviewProps) => {
 			<Stack className={'review-config'}>
 				<Stack className={'review-mb-info'}>
 					<Stack className={'img-name-box'}>
-						<img src={imagePath} alt="" className={'img-box'} />
+						<div className={'img-box'} style={{ position: 'relative', width: '100%', height: '100%' }}>
+							<Image
+								src={imagePath}
+								alt={comment?.memberData?.memberNick || 'Reviewer'}
+								fill
+								style={{ objectFit: 'cover' }}
+								loading="lazy"
+								unoptimized
+							/>
+						</div>
 						<Stack>
 							<Typography className={'name'} onClick={() => goMemberPage(comment?.memberData?._id as string)}>
 								{comment.memberData?.memberNick}

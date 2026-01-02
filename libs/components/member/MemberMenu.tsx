@@ -1,5 +1,6 @@
 import { Box, Button, List, ListItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 import { GET_MEMBER } from '../../../apollo/user/query';
 import Link from 'next/link';
@@ -45,10 +46,14 @@ const MemberMenu = (props: MemberMenuProps) => {
 		return (
 			<Stack width={'100%'} padding={'30px 24px'}>
 				<Stack className={'profile'}>
-					<Box component={'div'} className={'profile-img'}>
-						<img
+					<Box component={'div'} className={'profile-img'} style={{ position: 'relative', width: '100%', height: '100%' }}>
+						<Image
 							src={member?.memberImage ? `${REACT_APP_API_URL}/${member?.memberImage}` : '/img/profile/defaultUser.svg'}
 							alt={'member-photo'}
+							fill
+							style={{ objectFit: 'cover' }}
+							loading="lazy"
+							unoptimized
 						/>
 					</Box>
 					<Stack className={'user-info'}>

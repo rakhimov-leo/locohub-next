@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { useRouter, withRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
 import { getJwtToken, logOut, updateUserInfo } from '../auth';
 import { Stack, Box } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
@@ -367,14 +368,18 @@ const Top = () => {
 							<Box component={'div'} className={'user-box'}>
 								{user?._id ? (
 									<>
-										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
-											<img
+										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)} style={{ position: 'relative', width: '100%', height: '100%' }}>
+											<Image
 												src={
 													user?.memberImage
 														? `${REACT_APP_API_URL}/${user?.memberImage}`
 														: '/img/profile/defaultUser.svg'
 												}
-												alt=""
+												alt="User profile"
+												fill
+												style={{ objectFit: 'cover', borderRadius: '50%' }}
+												loading="lazy"
+												unoptimized
 											/>
 										</div>
 
@@ -594,14 +599,18 @@ const Top = () => {
 							<Box component={'div'} className={'user-box'}>
 								{user?._id ? (
 									<>
-										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
-											<img
+										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)} style={{ position: 'relative', width: '100%', height: '100%' }}>
+											<Image
 												src={
 													user?.memberImage
 														? `${REACT_APP_API_URL}/${user?.memberImage}`
 														: '/img/profile/defaultUser.svg'
 												}
-												alt=""
+												alt="User profile"
+												fill
+												style={{ objectFit: 'cover', borderRadius: '50%' }}
+												loading="lazy"
+												unoptimized
 											/>
 										</div>
 										<div className={'icon-button'}>

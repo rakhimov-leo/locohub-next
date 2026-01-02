@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import MenuList from '../admin/AdminMenuList';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
@@ -8,7 +9,6 @@ import Stack from '@mui/material/Stack';
 import { Menu, MenuItem } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -74,11 +74,16 @@ const withAdminLayout = (Component: ComponentType) => {
 					>
 						<Toolbar>
 							<Tooltip title="Open settings">
-								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar
+								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0, position: 'relative', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
+									<Image
 										src={
 											user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
 										}
+										alt="User profile"
+										fill
+										style={{ objectFit: 'cover' }}
+										loading="lazy"
+										unoptimized
 									/>
 								</IconButton>
 							</Tooltip>
@@ -153,9 +158,16 @@ const withAdminLayout = (Component: ComponentType) => {
 									mt: '100px', // keep user block visually where it was when logo existed
 								}}
 							>
-								<Avatar
-									src={user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'}
-								/>
+								<div style={{ position: 'relative', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
+									<Image
+										src={user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'}
+										alt="User profile"
+										fill
+										style={{ objectFit: 'cover' }}
+										loading="lazy"
+										unoptimized
+									/>
+								</div>
 								<Typography variant={'body2'} p={1} ml={1}>
 									{user?.memberNick} <br />
 									{user?.memberPhone}

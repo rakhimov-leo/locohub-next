@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Member } from '../../types/member/member';
 
@@ -24,7 +25,16 @@ const TopAgentCard = (props: TopAgentProps) => {
 	if (device === 'mobile') {
 		return (
 			<Stack className="top-agent-card" onClick={handleOpenAgentDetail} sx={{ cursor: 'pointer' }}>
-				<img src={agentImage} alt={agent?.memberNick} />
+				<div style={{ position: 'relative', width: '100%', height: '100%' }}>
+					<Image
+						src={agentImage}
+						alt={agent?.memberNick || 'Agent'}
+						fill
+						style={{ objectFit: 'cover' }}
+						loading="lazy"
+						unoptimized
+					/>
+				</div>
 
 				<strong>{agent?.memberNick}</strong>
 				<span>{agent?.memberType}</span>
@@ -33,7 +43,16 @@ const TopAgentCard = (props: TopAgentProps) => {
 	} else {
 		return (
 			<Stack className="top-agent-card" onClick={handleOpenAgentDetail} sx={{ cursor: 'pointer' }}>
-				<img src={agentImage} alt={agent?.memberNick} />
+				<div style={{ position: 'relative', width: '100%', height: '100%' }}>
+					<Image
+						src={agentImage}
+						alt={agent?.memberNick || 'Agent'}
+						fill
+						style={{ objectFit: 'cover' }}
+						loading="lazy"
+						unoptimized
+					/>
+				</div>
 
 				<strong>{agent?.memberNick}</strong>
 				<span>{agent?.memberType}</span>
