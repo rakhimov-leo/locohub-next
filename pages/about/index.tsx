@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { Stack } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 
@@ -22,14 +23,18 @@ const About: NextPage = () => {
 
 					<Stack className="right">
 						<div className="hero-image">
-							<img
+							<Image
 								src="/img/banner/about-rabbit.png"
 								alt="Relaxed dog in hotel-style robe"
+								width={600}
+								height={400}
+								priority={!isMobile}
 								loading={isMobile ? 'lazy' : 'eager'}
+								style={{ width: '100%', height: 'auto' }}
 							/>
 						</div>
 						<p className="hero-caption">
-							Travel should feel simple, comfortable, and enjoyable. Because finding a stay shouldn’t be complicated.
+							Travel should feel simple, comfortable, and enjoyable. Because finding a stay shouldn't be complicated.
 						</p>
 					</Stack>
 				</Stack>

@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import { light } from '../scss/MaterialTheme';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../apollo/client';
@@ -91,6 +92,9 @@ const App = (props: AppProps) => {
 	return (
 		<ApolloProvider client={client}>
 			<ThemeProvider theme={theme}>
+				<Head>
+					<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+				</Head>
 				<CssBaseline />
 				<AppContent {...props} />
 			</ThemeProvider>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stack, Typography, Box } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 
 const Article = () => {
@@ -11,7 +12,14 @@ const Article = () => {
 		return (
 			<Stack className="card-config">
 				<Stack className="top">
-					<img src="/img/apartmentMain.png" alt="" />
+					<Image
+						src="/img/apartmentMain.png"
+						alt="Property image"
+						width={400}
+						height={300}
+						loading="lazy"
+						style={{ width: '100%', height: 'auto' }}
+					/>
 					<Box component={'div'} className={'date'}>
 						<Typography>July 28</Typography>
 					</Box>

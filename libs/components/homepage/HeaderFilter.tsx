@@ -3,7 +3,6 @@ import { Stack, Box, Modal, Divider, Button, Popover } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -12,7 +11,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { propertySquare, propertyYears } from '../../config';
-import { PropertyLocation, PropertyType } from '../../enums/property.enum';
+import { PropertyType } from '../../enums/property.enum';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -53,26 +52,19 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const device = useDeviceDetect();
 	const { t, i18n } = useTranslation('common');
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
-	const locationRef: any = useRef();
 	const roomsRef: any = useRef();
 	const router = useRouter();
 	const [openAdvancedFilter, setOpenAdvancedFilter] = useState(false);
-	const [openLocation, setOpenLocation] = useState(false);
 	const [openRooms, setOpenRooms] = useState(false);
 	const [openCalendar, setOpenCalendar] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 	const calendarAnchorRef = useRef<HTMLDivElement>(null);
-	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
 	const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
 	const [optionCheck, setOptionCheck] = useState('all');
 
 	/** LIFECYCLES **/
 	useEffect(() => {
 		const clickHandler = (event: MouseEvent) => {
-			if (!locationRef?.current?.contains(event.target)) {
-				setOpenLocation(false);
-			}
-
 			if (!roomsRef?.current?.contains(event.target)) {
 				setOpenRooms(false);
 			}
@@ -88,68 +80,23 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	/** HANDLERS **/
 	const calendarHandler = () => {
 		setOpenCalendar((prev) => !prev);
-		setOpenLocation(false);
 		setOpenRooms(false);
 	};
 
 	const advancedFilterHandler = (status: boolean) => {
-		setOpenLocation(false);
 		setOpenRooms(false);
 		setOpenAdvancedFilter(status);
 		setOpenCalendar(false);
 	};
 
-	const locationStateChangeHandler = () => {
-		setOpenLocation((prev) => !prev);
-		setOpenRooms(false);
-	};
-
 	const roomStateChangeHandler = () => {
 		setOpenRooms((prev) => !prev);
-		setOpenLocation(false);
 	};
 
 	const disableAllStateHandler = () => {
 		setOpenRooms(false);
-		setOpenLocation(false);
 	};
 
-	const propertyLocationSelectHandler = useCallback(
-		async (value: any) => {
-			try {
-				// Ensure value is a valid PropertyLocation enum value
-				const locationValue = value as PropertyLocation;
-				if (!Object.values(PropertyLocation).includes(locationValue)) {
-					console.error('Invalid location value:', value);
-					return;
-				}
-
-				// When a location is selected on the homepage,
-				// immediately navigate to Hotels page with that location and HOTEL type.
-				const updatedFilter: PropertiesInquiry = {
-					...searchFilter,
-					search: {
-						...searchFilter.search,
-						locationList: [locationValue],
-						typeList: [PropertyType.HOTEL],
-					},
-				};
-
-				setSearchFilter(updatedFilter);
-				setOpenLocation(false);
-				disableAllStateHandler();
-
-				await router.push(
-					`/property?input=${JSON.stringify(updatedFilter)}`,
-					`/property?input=${JSON.stringify(updatedFilter)}`,
-					{ scroll: false },
-				);
-			} catch (err: any) {
-				console.log('ERROR, propertyLocationSelectHandler:', err);
-			}
-		},
-		[searchFilter],
-	);
 
 	const propertyRoomSelectHandler = useCallback(
 		async (value: any) => {
@@ -301,19 +248,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</Stack>
 				</Stack>
 				<Stack className={'search-box'}>
-					<Stack className={'select-box'}>
-						<Box
-							component={'div'}
-							className={`box location-box ${openLocation ? 'on' : ''}`}
-							onClick={locationStateChangeHandler}
-						>
-							<LocationOnIcon className="location-icon" />
-							<span className="location-text">
-								{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}
-							</span>
-							<ExpandMoreIcon className="dropdown-icon" />
-						</Box>
-					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
 							<CalendarTodayIcon className="calendar-icon" />
@@ -392,23 +326,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						</Box>
 					</Stack>
 
-					{/*MENU */}
-					{openLocation && <div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>}
-					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
-						{propertyLocation.map((location: string, index: number) => {
-							return (
-								<div
-									className="location-item"
-									style={{ animationDelay: `${index * 0.08}s` }}
-									onClick={() => propertyLocationSelectHandler(location)}
-									key={location}
-								>
-									<img src={`img/banner/cities/${location}.jpg`} alt="" />
-									<span>{location}</span>
-								</div>
-							);
-						})}
-					</div>
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}
@@ -541,19 +458,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</Stack>
 				</Stack>
 				<Stack className={'search-box'}>
-					<Stack className={'select-box'}>
-						<Box
-							component={'div'}
-							className={`box location-box ${openLocation ? 'on' : ''}`}
-							onClick={locationStateChangeHandler}
-						>
-							<LocationOnIcon className="location-icon" />
-							<span className="location-text">
-								{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : 'Select Destination'}
-							</span>
-							<ExpandMoreIcon className="dropdown-icon" />
-						</Box>
-					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
 							<CalendarTodayIcon className="calendar-icon" />
@@ -632,23 +536,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						</Box>
 					</Stack>
 
-					{/*MENU */}
-					{openLocation && <div className="filter-location-overlay" onClick={() => setOpenLocation(false)}></div>}
-					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
-						{propertyLocation.map((location: string, index: number) => {
-							return (
-								<div
-									className="location-item"
-									style={{ animationDelay: `${index * 0.08}s` }}
-									onClick={() => propertyLocationSelectHandler(location)}
-									key={location}
-								>
-									<img src={`img/banner/cities/${location}.jpg`} alt="" />
-									<span>{location}</span>
-								</div>
-							);
-						})}
-					</div>
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}

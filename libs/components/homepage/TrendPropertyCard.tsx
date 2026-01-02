@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Property } from '../../types/property/property';
@@ -183,7 +184,6 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					onClick={() => {
 						if (property?._id) {
 							pushDetailHandler(property._id);
@@ -191,7 +191,19 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 							console.error('[TrendPropertyCard] Property _id is missing:', property);
 						}
 					}}
-				/>
+					style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}
+				>
+					{property?.propertyImages?.[0] ? (
+						<Image
+							src={`${REACT_APP_API_URL}/${property.propertyImages[0]}`}
+							alt={property.propertyTitle}
+							fill
+							loading="lazy"
+							style={{ objectFit: 'cover' }}
+							unoptimized
+						/>
+					) : null}
+				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
 						{property.propertyTitle}

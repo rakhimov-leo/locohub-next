@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { getJwtToken, updateStorage, updateUserInfo } from '../../auth';
 import { sweetErrorHandling, sweetMixinSuccessAlert } from '../../sweetAlert';
 import { useMutation, useReactiveVar } from '@apollo/client';
-
+import Image from 'next/image';
 import { MemberUpdate } from '../../types/member/member.update';
 import { NextPage } from 'next';
 import { UPDATE_MEMBER } from '../../../apollo/user/mutation';
@@ -131,14 +131,26 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 						<Typography className="title">Photo</Typography>
 						<Stack className="image-big-box">
 							<Stack className="image-box">
-								<img
-									src={
-										updateData?.memberImage
-											? `${REACT_APP_API_URL}/${updateData?.memberImage}`
-											: `/img/profile/defaultUser.svg`
-									}
-									alt=""
-								/>
+								{updateData?.memberImage ? (
+									<Image
+										src={`${REACT_APP_API_URL}/${updateData.memberImage}`}
+										alt="Profile"
+										width={200}
+										height={200}
+										loading="lazy"
+										style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+										unoptimized
+									/>
+								) : (
+									<Image
+										src="/img/profile/defaultUser.svg"
+										alt="Default profile"
+										width={200}
+										height={200}
+										loading="lazy"
+										style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+									/>
+								)}
 							</Stack>
 							<Stack className="upload-big-box">
 								<input

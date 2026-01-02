@@ -6,6 +6,19 @@ const nextConfig = {
 		REACT_APP_API_GRAPHQL_URL: process.env.REACT_APP_API_GRAPHQL_URL,
 		REACT_APP_API_WS: process.env.REACT_APP_API_WS,
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'http',
+				hostname: '**',
+			},
+			{
+				protocol: 'https',
+				hostname: '**',
+			},
+		],
+		unoptimized: false,
+	},
 };
 
 const { i18n } = require('./next-i18next.config');

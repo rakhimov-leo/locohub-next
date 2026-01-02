@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Stack, Typography, Box } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -86,11 +87,26 @@ const PropertyCard = (props: PropertyCardType) => {
 						}}
 						onClick={handleLinkClick}
 					>
-						<img
-							src={imagePath}
-							alt={property.propertyTitle}
-							style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-						/>
+						{imagePath.startsWith('http') ? (
+							<Image
+								src={imagePath}
+								alt={property.propertyTitle}
+								width={400}
+								height={200}
+								loading="lazy"
+								style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+								unoptimized
+							/>
+						) : (
+							<Image
+								src={imagePath}
+								alt={property.propertyTitle}
+								width={400}
+								height={200}
+								loading="lazy"
+								style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+							/>
+						)}
 					</Link>
 					{property && property?.propertyRank > topPropertyRank && (
 						<Box component={'div'} className={'top-badge'}>
@@ -171,7 +187,26 @@ const PropertyCard = (props: PropertyCardType) => {
 						}}
 						onClick={handleLinkClick}
 					>
-						<img src={imagePath} alt="" />
+						{imagePath.startsWith('http') ? (
+							<Image
+								src={imagePath}
+								alt={property.propertyTitle}
+								width={400}
+								height={300}
+								loading="lazy"
+								style={{ width: '100%', height: 'auto' }}
+								unoptimized
+							/>
+						) : (
+							<Image
+								src={imagePath}
+								alt={property.propertyTitle}
+								width={400}
+								height={300}
+								loading="lazy"
+								style={{ width: '100%', height: 'auto' }}
+							/>
+						)}
 					</Link>
 					{property && property?.propertyRank > topPropertyRank && (
 						<Box component={'div'} className={'top-badge'}>

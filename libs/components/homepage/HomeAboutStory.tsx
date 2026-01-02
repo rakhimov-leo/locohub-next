@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stack } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 
 const HomeAboutStory = () => {
@@ -18,7 +19,14 @@ const HomeAboutStory = () => {
 					</Stack>
 					<Stack className={'right'}>
 						<div className="hero-image">
-							<img src="/img/banner/about-rabbit.png" alt="Relaxed guest enjoying a comfortable stay" />
+							<Image
+								src="/img/banner/about-rabbit.png"
+								alt="Relaxed guest enjoying a comfortable stay"
+								width={600}
+								height={400}
+								loading="lazy"
+								style={{ width: '100%', height: 'auto' }}
+							/>
 						</div>
 						<p className="hero-caption">
 							Travel should feel simple, comfortable, and enjoyable. Because finding a stay shouldn't be complicated.

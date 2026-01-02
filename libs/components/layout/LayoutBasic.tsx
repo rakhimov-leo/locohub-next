@@ -112,6 +112,42 @@ const withLayoutBasic = (Component: any) => {
 							<Top />
 						</Stack>
 
+						{router.pathname === '/property' && (
+							<Stack
+								style={{
+									position: 'relative',
+									overflow: 'hidden',
+									height: '300px',
+									backgroundImage: `url(${memoizedValues.bgImage})`,
+									backgroundSize: 'cover',
+									backgroundPosition: 'center 30%',
+									boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
+								}}
+							>
+								<Stack
+									className={'container'}
+									style={{
+										position: 'relative',
+										zIndex: 1,
+										display: 'flex',
+										flexDirection: 'column',
+										justifyContent: 'center',
+										alignItems: 'center',
+										height: '100%',
+									}}
+								>
+									<strong style={{ fontSize: '24px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+										{t(memoizedValues.title)}
+									</strong>
+									{memoizedValues.desc && (
+										<span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.9)' }}>
+											{t(memoizedValues.desc)}
+										</span>
+									)}
+								</Stack>
+							</Stack>
+						)}
+
 						<Stack id={'main'}>
 							<Component {...props} />
 						</Stack>

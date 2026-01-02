@@ -387,14 +387,15 @@
 					width: 100%;
 
 					.hero-subtitle {
-						color: rgba(255, 255, 255, 0.85);
+						color: #ffffff;
 						font-family: $font;
 						font-size: clamp(16px, 4vw, 20px);
 						font-style: normal;
-						font-weight: 400;
+						font-weight: 500;
 						line-height: 1.5;
 						margin-bottom: 8px;
 						letter-spacing: 0.5px;
+						text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5), 0px 4px 15px rgba(0, 0, 0, 0.3);
 					}
 
 					.hero-title {
@@ -406,7 +407,7 @@
 						line-height: 1.1;
 						margin: 0;
 						letter-spacing: -1px;
-						text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+						text-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6), 0px 6px 30px rgba(0, 0, 0, 0.4);
 					}
 				}
 			}

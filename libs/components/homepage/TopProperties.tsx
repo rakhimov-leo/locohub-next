@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Stack, Box, Pagination, Typography, IconButton, Divider } from '@mui/material';
+import Image from 'next/image';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
@@ -170,13 +171,21 @@ const TopProperties = (props: TopPropertiesProps) => {
 								<Box
 									component={'div'}
 									className={'top-property-hero-image'}
-									style={{ backgroundImage: `url(${REACT_APP_API_URL}/${heroProperty.propertyImages[0]})` }}
 									onClick={() => {
 										if (heroProperty?._id) {
 											pushDetailHandler(heroProperty._id);
 										}
 									}}
+									style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}
 								>
+									<Image
+										src={`${REACT_APP_API_URL}/${heroProperty.propertyImages[0]}`}
+										alt={heroProperty.propertyTitle}
+										fill
+										loading="lazy"
+										style={{ objectFit: 'cover' }}
+										unoptimized
+									/>
 									<Box component={'div'} className={'top-property-hero-info'}>
 										<Typography
 											className={'top-property-hero-title'}

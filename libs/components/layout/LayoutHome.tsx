@@ -25,13 +25,12 @@ const withLayoutMain = (Component: any) => {
 			if (jwt) updateUserInfo(jwt);
 		}, []);
 
-		// Video yuklanishini tezlashtirish - to'liq yuklanmasdan ham ko'rsatish
+		// Video yuklanishini optimallashtirish (faqat desktop uchun)
 		useEffect(() => {
+			if (device === 'mobile') return; // Mobile'da video yo'q
+			
 			const video = videoRef.current;
 			if (!video) return;
-
-			// Video'ni darhol yuklash
-			video.load();
 
 			// Video'ni darhol play qilish uchun funksiya
 			const playVideo = () => {
@@ -43,30 +42,11 @@ const withLayoutMain = (Component: any) => {
 			};
 
 			// Video metadata yuklangandan keyin darhol play qilish
-			const handleLoadedMetadata = () => {
-				// Metadata yuklangandan keyin darhol play qilish
-				playVideo();
-			};
-
-			// Video tayyor bo'lganda play qilish
 			const handleCanPlay = () => {
 				playVideo();
 			};
 
-			// Video birinchi frame yuklangandan keyin play qilish
-			const handleLoadedData = () => {
-				playVideo();
-			};
-
-			// Video'ni darhol play qilishga harakat qilish
-			// Agar video allaqachon yuklangan bo'lsa
-			if (video.readyState >= 1) {
-				playVideo();
-			}
-
-			// Event listener'larni qo'shish
-			video.addEventListener('loadedmetadata', handleLoadedMetadata, { once: true });
-			video.addEventListener('loadeddata', handleLoadedData, { once: true });
+			// Event listener qo'shish
 			video.addEventListener('canplay', handleCanPlay, { once: true });
 
 			// Video yuklanishini tezlashtirish uchun priority qo'shish
@@ -74,18 +54,15 @@ const withLayoutMain = (Component: any) => {
 				(video as any).fetchPriority = 'high';
 			}
 
-			// Video'ni darhol play qilishga harakat qilish (timeout bilan)
-			const timeout = setTimeout(() => {
+			// Agar video allaqachon yuklangan bo'lsa, darhol play qilish
+			if (video.readyState >= 2) { // HAVE_CURRENT_DATA
 				playVideo();
-			}, 100);
+			}
 
 			return () => {
-				clearTimeout(timeout);
-				video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-				video.removeEventListener('loadeddata', handleLoadedData);
 				video.removeEventListener('canplay', handleCanPlay);
 			};
-		}, []);
+		}, [device]);
 
 		/** HANDLERS **/
 
@@ -95,7 +72,6 @@ const withLayoutMain = (Component: any) => {
 					<Head>
 						<title>LocoHub</title>
 						<meta name={'title'} content={`LocoHub`} />
-						<link rel="preload" href="/video/header-background.mp4" as="video" type="video/mp4" />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
@@ -105,22 +81,15 @@ const withLayoutMain = (Component: any) => {
 						<Stack 
 							className={'header-main'} 
 							style={{ 
-								backgroundImage: 'none',
-								backgroundColor: '#000'
+								position: 'relative',
+								overflow: 'hidden',
+								height: '400px',
+								backgroundImage: 'url(/img/banner/city-background.jpg)',
+								backgroundSize: 'cover',
+								backgroundPosition: 'center 30%',
+								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
 							}}
 						>
-							<video 
-								ref={videoRef}
-								className={'header-background-video'} 
-								autoPlay 
-								loop 
-								muted 
-								playsInline
-								preload="auto"
-							>
-								<source src="/video/header-background.mp4" type="video/mp4" />
-								Your browser does not support the video tag.
-							</video>
 							<Stack className={'container'} style={{ position: 'relative', zIndex: 1 }}>
 								<HeaderFilter />
 							</Stack>
@@ -142,7 +111,6 @@ const withLayoutMain = (Component: any) => {
 					<Head>
 						<title>LocoHub</title>
 						<meta name={'title'} content={`LocoHub`} />
-						<link rel="preload" href="/video/header-background.mp4" as="video" type="video/mp4" />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
@@ -163,7 +131,7 @@ const withLayoutMain = (Component: any) => {
 								loop 
 								muted 
 								playsInline
-								preload="auto"
+								preload="metadata"
 							>
 								<source src="/video/header-background.mp4" type="video/mp4" />
 								Your browser does not support the video tag.
