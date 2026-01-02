@@ -101,10 +101,10 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								Trends Empty
 							</Box>
 						) : (
-							<Box className={'trend-property-grid'}>
+							<Box component={'div'} className={'trend-property-grid'}>
 								{trendProperties.map((property: Property, index: number) => {
 									return (
-										<Box key={property._id} className={'trend-property-item'}>
+										<Box component={'div'} key={property._id} className={'trend-property-item'}>
 											<AnimatedListItem index={index}>
 											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 											</AnimatedListItem>

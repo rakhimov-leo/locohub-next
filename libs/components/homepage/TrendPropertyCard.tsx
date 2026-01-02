@@ -145,6 +145,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 							))}
 						</Stack>
 						<Box
+							component={'div'}
 							sx={{
 								ml: 0.5,
 								px: 0.8,
@@ -260,6 +261,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 							))}
 						</Stack>
 						<Box
+							component={'div'}
 							sx={{
 								ml: 0.5,
 								px: 0.8,
