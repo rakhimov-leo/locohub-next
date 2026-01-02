@@ -249,7 +249,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				</Stack>
 				<Stack className={'search-box'}>
 					<Stack className={'search-box-other'}>
-						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
+						<Box component={'div'} className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
 							<CalendarTodayIcon className="calendar-icon" />
 							{selectedDate && (
 								<span className="date-text">
@@ -272,6 +272,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						>
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Box
+									component={'div'}
 									sx={{
 										p: 2,
 										'& .MuiPickersLayout-root': { width: 'auto' },
@@ -320,7 +321,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								</Box>
 							</LocalizationProvider>
 						</Popover>
-						<Box className={'search-btn'} onClick={pushSearchHandler}>
+						<Box component={'div'} className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
 							<span>Search</span>
 						</Box>
@@ -336,8 +337,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					aria-describedby="modal-modal-description"
 				>
 					{/* @ts-ignore */}
-					<Box sx={style}>
-						<Box className={'advanced-filter-modal'}>
+					<Box component={'div'} sx={style}>
+						<Box component={'div'} className={'advanced-filter-modal'}>
 							<div className={'close'} onClick={() => advancedFilterHandler(false)}>
 								<CloseIcon />
 							</div>
@@ -459,7 +460,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				</Stack>
 				<Stack className={'search-box'}>
 					<Stack className={'search-box-other'}>
-						<Box className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
+						<Box component={'div'} className={'advanced-filter'} ref={calendarAnchorRef} onClick={calendarHandler}>
 							<CalendarTodayIcon className="calendar-icon" />
 							{selectedDate && (
 								<span className="date-text">
@@ -482,6 +483,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						>
 							<LocalizationProvider dateAdapter={AdapterDateFns}>
 								<Box
+									component={'div'}
 									sx={{
 										p: 2,
 										'& .MuiPickersLayout-root': { width: 'auto' },
@@ -530,7 +532,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								</Box>
 							</LocalizationProvider>
 						</Popover>
-						<Box className={'search-btn'} onClick={pushSearchHandler}>
+						<Box component={'div'} className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
 							<span>Search</span>
 						</Box>
@@ -546,8 +548,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					aria-describedby="modal-modal-description"
 				>
 					{/* @ts-ignore */}
-					<Box sx={style}>
-						<Box className={'advanced-filter-modal'}>
+					<Box component={'div'} sx={style}>
+						<Box component={'div'} className={'advanced-filter-modal'}>
 							<div className={'close'} onClick={() => advancedFilterHandler(false)}>
 								<CloseIcon />
 							</div>
