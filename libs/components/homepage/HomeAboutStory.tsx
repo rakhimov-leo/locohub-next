@@ -25,7 +25,7 @@ const HomeAboutStory = () => {
 								width={600}
 								height={400}
 								loading="lazy"
-								style={{ width: '100%', height: 'auto' }}
+								style={{ width: '100%', height: 'auto', mixBlendMode: 'multiply' }}
 							/>
 						</div>
 						<p className="hero-caption">

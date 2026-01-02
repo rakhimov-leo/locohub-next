@@ -154,7 +154,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 		);
 	} else {
 		const heroProperty = topProperties && topProperties.length > 0 ? topProperties[0] : null;
-		const smallProperties = topProperties && topProperties.length > 1 ? topProperties.slice(1, 4) : [];
+		const smallProperties = topProperties && topProperties.length > 1 ? topProperties.slice(1, 5) : [];
 
 		return (
 			<Stack className={'top-properties'}>
@@ -176,7 +176,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 											pushDetailHandler(heroProperty._id);
 										}
 									}}
-									style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}
+									style={{ position: 'relative', width: '100%', overflow: 'hidden' }}
 								>
 									<Image
 										src={`${REACT_APP_API_URL}/${heroProperty.propertyImages[0]}`}
@@ -281,7 +281,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 TopProperties.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 4,
+		limit: 5,
 		sort: 'propertyRank',
 		direction: 'DESC',
 		search: {},
