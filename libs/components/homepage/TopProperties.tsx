@@ -182,7 +182,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 										src={`${REACT_APP_API_URL}/${heroProperty.propertyImages[0]}`}
 										alt={heroProperty.propertyTitle}
 										fill
-										loading="lazy"
+										priority
 										style={{ objectFit: 'cover' }}
 										unoptimized
 									/>

@@ -368,7 +368,7 @@ const Top = () => {
 							<Box component={'div'} className={'user-box'}>
 								{user?._id ? (
 									<>
-										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)} style={{ position: 'relative', width: '100%', height: '100%' }}>
+										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)} style={{ position: 'relative', width: '42px', height: '42px', overflow: 'hidden', borderRadius: '50%' }}>
 											<Image
 												src={
 													user?.memberImage
@@ -377,7 +377,7 @@ const Top = () => {
 												}
 												alt="User profile"
 												fill
-												style={{ objectFit: 'cover', borderRadius: '50%' }}
+												style={{ objectFit: 'cover' }}
 												loading="lazy"
 												unoptimized
 											/>
@@ -392,7 +392,17 @@ const Top = () => {
 											}}
 											sx={{ mt: '5px' }}
 										>
-											<MenuItem onClick={() => logOut()}>
+											<MenuItem onClick={() => {
+												setLogoutAnchor(null);
+												router.push('/mypage');
+											}}>
+												<AccountCircleOutlinedIcon fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
+												Profile
+											</MenuItem>
+											<MenuItem onClick={() => {
+												setLogoutAnchor(null);
+												logOut();
+											}}>
 												<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
 												Logout
 											</MenuItem>
@@ -599,7 +609,7 @@ const Top = () => {
 							<Box component={'div'} className={'user-box'}>
 								{user?._id ? (
 									<>
-										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)} style={{ position: 'relative', width: '100%', height: '100%' }}>
+										<div className={'icon-button'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)} style={{ position: 'relative', width: '42px', height: '42px', overflow: 'hidden', borderRadius: '50%' }}>
 											<Image
 												src={
 													user?.memberImage
@@ -608,7 +618,7 @@ const Top = () => {
 												}
 												alt="User profile"
 												fill
-												style={{ objectFit: 'cover', borderRadius: '50%' }}
+												style={{ objectFit: 'cover' }}
 												loading="lazy"
 												unoptimized
 											/>
@@ -626,7 +636,17 @@ const Top = () => {
 											}}
 											sx={{ mt: '5px' }}
 										>
-											<MenuItem onClick={() => logOut()}>
+											<MenuItem onClick={() => {
+												setLogoutAnchor(null);
+												router.push('/mypage');
+											}}>
+												<AccountCircleOutlinedIcon fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
+												Profile
+											</MenuItem>
+											<MenuItem onClick={() => {
+												setLogoutAnchor(null);
+												logOut();
+											}}>
 												<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
 												Logout
 											</MenuItem>

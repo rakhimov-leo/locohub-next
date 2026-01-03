@@ -158,12 +158,12 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 									hidden
 									id="hidden-input"
 									onChange={uploadImage}
-									accept="image/jpg, image/jpeg, image/png"
+									accept="image/jpg, image/jpeg, image/png, image/webp"
 								/>
 								<label htmlFor="hidden-input" className="labeler">
 									<Typography>Upload Profile Image</Typography>
 								</label>
-								<Typography className="upload-text">A photo must be in JPG, JPEG or PNG format!</Typography>
+								<Typography className="upload-text">A photo must be in JPG, JPEG, PNG or WebP format!</Typography>
 							</Stack>
 						</Stack>
 					</Stack>

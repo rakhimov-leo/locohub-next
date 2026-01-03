@@ -163,6 +163,8 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								pagination={{
 									el: '.swiper-trend-pagination',
 								}}
+								lazy={true}
+								watchSlidesProgress={true}
 							>
 								{trendProperties.map((property: Property, index: number) => {
 									return (

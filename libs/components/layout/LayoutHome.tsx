@@ -32,21 +32,34 @@ const withLayoutMain = (Component: any) => {
 			const video = videoRef.current;
 			if (!video) return;
 
+			let hasPlayed = false; // Video bir marta play qilinganini kuzatish
+
 			// Video'ni darhol play qilish uchun funksiya
 			const playVideo = () => {
-				if (video.readyState >= 1) { // HAVE_METADATA - metadata yuklangandan keyin
-					video.play().catch((err) => {
+				if (hasPlayed) return; // Agar allaqachon play qilingan bo'lsa, qayta play qilmaslik
+				
+				if (video.readyState >= 2) { // HAVE_CURRENT_DATA - minimal data yuklangandan keyin
+					video.play().then(() => {
+						hasPlayed = true;
+					}).catch((err) => {
 						console.log('Video play error:', err);
 					});
 				}
 			};
 
-			// Video metadata yuklangandan keyin darhol play qilish
-			const handleCanPlay = () => {
+			// Video'ni tezroq ochilishi uchun bir nechta event listener'lar
+			const handleLoadedMetadata = () => {
+				// Metadata yuklangandan keyin darhol play qilish (eng tez)
 				playVideo();
 			};
 
-			// Event listener qo'shish
+			const handleCanPlay = () => {
+				// Video play qilishga tayyor bo'lganda
+				playVideo();
+			};
+
+			// Event listener'lar qo'shish - birinchi event trigger bo'lganda play qilish
+			video.addEventListener('loadedmetadata', handleLoadedMetadata, { once: true });
 			video.addEventListener('canplay', handleCanPlay, { once: true });
 
 			// Video yuklanishini tezlashtirish uchun priority qo'shish
@@ -54,12 +67,16 @@ const withLayoutMain = (Component: any) => {
 				(video as any).fetchPriority = 'high';
 			}
 
+			// Video'ni darhol yuklashni boshlash (preload="none" bo'lsa ham)
+			video.load();
+
 			// Agar video allaqachon yuklangan bo'lsa, darhol play qilish
 			if (video.readyState >= 2) { // HAVE_CURRENT_DATA
 				playVideo();
 			}
 
 			return () => {
+				video.removeEventListener('loadedmetadata', handleLoadedMetadata);
 				video.removeEventListener('canplay', handleCanPlay);
 			};
 		}, [device]);
@@ -131,7 +148,7 @@ const withLayoutMain = (Component: any) => {
 								loop 
 								muted 
 								playsInline
-								preload="metadata"
+								preload="none"
 							>
 								<source src="/video/header-background.mp4" type="video/mp4" />
 								Your browser does not support the video tag.

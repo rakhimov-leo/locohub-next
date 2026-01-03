@@ -450,7 +450,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 								</svg>
 								<Stack className="text-box">
 									<Typography className="drag-title">Drag and drop images here</Typography>
-									<Typography className="format-title">Photos must be JPEG or PNG format and least 2048x768</Typography>
+									<Typography className="format-title">Photos must be JPEG, PNG or WebP format and least 2048x768</Typography>
 								</Stack>
 								<Button
 									className="browse-button"
@@ -465,7 +465,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 										hidden={true}
 										onChange={uploadImages}
 										multiple={true}
-										accept="image/jpg, image/jpeg, image/png"
+										accept="image/jpg, image/jpeg, image/png, image/webp"
 									/>
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
 										<g clipPath="url(#clip0_7309_3249)">

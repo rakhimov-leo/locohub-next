@@ -90,10 +90,10 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 						<span>Popular hotels</span>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Box className={'popular-property-grid'}>
+						<Box component={'div'} className={'popular-property-grid'}>
 							{popularProperties.map((property: Property, index: number) => {
 								return (
-									<Box key={property._id} className={'popular-property-item'}>
+									<Box component={'div'} key={property._id} className={'popular-property-item'}>
 										<AnimatedListItem index={index}>
 											<PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 										</AnimatedListItem>
@@ -147,6 +147,8 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 							pagination={{
 								el: '.swiper-popular-pagination',
 							}}
+							lazy={true}
+							watchSlidesProgress={true}
 						>
 							{popularProperties.map((property: Property, index: number) => {
 								return (
