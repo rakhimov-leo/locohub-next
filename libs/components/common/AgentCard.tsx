@@ -1,7 +1,6 @@
 import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Stack, Box, Typography } from '@mui/material';
-import Image from 'next/image';
 import Link from 'next/link';
 import { REACT_APP_API_URL } from '../../config';
 import IconButton from '@mui/material/IconButton';
@@ -40,16 +39,13 @@ const AgentCard = (props: AgentCardProps) => {
 					<Box
 						component={'div'}
 						className={'agent-img'}
-						style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}
+						style={{
+							backgroundImage: `url(${imagePath})`,
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+						}}
 					>
-						<Image
-							src={imagePath}
-							alt={agent?.memberNick || 'Agent'}
-							fill
-							style={{ objectFit: 'cover' }}
-							loading="lazy"
-							unoptimized
-						/>
 						{badgeLabel && <div className="agent-badge">{badgeLabel}</div>}
 					</Box>
 				</Link>

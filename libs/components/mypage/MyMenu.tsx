@@ -36,7 +36,7 @@ const MyMenu = () => {
 		return (
 			<Stack width={'100%'} padding={'30px 24px'}>
 				<Stack className={'profile'}>
-					<Box component={'div'} className={'profile-img'} style={{ position: 'relative', width: '100%', height: '100%' }}>
+					<Box component={'div'} className={'profile-img'} style={{ position: 'relative', width: '79px', height: '79px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
 						<Image
 							src={user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'}
 							alt={'member-photo'}
