@@ -150,7 +150,7 @@ const withLayoutMain = (Component: any) => {
 								playsInline
 								preload="none"
 							>
-								<source src="/video/header-background.mp4" type="video/mp4" />
+								<source src="/video/header-background.webm" type="video/webm" />
 								Your browser does not support the video tag.
 							</video>
 							<Stack className={'container'} style={{ position: 'relative', zIndex: 1 }}>
