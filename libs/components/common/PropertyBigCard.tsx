@@ -77,6 +77,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 							))}
 						</Stack>
 						<Box
+							component="div"
 							sx={{
 								ml: 0.5,
 								px: 0.8,

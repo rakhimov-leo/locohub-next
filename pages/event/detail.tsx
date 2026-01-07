@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, IconButton } from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutFull from '../../libs/components/layout/LayoutFull';
 import { NextPage } from 'next';
@@ -48,6 +48,9 @@ const EventDetail: NextPage = () => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [event, setEvent] = useState<any>(null);
+	const handleBack = React.useCallback(() => {
+		router.back();
+	}, [router]);
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -126,9 +129,9 @@ const EventDetail: NextPage = () => {
 	if (device === 'mobile') {
 		return (
 			<Stack className="event-detail-page" sx={{ minHeight: '100vh', padding: '20px' }}>
-				<Box onClick={() => router.back()} sx={{ cursor: 'pointer', marginBottom: '20px' }}>
+				<IconButton onClick={handleBack} sx={{ alignSelf: 'flex-start', marginBottom: '20px' }}>
 					<ArrowBackIcon />
-				</Box>
+				</IconButton>
 				<Box
 					component="img"
 					src={event.imageSrc}
@@ -150,7 +153,7 @@ const EventDetail: NextPage = () => {
 		return (
 			<Stack id="event-detail-page">
 				<Stack className="event-detail-page">
-					<Box onClick={() => router.back()} className="back-button">
+					<Box onClick={handleBack} className="back-button" component="button" type="button">
 						<ArrowBackIcon />
 						<Typography>Back to Events</Typography>
 					</Box>
