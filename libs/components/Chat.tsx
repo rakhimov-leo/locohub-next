@@ -77,14 +77,14 @@ const Chat = () => {
 					break;
 				case 'message':
 					const NewMessage: MessagePayload = data;
-					// Only add message if it's from another user (not from current user)
-					if (NewMessage.memberData?._id !== user?._id) {
-						setMessagesList((prev) => [...prev, NewMessage]);
-					}
+					// Always append message coming from WebSocket.
+					// We do NOT optimistically add the sender's message locally in onClickHandler,
+					// otherwise it will show up twice (local + echoed from server).
+					setMessagesList((prev) => [...prev, NewMessage]);
 					break;
 			}
 		};
-	}, [socket, messagesList]);
+	}, [socket]);
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -126,14 +126,6 @@ const Chat = () => {
 			const userMessage = messageInput;
 			setMessageInput('');
 
-			// Add user message to chat
-			const userMessagePayload: MessagePayload = {
-				event: 'message',
-				text: userMessage,
-				memberData: user as Member,
-			};
-			setMessagesList((prev) => [...prev, userMessagePayload]);
-
 			// Send to WebSocket (for real-time chat with other users)
 			socket.send(JSON.stringify({ event: 'message', data: userMessage }));
 
@@ -158,28 +150,80 @@ const Chat = () => {
 	};
 
 	const getAIResponse = async (message: string): Promise<string> => {
-		// Simple AI response logic - can be replaced with actual AI API
-		// For now, return a helpful response based on keywords
-		const lowerMessage = message.toLowerCase();
+		// Groq API - Free tier: 30 requests/min, unlimited requests/day
+		// Alternative: Hugging Face (also free)
+		const groqApiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+		
+		// If no API key, fallback to simple keyword-based responses
+		if (!groqApiKey) {
+			const lowerMessage = message.toLowerCase();
+			if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('salom')) {
+				return "Hello! I'm your AI assistant. How can I help you find the perfect stay today?";
+			}
+			if (lowerMessage.includes('hotel') || lowerMessage.includes('stay') || lowerMessage.includes('property')) {
+				return 'I can help you find hotels and properties! You can browse our listings, filter by location, price, and amenities. What type of stay are you looking for?';
+			}
+			if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('narx')) {
+				return "Our prices are transparent with no hidden fees. You can filter properties by price range and compare options easily. What's your budget?";
+			}
+			if (lowerMessage.includes('location') || lowerMessage.includes('where') || lowerMessage.includes('qayer')) {
+				return 'We have properties in many locations worldwide! Use the location filter to search by city or region. Where would you like to stay?';
+			}
+			if (lowerMessage.includes('help') || lowerMessage.includes('yordam')) {
+				return "I'm here to help! I can assist you with finding properties, comparing prices, understanding our features, and more. What would you like to know?";
+			}
+			return "Thank you for your message! I'm here to help you find the perfect stay. You can ask me about hotels, prices, locations, or any other questions about LocoHub.";
+		}
 
-		if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('salom')) {
-			return "Hello! I'm your AI assistant. How can I help you find the perfect stay today?";
-		}
-		if (lowerMessage.includes('hotel') || lowerMessage.includes('stay') || lowerMessage.includes('property')) {
-			return 'I can help you find hotels and properties! You can browse our listings, filter by location, price, and amenities. What type of stay are you looking for?';
-		}
-		if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('narx')) {
-			return "Our prices are transparent with no hidden fees. You can filter properties by price range and compare options easily. What's your budget?";
-		}
-		if (lowerMessage.includes('location') || lowerMessage.includes('where') || lowerMessage.includes('qayer')) {
-			return 'We have properties in many locations worldwide! Use the location filter to search by city or region. Where would you like to stay?';
-		}
-		if (lowerMessage.includes('help') || lowerMessage.includes('yordam')) {
-			return "I'm here to help! I can assist you with finding properties, comparing prices, understanding our features, and more. What would you like to know?";
-		}
+		// Use Groq API (fast and free)
+		try {
+			const prompt = `You are a helpful AI assistant for LocoHub, a property and hotel booking platform. Help users find properties, answer questions about hotels, prices, locations, and booking. Be friendly, concise, and helpful. Respond in the same language the user uses.
 
-		// Default response
-		return "Thank you for your message! I'm here to help you find the perfect stay. You can ask me about hotels, prices, locations, or any other questions about LocoHub.";
+User message: ${message}`;
+
+			const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${groqApiKey}`,
+				},
+				body: JSON.stringify({
+					messages: [
+						{
+							role: 'system',
+							content: 'You are a helpful AI assistant for LocoHub, a property and hotel booking platform.',
+						},
+						{
+							role: 'user',
+							content: message,
+						},
+					],
+					model: 'llama-3.1-8b-instant', // Free, fast model
+					temperature: 0.7,
+					max_tokens: 500,
+				}),
+			});
+
+			const responseData = await response.json();
+
+			if (!response.ok) {
+				console.error('Groq API error:', response.status, responseData);
+				throw new Error(`API error: ${response.status}`);
+			}
+
+			const aiText = responseData.choices?.[0]?.message?.content;
+
+			if (aiText) {
+				return aiText;
+			} else {
+				console.error('No text in response:', responseData);
+				throw new Error('No response from AI');
+			}
+		} catch (error: any) {
+			console.error('Groq API error:', error);
+			// Fallback to simple response if API fails
+			return "I'm having trouble connecting right now. Please try again in a moment, or ask me about hotels, prices, or locations!";
+		}
 	};
 
 	return (
